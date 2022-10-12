@@ -1,0 +1,2570 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<searchRetrieveResponse xmlns="http://www.loc.gov/zing/srw/">
+	<version>1.2</version>
+	<numberOfRecords>20</numberOfRecords>
+	<records>
+		<record>
+			<recordSchema>marcxml</recordSchema>
+			<recordPacking>xml</recordPacking>
+			<recordData>
+				<record xmlns="http://www.loc.gov/MARC21/slim">
+					<leader>04269nam a2200913 c 4500</leader>
+					<controlfield tag="001">991070031889705501</controlfield>
+					<controlfield tag="005">20201229212454.0</controlfield>
+					<controlfield tag="008">201011s2000    gw            00| | ger^^</controlfield>
+					<datafield ind1=" " ind2=" " tag="020">
+						<subfield code="a">3406441823</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="035">
+						<subfield code="a">(swissbib)214837432-41slsp_network</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="035">
+						<subfield code="a">214837432</subfield>
+						<subfield code="9">ExL</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="035">
+						<subfield code="a">(NEBIS)004102718EBI01</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="035">
+						<subfield code="a">(IDSBB)002027499DSV01</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="035">
+						<subfield code="a">(IDSLU)000358063ILU01</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="035">
+						<subfield code="a">(IDSSG)000504223HSB01</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="040">
+						<subfield code="a">IDS NEBIS SIK</subfield>
+						<subfield code="d">CH-ZuSLS</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="7" tag="072">
+						<subfield code="a">kh</subfield>
+						<subfield code="2">SzZuIDS BS/BE</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="7" tag="072">
+						<subfield code="a">gw</subfield>
+						<subfield code="2">SzZuIDS BS/BE</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="7" tag="072">
+						<subfield code="a">630</subfield>
+						<subfield code="2">IDS LU</subfield>
+					</datafield>
+					<datafield ind1="0" ind2="0" tag="082">
+						<subfield code="a">909</subfield>
+						<subfield code="2">23</subfield>
+					</datafield>
+					<datafield ind1="0" ind2="4" tag="082">
+						<subfield code="a">709</subfield>
+						<subfield code="2">21</subfield>
+					</datafield>
+					<datafield ind1="1" ind2="4" tag="082">
+						<subfield code="a">907.2</subfield>
+						<subfield code="2">21</subfield>
+					</datafield>
+					<datafield ind1="1" ind2="4" tag="082">
+						<subfield code="a">709</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="084">
+						<subfield code="a">9,10</subfield>
+						<subfield code="2">ssgn</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="084">
+						<subfield code="a">CG 2100</subfield>
+						<subfield code="2">rvk</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="084">
+						<subfield code="a">LH 63190</subfield>
+						<subfield code="2">rvk</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="084">
+						<subfield code="a">LH 64840</subfield>
+						<subfield code="2">rvk</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="084">
+						<subfield code="a">NB 6128</subfield>
+						<subfield code="2">rvk</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="084">
+						<subfield code="a">NK 7800</subfield>
+						<subfield code="2">rvk</subfield>
+					</datafield>
+					<datafield ind1="1" ind2=" " tag="100">
+						<subfield code="a">Burckhardt, Jacob</subfield>
+						<subfield code="d">1818-1897</subfield>
+						<subfield code="0">(DE-588)11851752X</subfield>
+					</datafield>
+					<datafield ind1="1" ind2="0" tag="245">
+						<subfield code="a">Aesthetik der bildenden Kunst</subfield>
+						<subfield code="b">; Über das Studium der Geschichte</subfield>
+						<subfield code="c">Jacob Burckhardt ; aus dem Nachlass hrsg. von Peter Ganz ; mit dem Text der "Weltgeschichtlichen Betrachtungen" in der Fassung von 1905</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="1" tag="264">
+						<subfield code="a">München</subfield>
+						<subfield code="b">Beck</subfield>
+						<subfield code="c">2000</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="300">
+						<subfield code="a">695 S.</subfield>
+						<subfield code="c">23 cm</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="336">
+						<subfield code="b">txt</subfield>
+						<subfield code="2">rdacontent</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="337">
+						<subfield code="b">n</subfield>
+						<subfield code="2">rdamedia</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="338">
+						<subfield code="b">nc</subfield>
+						<subfield code="2">rdacarrier</subfield>
+					</datafield>
+					<datafield ind1="1" ind2=" " tag="490">
+						<subfield code="a">Werke / Jacob Burckhardt</subfield>
+						<subfield code="v">Band 10</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="500">
+						<subfield code="a">Mit dem Text der "Weltgeschichtlichen Betrachtungen" in der Fassung von 1905</subfield>
+					</datafield>
+					<datafield ind1="1" ind2="7" tag="600">
+						<subfield code="a">Burckhardt, Jacob</subfield>
+						<subfield code="d">1818-1897</subfield>
+						<subfield code="0">(DE-588)11851752X</subfield>
+						<subfield code="2">gnd</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="7" tag="648">
+						<subfield code="a">Geschichte</subfield>
+						<subfield code="2">idszbz</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="7" tag="650">
+						<subfield code="a">Ästhetik</subfield>
+						<subfield code="2">idszbz</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="7" tag="650">
+						<subfield code="a">Geschichtsphilosophie</subfield>
+						<subfield code="2">idszbz</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="7" tag="650">
+						<subfield code="a">Geschichtswissenschaft</subfield>
+						<subfield code="2">idszbz</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="7" tag="650">
+						<subfield code="a">Kunst</subfield>
+						<subfield code="2">idszbz</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="7" tag="650">
+						<subfield code="a">Studium</subfield>
+						<subfield code="2">idszbz</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="7" tag="650">
+						<subfield code="a">Weltgeschichte</subfield>
+						<subfield code="0">(DE-588)4079158-0</subfield>
+						<subfield code="2">gnd</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="0" tag="650">
+						<subfield code="a">Aesthetics</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="0" tag="650">
+						<subfield code="a">Aesthetics, Modern</subfield>
+						<subfield code="y">19th century</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="0" tag="650">
+						<subfield code="a">Art criticism</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="0" tag="650">
+						<subfield code="a">Art, Italian</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="0" tag="650">
+						<subfield code="a">Art</subfield>
+						<subfield code="x">Philosophy</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="0" tag="650">
+						<subfield code="a">Art</subfield>
+						<subfield code="z">Italy</subfield>
+						<subfield code="x">History</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="0" tag="650">
+						<subfield code="a">Civilization</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="0" tag="650">
+						<subfield code="a">History</subfield>
+						<subfield code="x">Philosophy</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="0" tag="650">
+						<subfield code="a">History</subfield>
+						<subfield code="x">Study and teaching (Higher)</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="7" tag="650">
+						<subfield code="a">GESAMMELTE WERKE EINZELNER VERFASSER</subfield>
+						<subfield code="9">ger</subfield>
+						<subfield code="0">(ETHUDK)000009346</subfield>
+						<subfield code="2">ethudk</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="7" tag="650">
+						<subfield code="a">KULTURGESCHICHTE</subfield>
+						<subfield code="9">ger</subfield>
+						<subfield code="0">(ETHUDK)000036824</subfield>
+						<subfield code="2">ethudk</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="7" tag="650">
+						<subfield code="a">KUNSTTHEORIE + KUNSTÄSTHETIK + KUNSTPHILOSOPHIE</subfield>
+						<subfield code="9">ger</subfield>
+						<subfield code="0">(ETHUDK)000035234</subfield>
+						<subfield code="2">ethudk</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="7" tag="650">
+						<subfield code="a">Kunstgeschichte</subfield>
+						<subfield code="z">Europa</subfield>
+						<subfield code="y">Geschichte</subfield>
+						<subfield code="2">idsbb</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="7" tag="650">
+						<subfield code="a">Geschichtsphilosophie</subfield>
+						<subfield code="2">idsbb</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="7" tag="650">
+						<subfield code="a">Ästhetik</subfield>
+						<subfield code="0">(DE-588)4000626-8</subfield>
+						<subfield code="2">gnd</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="7" tag="650">
+						<subfield code="a">Geschichtsstudium</subfield>
+						<subfield code="0">(DE-588)4131152-8</subfield>
+						<subfield code="2">gnd</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="690">
+						<subfield code="a">Geschichte. Allgemein</subfield>
+						<subfield code="2">uzb-US</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="690">
+						<subfield code="a">Ästhetik. Allgemein</subfield>
+						<subfield code="2">uzb-US</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="690">
+						<subfield code="a">Geschichtsphilosophie</subfield>
+						<subfield code="2">uzb-UX</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="690">
+						<subfield code="a">Burckhardt, Jacob</subfield>
+						<subfield code="2">ubs-AC</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="690">
+						<subfield code="a">Poesie; bildende Kunst; Gemälde; Mythologie; Staat; Weltgeschichte; Studium; Ästhetik; Einleitung; Schema</subfield>
+						<subfield code="2">idssg-J</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="690">
+						<subfield code="a">Hauptgebiet; Altargemälde; Bauwelt; Genrebild; Historienbild; Hochrenaissance; Ortsregister; Personenregister; Sachregister; Inhaltsangabe</subfield>
+						<subfield code="2">idssg-J</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="690">
+						<subfield code="a">unfreie Kunst; allgemeine Einleitung; altes Schema; christlich Sculptur; chronologische Darstellung; editorisches Nachwort; einzelne Form; geschichtlich Crisen; geschichtliche Betrachtung; geschichtliche Krise; geschichtliches Studium; historische Größe; historisches Studium; monumentale Kunst; mythologische Malerei; neues Schema; nordisch Sculptur; profanes Historienbild; romanisch-abendländische Bauwelt; weltgeschichtliche Betrachtung</subfield>
+						<subfield code="2">idssg-J</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="690">
+						<subfield code="a">Griechenland C4EUGR; Italien C4EUIT; Deutschland C4EUGE; Welt C00WOR; Schweiz C4EXSI</subfield>
+						<subfield code="2">idssg-J</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="690">
+						<subfield code="a">Beck; C. H; Geschichte Neues Schema; Jacob Burckhardt; Peter Ganz; Schwabe Co. Basel Einleitung; weltgeschichtlich Betrachtungen Vorwort</subfield>
+						<subfield code="2">idssg-J</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="691">
+						<subfield code="e">3.5.3.3.1</subfield>
+						<subfield code="2">ubs-FA</subfield>
+					</datafield>
+					<datafield ind1="1" ind2=" " tag="700">
+						<subfield code="a">Ganz, Peter</subfield>
+					</datafield>
+					<datafield ind1="1" ind2=" " tag="700">
+						<subfield code="a">Ganz, Peter F.</subfield>
+						<subfield code="d">1920-2006</subfield>
+						<subfield code="0">(DE-588)105692999</subfield>
+					</datafield>
+					<datafield ind1="1" ind2="2" tag="700">
+						<subfield code="a">Burckhardt, Jacob</subfield>
+						<subfield code="d">1818-1897</subfield>
+						<subfield code="t">Weltgeschichtliche Betrachtungen</subfield>
+					</datafield>
+					<datafield ind1="1" ind2="2" tag="700">
+						<subfield code="a">Burckhardt, Jacob</subfield>
+						<subfield code="d">1818-1897</subfield>
+						<subfield code="t">Über das Studium der Geschichte</subfield>
+					</datafield>
+					<datafield ind1="4" ind2=" " tag="856">
+						<subfield code="u">http://unisg.link/hm00265023</subfield>
+						<subfield code="z">Inhaltsverzeichnis</subfield>
+					</datafield>
+					<datafield ind1="1" ind2=" " tag="800">
+						<subfield code="a">Burckhardt, Jacob</subfield>
+						<subfield code="d">1818-1897</subfield>
+						<subfield code="t">Werke</subfield>
+						<subfield code="v">10</subfield>
+						<subfield code="w">(NEBIS)004076210EBI01</subfield>
+					</datafield>
+					<datafield ind1="0" ind2="1" tag="852">
+						<subfield code="a">41SLSP_RZH</subfield>
+						<subfield code="6">990041027180205526</subfield>
+						<subfield code="9">P</subfield>
+					</datafield>
+					<datafield ind1="0" ind2="1" tag="852">
+						<subfield code="a">41SLSP_UZB</subfield>
+						<subfield code="6">990041027180205508</subfield>
+						<subfield code="9">P</subfield>
+					</datafield>
+					<datafield ind1="0" ind2="1" tag="852">
+						<subfield code="a">41SLSP_HSG</subfield>
+						<subfield code="6">995042230105506</subfield>
+						<subfield code="9">P</subfield>
+					</datafield>
+					<datafield ind1="0" ind2="1" tag="852">
+						<subfield code="a">41SLSP_UBE</subfield>
+						<subfield code="6">99116749007205511</subfield>
+						<subfield code="9">P</subfield>
+					</datafield>
+					<datafield ind1="0" ind2="1" tag="852">
+						<subfield code="a">41SLSP_RZS</subfield>
+						<subfield code="6">993580630105505</subfield>
+						<subfield code="9">P</subfield>
+					</datafield>
+					<datafield ind1="0" ind2="1" tag="852">
+						<subfield code="a">41SLSP_ZBS</subfield>
+						<subfield code="6">9920274990105528</subfield>
+						<subfield code="9">P</subfield>
+					</datafield>
+					<datafield ind1="0" ind2="1" tag="852">
+						<subfield code="a">41SLSP_UBS</subfield>
+						<subfield code="6">9920274990105504</subfield>
+						<subfield code="9">P</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="900">
+						<subfield code="a">IDSZ2zbzmon200304l</subfield>
+						<subfield code="c">IDSZ2emme</subfield>
+						<subfield code="d">IDSZ2zbzswk200310b</subfield>
+						<subfield code="e">IDSZ2kotr</subfield>
+					</datafield>
+				</record>
+			</recordData>
+			<recordIdentifier>991070031889705501</recordIdentifier>
+			<recordPosition>1</recordPosition>
+		</record>
+		<record>
+			<recordSchema>marcxml</recordSchema>
+			<recordPacking>xml</recordPacking>
+			<recordData>
+				<record xmlns="http://www.loc.gov/MARC21/slim">
+					<leader>04113nam a2200997 c 4500</leader>
+					<controlfield tag="001">991014535499705501</controlfield>
+					<controlfield tag="005">20201229212256.0</controlfield>
+					<controlfield tag="008">201011s2000    gw            00| | ger^^</controlfield>
+					<datafield ind1=" " ind2=" " tag="020">
+						<subfield code="a">3406441815</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="035">
+						<subfield code="a">(swissbib)214823628-41slsp_network</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="035">
+						<subfield code="a">214823628</subfield>
+						<subfield code="9">ExL</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="035">
+						<subfield code="a">(NEBIS)004102717EBI01</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="035">
+						<subfield code="a">(IDSLU)000358062ILU01</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="035">
+						<subfield code="a">(IDSSG)000504218HSB01</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="040">
+						<subfield code="a">IDS NEBIS SIK</subfield>
+						<subfield code="d">CH-ZuSLS</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="7" tag="072">
+						<subfield code="a">630</subfield>
+						<subfield code="2">IDS LU</subfield>
+					</datafield>
+					<datafield ind1="0" ind2="0" tag="082">
+						<subfield code="a">909</subfield>
+						<subfield code="2">23</subfield>
+					</datafield>
+					<datafield ind1="0" ind2="4" tag="082">
+						<subfield code="a">709.45</subfield>
+						<subfield code="2">21</subfield>
+					</datafield>
+					<datafield ind1="0" ind2="4" tag="082">
+						<subfield code="a">759</subfield>
+					</datafield>
+					<datafield ind1="1" ind2="4" tag="082">
+						<subfield code="a">759.5</subfield>
+						<subfield code="2">21</subfield>
+					</datafield>
+					<datafield ind1="1" ind2="4" tag="082">
+						<subfield code="a">759</subfield>
+					</datafield>
+					<datafield ind1="1" ind2=" " tag="100">
+						<subfield code="a">Burckhardt, Jacob</subfield>
+						<subfield code="d">1818-1897</subfield>
+						<subfield code="0">(DE-588)11851752X</subfield>
+					</datafield>
+					<datafield ind1="1" ind2="0" tag="245">
+						<subfield code="a">&lt;&lt;Das&gt;&gt; Altarbild</subfield>
+						<subfield code="b">; Das Porträt in der Malerei ; Die Sammler : Beiträge zur Kunstgeschichte von Italien</subfield>
+						<subfield code="c">Jacob Burckhardt ; aus dem Nachlass hrsg. von Stella von Boch ... [et al.]</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="1" tag="264">
+						<subfield code="a">München</subfield>
+						<subfield code="b">Beck</subfield>
+						<subfield code="c">2000</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="300">
+						<subfield code="a">592 S.</subfield>
+						<subfield code="c">23 cm</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="336">
+						<subfield code="b">txt</subfield>
+						<subfield code="2">rdacontent</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="337">
+						<subfield code="b">n</subfield>
+						<subfield code="2">rdamedia</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="338">
+						<subfield code="b">nc</subfield>
+						<subfield code="2">rdacarrier</subfield>
+					</datafield>
+					<datafield ind1="1" ind2=" " tag="490">
+						<subfield code="a">Werke / Jacob Burckhardt</subfield>
+						<subfield code="v">Band 6</subfield>
+					</datafield>
+					<datafield ind1="1" ind2="7" tag="600">
+						<subfield code="a">Burckhardt, Jacob</subfield>
+						<subfield code="d">1818-1897</subfield>
+						<subfield code="0">(DE-588)11851752X</subfield>
+						<subfield code="2">gnd</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="7" tag="648">
+						<subfield code="a">Geschichte 1000-1500</subfield>
+						<subfield code="2">idszbz</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="7" tag="648">
+						<subfield code="a">Geschichte 1200-1600</subfield>
+						<subfield code="2">idszbz</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="7" tag="648">
+						<subfield code="a">Geschichte 1400-1600</subfield>
+						<subfield code="2">idszbz</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="7" tag="648">
+						<subfield code="a">Geschichte 1500-1600</subfield>
+						<subfield code="2">idszbz</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="7" tag="648">
+						<subfield code="a">Geschichte 1600-1700</subfield>
+						<subfield code="2">idszbz</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="7" tag="648">
+						<subfield code="a">Geschichte 500-1000</subfield>
+						<subfield code="2">idszbz</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="7" tag="648">
+						<subfield code="a">Geschichte 800-1650</subfield>
+						<subfield code="2">idszbz</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="7" tag="648">
+						<subfield code="a">Geschichte 800-1800</subfield>
+						<subfield code="2">idszbz</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="7" tag="648">
+						<subfield code="a">Geschichte 800-1800</subfield>
+						<subfield code="2">gnd</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="7" tag="648">
+						<subfield code="a">Geschichte</subfield>
+						<subfield code="2">gnd</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="7" tag="650">
+						<subfield code="a">Altarblatt</subfield>
+						<subfield code="2">idszbz</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="7" tag="650">
+						<subfield code="a">Kunst</subfield>
+						<subfield code="2">idszbz</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="7" tag="650">
+						<subfield code="a">Sammlung</subfield>
+						<subfield code="2">idszbz</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="7" tag="650">
+						<subfield code="a">Bildnis</subfield>
+						<subfield code="2">idszbz</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="7" tag="650">
+						<subfield code="a">Altarblatt</subfield>
+						<subfield code="0">(DE-588)4142022-6</subfield>
+						<subfield code="2">gnd</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="7" tag="650">
+						<subfield code="a">Bildnismalerei</subfield>
+						<subfield code="0">(DE-588)4145426-1</subfield>
+						<subfield code="2">gnd</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="7" tag="650">
+						<subfield code="a">Geschichte</subfield>
+						<subfield code="0">(DE-588)4020517-4</subfield>
+						<subfield code="2">gnd</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="7" tag="650">
+						<subfield code="a">Kunstsammler</subfield>
+						<subfield code="0">(DE-588)4166042-0</subfield>
+						<subfield code="2">gnd</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="0" tag="650">
+						<subfield code="a">Aesthetics</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="0" tag="650">
+						<subfield code="a">Altarpieces, Italian</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="0" tag="650">
+						<subfield code="a">Altarpieces, Renaissance</subfield>
+						<subfield code="z">Italy</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="0" tag="650">
+						<subfield code="a">Art criticism</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="0" tag="650">
+						<subfield code="a">Art, Italian</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="0" tag="650">
+						<subfield code="a">Art</subfield>
+						<subfield code="z">Italy</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="0" tag="650">
+						<subfield code="a">Art</subfield>
+						<subfield code="z">Italy</subfield>
+						<subfield code="x">History</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="0" tag="650">
+						<subfield code="a">Civilization</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="0" tag="650">
+						<subfield code="a">Portrait painting, Italian</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="0" tag="650">
+						<subfield code="a">Portrait painting, Renaissance</subfield>
+						<subfield code="z">Italy</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="7" tag="650">
+						<subfield code="a">GESAMMELTE WERKE EINZELNER VERFASSER</subfield>
+						<subfield code="9">ger</subfield>
+						<subfield code="0">(ETHUDK)000009346</subfield>
+						<subfield code="2">ethudk</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="7" tag="650">
+						<subfield code="a">ITALIEN (SÜDEUROPA). REPUBLIK ITALIEN</subfield>
+						<subfield code="9">ger</subfield>
+						<subfield code="0">(ETHUDK)000003602</subfield>
+						<subfield code="2">ethudk</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="7" tag="650">
+						<subfield code="a">KUNSTGESCHICHTE</subfield>
+						<subfield code="9">ger</subfield>
+						<subfield code="0">(ETHUDK)000035233</subfield>
+						<subfield code="2">ethudk</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="7" tag="650">
+						<subfield code="a">KUNSTLIEBHABER + KUNSTSAMMLER</subfield>
+						<subfield code="9">ger</subfield>
+						<subfield code="0">(ETHUDK)000035340</subfield>
+						<subfield code="2">ethudk</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="7" tag="650">
+						<subfield code="a">PORTRAITS (DOKUMENTENTYP)</subfield>
+						<subfield code="9">ger</subfield>
+						<subfield code="0">(ETHUDK)000000114</subfield>
+						<subfield code="2">ethudk</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="7" tag="650">
+						<subfield code="a">TAFELMALEREI + ALTARBILDER</subfield>
+						<subfield code="9">ger</subfield>
+						<subfield code="0">(ETHUDK)000035855</subfield>
+						<subfield code="2">ethudk</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="7" tag="650">
+						<subfield code="a">Kunst</subfield>
+						<subfield code="0">(DE-588)4114333-4</subfield>
+						<subfield code="2">gnd</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="7" tag="651">
+						<subfield code="a">Italien</subfield>
+						<subfield code="2">idszbz</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="7" tag="651">
+						<subfield code="a">Italien</subfield>
+						<subfield code="0">(DE-588)4027833-5</subfield>
+						<subfield code="2">gnd</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="7" tag="655">
+						<subfield code="a">Aufsatzsammlung</subfield>
+						<subfield code="2">idszbz</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="7" tag="655">
+						<subfield code="a">Aufsatzsammlung</subfield>
+						<subfield code="2">gnd-content</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="690">
+						<subfield code="a">Sammler &amp; Sammlungen</subfield>
+						<subfield code="2">uzb-US</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="690">
+						<subfield code="a">Altarretabel. Allgemein</subfield>
+						<subfield code="2">uzb-US</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="690">
+						<subfield code="a">Porträt. Allgemein</subfield>
+						<subfield code="2">uzb-US</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="690">
+						<subfield code="a">Kunstgeschichte</subfield>
+						<subfield code="2">uzb-UX</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="690">
+						<subfield code="a">Italien</subfield>
+						<subfield code="2">uzb-UX</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="690">
+						<subfield code="a">Porträt; Malerei; Sammler; Register; Burckhardt; Kommentar; Literatur; Beck; Kunstgeschichte; Basel</subfield>
+						<subfield code="2">idssg-J</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="690">
+						<subfield code="a">Ortsregister; Personenregister; Sachregister</subfield>
+						<subfield code="2">idssg-J</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="690">
+						<subfield code="a">editorisches Nachwort; erwähnte Literatur; textkritische Anmerkung</subfield>
+						<subfield code="2">idssg-J</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="690">
+						<subfield code="a">Italien C4EUIT; Deutschland C4EUGE; Schweiz C4EXSI</subfield>
+						<subfield code="2">idssg-J</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="690">
+						<subfield code="a">Beck; C. H; Jacob Burckhardt; Johannes Hartau; Kerstin Hengevoss; Martin Warnke; Schwabe Co.</subfield>
+						<subfield code="2">idssg-J</subfield>
+					</datafield>
+					<datafield ind1="1" ind2=" " tag="700">
+						<subfield code="a">Boch, Stella &lt;&lt;von&gt;&gt;</subfield>
+						<subfield code="0">(DE-588)12002019X</subfield>
+					</datafield>
+					<datafield ind1="1" ind2="2" tag="700">
+						<subfield code="a">Burckhardt, Jacob</subfield>
+						<subfield code="d">1818-1897</subfield>
+						<subfield code="t">&lt;&lt;Das&gt;&gt; Porträt in der Malerei</subfield>
+					</datafield>
+					<datafield ind1="1" ind2="2" tag="700">
+						<subfield code="a">Burckhardt, Jacob</subfield>
+						<subfield code="d">1818-1897</subfield>
+						<subfield code="t">&lt;&lt;Die&gt;&gt; Sammler</subfield>
+					</datafield>
+					<datafield ind1="4" ind2=" " tag="856">
+						<subfield code="u">http://unisg.link/hm00265020</subfield>
+						<subfield code="z">Inhaltsverzeichnis</subfield>
+					</datafield>
+					<datafield ind1="1" ind2=" " tag="800">
+						<subfield code="a">Burckhardt, Jacob</subfield>
+						<subfield code="d">1818-1897</subfield>
+						<subfield code="t">Werke</subfield>
+						<subfield code="v">6</subfield>
+						<subfield code="w">(IDSLU)000279112ILU01</subfield>
+					</datafield>
+					<datafield ind1="0" ind2="1" tag="852">
+						<subfield code="a">41SLSP_RZH</subfield>
+						<subfield code="6">990041027170205526</subfield>
+						<subfield code="9">P</subfield>
+					</datafield>
+					<datafield ind1="0" ind2="1" tag="852">
+						<subfield code="a">41SLSP_UZB</subfield>
+						<subfield code="6">990041027170205508</subfield>
+						<subfield code="9">P</subfield>
+					</datafield>
+					<datafield ind1="0" ind2="1" tag="852">
+						<subfield code="a">41SLSP_HSG</subfield>
+						<subfield code="6">995042180105506</subfield>
+						<subfield code="9">P</subfield>
+					</datafield>
+					<datafield ind1="0" ind2="1" tag="852">
+						<subfield code="a">41SLSP_RZS</subfield>
+						<subfield code="6">993580620105505</subfield>
+						<subfield code="9">P</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="900">
+						<subfield code="a">IDSZ2zbzmon200304l</subfield>
+						<subfield code="c">IDSZ2emme</subfield>
+						<subfield code="d">IDSZ2zbzswk200310b</subfield>
+						<subfield code="e">IDSZ2kotr</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="911">
+						<subfield code="a">Burckhardt, Jacob</subfield>
+						<subfield code="c">Kulturhistoriker, Kunsthistoriker, Schweiz</subfield>
+						<subfield code="d">1818 - 1897</subfield>
+						<subfield code="5">IDSLU/ger</subfield>
+					</datafield>
+				</record>
+			</recordData>
+			<recordIdentifier>991014535499705501</recordIdentifier>
+			<recordPosition>2</recordPosition>
+		</record>
+		<record>
+			<recordSchema>marcxml</recordSchema>
+			<recordPacking>xml</recordPacking>
+			<recordData>
+				<record xmlns="http://www.loc.gov/MARC21/slim">
+					<leader>01439nam a2200397 c 4500</leader>
+					<controlfield tag="001">991060079939705501</controlfield>
+					<controlfield tag="005">20201223203431.0</controlfield>
+					<controlfield tag="008">000410s2000    gw            00| | ger^^</controlfield>
+					<datafield ind1=" " ind2=" " tag="020">
+						<subfield code="a">3406441815</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="035">
+						<subfield code="a">(swissbib)034009523-41slsp_network</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="035">
+						<subfield code="a">034009523</subfield>
+						<subfield code="9">ExL</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="035">
+						<subfield code="a">(IDSBB)002027447DSV01</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="040">
+						<subfield code="a">SzZuIDS BS/BE A164</subfield>
+						<subfield code="e">kids</subfield>
+						<subfield code="d">CH-ZuSLS</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="7" tag="072">
+						<subfield code="a">kh</subfield>
+						<subfield code="2">SzZuIDS BS/BE</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="084">
+						<subfield code="a">9,10</subfield>
+						<subfield code="2">ssgn</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="084">
+						<subfield code="a">CG 2100</subfield>
+						<subfield code="2">rvk</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="084">
+						<subfield code="a">LH 63190</subfield>
+						<subfield code="2">rvk</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="084">
+						<subfield code="a">LH 64840</subfield>
+						<subfield code="2">rvk</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="084">
+						<subfield code="a">NB 6128</subfield>
+						<subfield code="2">rvk</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="084">
+						<subfield code="a">NK 7800</subfield>
+						<subfield code="2">rvk</subfield>
+					</datafield>
+					<datafield ind1="1" ind2=" " tag="100">
+						<subfield code="a">Burckhardt, Jacob</subfield>
+						<subfield code="d">1818-1897</subfield>
+						<subfield code="0">(DE-588)11851752X</subfield>
+					</datafield>
+					<datafield ind1="1" ind2="0" tag="245">
+						<subfield code="a">&lt;&lt;Das&gt;&gt; Altarbild</subfield>
+						<subfield code="b">Beiträge zur Kunstgeschichte von Italien</subfield>
+						<subfield code="c">Jacob Burckhardt ; aus dem Nachlass herausgegeben von Stella von Boch ... [et al.] ; Das Porträt in der Malerei ; Die Sammler</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="1" tag="264">
+						<subfield code="a">München</subfield>
+						<subfield code="b">Beck</subfield>
+						<subfield code="c">2000</subfield>
+						<subfield code="a">Basel</subfield>
+						<subfield code="b">Schwabe</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="300">
+						<subfield code="a">392 S.</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="336">
+						<subfield code="b">txt</subfield>
+						<subfield code="2">rdacontent</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="337">
+						<subfield code="b">n</subfield>
+						<subfield code="2">rdamedia</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="338">
+						<subfield code="b">nc</subfield>
+						<subfield code="2">rdacarrier</subfield>
+					</datafield>
+					<datafield ind1="1" ind2=" " tag="490">
+						<subfield code="a">Werke / Jacob Burckhardt</subfield>
+						<subfield code="v">Bd. 6</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="7" tag="650">
+						<subfield code="a">Kunst</subfield>
+						<subfield code="z">Italien</subfield>
+						<subfield code="y">Geschichte</subfield>
+						<subfield code="2">idsbb</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="690">
+						<subfield code="a">Burckhardt, Jacob</subfield>
+						<subfield code="2">ubs-AC</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="691">
+						<subfield code="e">3.5.3.3.1</subfield>
+						<subfield code="2">ubs-FA</subfield>
+					</datafield>
+					<datafield ind1="1" ind2=" " tag="700">
+						<subfield code="a">Boch, Stella von</subfield>
+					</datafield>
+					<datafield ind1="1" ind2="2" tag="700">
+						<subfield code="a">Burckhardt, Jacob</subfield>
+						<subfield code="d">1818-1897</subfield>
+						<subfield code="t">&lt;&lt;Das&gt;&gt; Porträt in der Malerei</subfield>
+					</datafield>
+					<datafield ind1="1" ind2="2" tag="700">
+						<subfield code="a">Burckhardt, Jacob</subfield>
+						<subfield code="d">1818-1897</subfield>
+						<subfield code="t">&lt;&lt;Die&gt;&gt; Sammler</subfield>
+					</datafield>
+					<datafield ind1="1" ind2=" " tag="800">
+						<subfield code="a">Burckhardt, Jacob</subfield>
+						<subfield code="d">1818-1897</subfield>
+						<subfield code="t">Werke</subfield>
+						<subfield code="v">6</subfield>
+						<subfield code="w">(IDSBB)002027441DSV01</subfield>
+					</datafield>
+					<datafield ind1="0" ind2="1" tag="852">
+						<subfield code="a">41SLSP_UBE</subfield>
+						<subfield code="6">99116748837505511</subfield>
+						<subfield code="9">P</subfield>
+					</datafield>
+					<datafield ind1="0" ind2="1" tag="852">
+						<subfield code="a">41SLSP_ZBS</subfield>
+						<subfield code="6">9920274470105528</subfield>
+						<subfield code="9">P</subfield>
+					</datafield>
+					<datafield ind1="0" ind2="1" tag="852">
+						<subfield code="a">41SLSP_UBS</subfield>
+						<subfield code="6">9920274470105504</subfield>
+						<subfield code="9">P</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="900">
+						<subfield code="a">IDSAxvkvol</subfield>
+					</datafield>
+				</record>
+			</recordData>
+			<recordIdentifier>991060079939705501</recordIdentifier>
+			<recordPosition>3</recordPosition>
+		</record>
+		<record>
+			<recordSchema>marcxml</recordSchema>
+			<recordPacking>xml</recordPacking>
+			<recordData>
+				<record xmlns="http://www.loc.gov/MARC21/slim">
+					<leader>01584nam a2200385 ca4500</leader>
+					<controlfield tag="001">991171044964505501</controlfield>
+					<controlfield tag="005">20220927125412.0</controlfield>
+					<controlfield tag="008">211029m20229999gw ||||| |||| 00||||ger^^</controlfield>
+					<datafield ind1=" " ind2=" " tag="015">
+						<subfield code="a">21,N44</subfield>
+						<subfield code="2">dnb</subfield>
+					</datafield>
+					<datafield ind1="7" ind2=" " tag="016">
+						<subfield code="2">DE-101</subfield>
+						<subfield code="a">1244538817</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="020">
+						<subfield code="a">9783406781261</subfield>
+						<subfield code="q">Teilband 1</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="035">
+						<subfield code="a">(DE-101)1244538817</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="035">
+						<subfield code="a">(DE-599)DNB1244538817</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="040">
+						<subfield code="a">DE-101</subfield>
+						<subfield code="b">ger</subfield>
+						<subfield code="c">DE-101</subfield>
+						<subfield code="e">rda</subfield>
+						<subfield code="d">CH-ZuSLS RZS</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="044">
+						<subfield code="c">XA-DE-BY</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="7" tag="072">
+						<subfield code="a">630</subfield>
+						<subfield code="2">IDS LU</subfield>
+					</datafield>
+					<datafield ind1="7" ind2="4" tag="082">
+						<subfield code="a">930</subfield>
+						<subfield code="2">23sdnb</subfield>
+					</datafield>
+					<datafield ind1="7" ind2="4" tag="082">
+						<subfield code="a">700</subfield>
+						<subfield code="2">23sdnb</subfield>
+					</datafield>
+					<datafield ind1="1" ind2=" " tag="100">
+						<subfield code="a">Burckhardt, Jacob</subfield>
+						<subfield code="d">1818-1897</subfield>
+						<subfield code="0">(DE-588)11851752X</subfield>
+						<subfield code="4">aut</subfield>
+					</datafield>
+					<datafield ind1="1" ind2="0" tag="245">
+						<subfield code="a">Alte Geschichte</subfield>
+						<subfield code="c">Jacob Burckhardt ; aus dem Nachlass herausgegeben von Leonhard Burckhardt, Stefan Rebenich, Alfred Schmid und Jürgen von Ungern-Sternberg</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="1" tag="264">
+						<subfield code="a">München</subfield>
+						<subfield code="b">C.H.Beck</subfield>
+						<subfield code="a">Basel</subfield>
+						<subfield code="b">Schwabe</subfield>
+						<subfield code="c">[2022]</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="300">
+						<subfield code="a">Teilband 1- (1421; ... Seiten)</subfield>
+						<subfield code="b">Illustrationen</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="336">
+						<subfield code="b">txt</subfield>
+						<subfield code="2">rdacontent</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="337">
+						<subfield code="b">n</subfield>
+						<subfield code="2">rdamedia</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="338">
+						<subfield code="b">nc</subfield>
+						<subfield code="2">rdacarrier</subfield>
+					</datafield>
+					<datafield ind1="1" ind2=" " tag="490">
+						<subfield code="a">Werke / Jacob Burckhardt</subfield>
+						<subfield code="v">Band 23</subfield>
+					</datafield>
+					<datafield ind1="0" ind2="0" tag="505">
+						<subfield code="g">Teilband 1</subfield>
+						<subfield code="t">Ägypten und Alter Orient. Römische Geschichte: Republik</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="7" tag="648">
+						<subfield code="a">Geschichte 509 v. Chr.-27 v. Chr.</subfield>
+						<subfield code="2">gnd</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="7" tag="651">
+						<subfield code="a">Ägypten</subfield>
+						<subfield code="g">Altertum</subfield>
+						<subfield code="2">gnd</subfield>
+						<subfield code="0">(DE-588)4068430-1</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="7" tag="651">
+						<subfield code="a">Alter Orient</subfield>
+						<subfield code="2">gnd</subfield>
+						<subfield code="0">(DE-588)4001451-4</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="7" tag="651">
+						<subfield code="a">Römisches Reich</subfield>
+						<subfield code="2">gnd</subfield>
+						<subfield code="0">(DE-588)4076778-4</subfield>
+					</datafield>
+					<datafield ind1="1" ind2=" " tag="700">
+						<subfield code="a">Burckhardt, Leonhard</subfield>
+						<subfield code="d">1953-</subfield>
+						<subfield code="4">edt</subfield>
+						<subfield code="0">(DE-588)122334434</subfield>
+					</datafield>
+					<datafield ind1="1" ind2=" " tag="700">
+						<subfield code="a">Rebenich, Stefan</subfield>
+						<subfield code="d">1961-</subfield>
+						<subfield code="0">(DE-588)124118631</subfield>
+						<subfield code="4">edt</subfield>
+					</datafield>
+					<datafield ind1="1" ind2=" " tag="800">
+						<subfield code="a">Burckhardt, Jacob</subfield>
+						<subfield code="d">1818-1897</subfield>
+						<subfield code="t">Werke</subfield>
+						<subfield code="v">23</subfield>
+						<subfield code="w">(IDSLU)000279112ILU01</subfield>
+					</datafield>
+					<datafield ind1="0" ind2="1" tag="852">
+						<subfield code="a">41SLSP_HSG</subfield>
+						<subfield code="6">9911318568205506</subfield>
+						<subfield code="9">P</subfield>
+					</datafield>
+					<datafield ind1="0" ind2="1" tag="852">
+						<subfield code="a">41SLSP_UBE</subfield>
+						<subfield code="6">99117329903505511</subfield>
+						<subfield code="9">P</subfield>
+					</datafield>
+					<datafield ind1="0" ind2="1" tag="852">
+						<subfield code="a">41SLSP_RZS</subfield>
+						<subfield code="6">9914401712605505</subfield>
+						<subfield code="9">P</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="900">
+						<subfield code="a">Stoppsignal FRED</subfield>
+						<subfield code="x">UBE/B555/202209</subfield>
+					</datafield>
+				</record>
+			</recordData>
+			<recordIdentifier>991171044964505501</recordIdentifier>
+			<recordPosition>4</recordPosition>
+		</record>
+		<record>
+			<recordSchema>marcxml</recordSchema>
+			<recordPacking>xml</recordPacking>
+			<recordData>
+				<record xmlns="http://www.loc.gov/MARC21/slim">
+					<leader>06849nam a2200925 c 4500</leader>
+					<controlfield tag="001">991139375609705501</controlfield>
+					<controlfield tag="005">20201231123439.0</controlfield>
+					<controlfield tag="008">201012s2000    gw            00| | ger^^</controlfield>
+					<datafield ind1=" " ind2=" " tag="015">
+						<subfield code="a">GFR-CIP-00,N38</subfield>
+						<subfield code="a">DNB-00,N38,0670</subfield>
+					</datafield>
+					<datafield ind1="7" ind2=" " tag="016">
+						<subfield code="a">959300783</subfield>
+						<subfield code="2">GyFmDB</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="020">
+						<subfield code="a">3406467628</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="035">
+						<subfield code="a">(swissbib)23593867X-41slsp_network</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="035">
+						<subfield code="a">23593867X</subfield>
+						<subfield code="9">ExL</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="035">
+						<subfield code="a">(NEBIS)004102714EBI01</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="035">
+						<subfield code="a">(IDSBB)002214529DSV01</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="035">
+						<subfield code="a">(IDSLU)000358060ILU01</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="035">
+						<subfield code="a">(IDSSG)000504217HSB01</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="040">
+						<subfield code="a">IDS NEBIS SIK</subfield>
+						<subfield code="d">CH-ZuSLS</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="7" tag="072">
+						<subfield code="a">gw</subfield>
+						<subfield code="2">SzZuIDS BS/BE</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="7" tag="072">
+						<subfield code="a">kh</subfield>
+						<subfield code="2">SzZuIDS BS/BE</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="7" tag="072">
+						<subfield code="a">630</subfield>
+						<subfield code="2">IDS LU</subfield>
+					</datafield>
+					<datafield ind1="0" ind2="0" tag="082">
+						<subfield code="a">909</subfield>
+						<subfield code="2">23</subfield>
+					</datafield>
+					<datafield ind1="0" ind2="4" tag="082">
+						<subfield code="a">724.12</subfield>
+						<subfield code="2">21</subfield>
+					</datafield>
+					<datafield ind1="0" ind2="4" tag="082">
+						<subfield code="a">720</subfield>
+					</datafield>
+					<datafield ind1="1" ind2="4" tag="082">
+						<subfield code="a">709.45</subfield>
+						<subfield code="2">21</subfield>
+					</datafield>
+					<datafield ind1="1" ind2="4" tag="082">
+						<subfield code="a">720</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="084">
+						<subfield code="a">9,10</subfield>
+						<subfield code="2">ssgn</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="084">
+						<subfield code="a">CG 2100</subfield>
+						<subfield code="2">rvk</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="084">
+						<subfield code="a">LH 63190</subfield>
+						<subfield code="2">rvk</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="084">
+						<subfield code="a">LH 64840</subfield>
+						<subfield code="2">rvk</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="084">
+						<subfield code="a">NB 6128</subfield>
+						<subfield code="2">rvk</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="084">
+						<subfield code="a">NK 7800</subfield>
+						<subfield code="2">rvk</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="084">
+						<subfield code="a">LN 79550</subfield>
+						<subfield code="2">rvk</subfield>
+					</datafield>
+					<datafield ind1="1" ind2=" " tag="100">
+						<subfield code="a">Burckhardt, Jacob</subfield>
+						<subfield code="d">1818-1897</subfield>
+						<subfield code="0">(DE-588)11851752X</subfield>
+					</datafield>
+					<datafield ind1="1" ind2="0" tag="245">
+						<subfield code="a">&lt;&lt;Die&gt;&gt; Baukunst der Renaissance in Italien</subfield>
+						<subfield code="b">nach der Erstausgabe der "Geschichte der Renaissance in Italien"</subfield>
+						<subfield code="c">Jacob Burckhardt ; hrsg. von Maurizio Ghelardi</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="1" tag="264">
+						<subfield code="a">München</subfield>
+						<subfield code="b">Beck</subfield>
+						<subfield code="c">2000</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="300">
+						<subfield code="a">532 S.</subfield>
+						<subfield code="b">Ill.</subfield>
+						<subfield code="c">23 cm</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="336">
+						<subfield code="b">txt</subfield>
+						<subfield code="2">rdacontent</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="337">
+						<subfield code="b">n</subfield>
+						<subfield code="2">rdamedia</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="338">
+						<subfield code="b">nc</subfield>
+						<subfield code="2">rdacarrier</subfield>
+					</datafield>
+					<datafield ind1="1" ind2=" " tag="490">
+						<subfield code="a">Werke / Jacob Burckhardt</subfield>
+						<subfield code="v">Band 5</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="500">
+						<subfield code="a">Originaltitel: Geschichte der Renaissance in Italien</subfield>
+					</datafield>
+					<datafield ind1="1" ind2="7" tag="600">
+						<subfield code="a">Burckhardt, Jacob</subfield>
+						<subfield code="d">1818-1897</subfield>
+						<subfield code="0">(DE-588)11851752X</subfield>
+						<subfield code="2">gnd</subfield>
+					</datafield>
+					<datafield ind1="1" ind2="7" tag="600">
+						<subfield code="a">Burckhardt, Jacob</subfield>
+						<subfield code="d">1818-1897</subfield>
+						<subfield code="t">&lt;&lt;Die&gt;&gt; Kultur der Renaissance in Italien</subfield>
+						<subfield code="0">(DE-588)4651912-9</subfield>
+						<subfield code="2">gnd</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="7" tag="648">
+						<subfield code="a">Geschichte 1400-1500</subfield>
+						<subfield code="2">idszbz</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="7" tag="648">
+						<subfield code="a">Geschichte 1500-1600</subfield>
+						<subfield code="2">idszbz</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="7" tag="648">
+						<subfield code="a">Renaissance (Epoche)</subfield>
+						<subfield code="2">idszbz</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="7" tag="648">
+						<subfield code="a">Geschichte</subfield>
+						<subfield code="2">gnd</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="7" tag="648">
+						<subfield code="a">Geschichte 1400-1600</subfield>
+						<subfield code="2">gnd</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="7" tag="650">
+						<subfield code="a">Architektur</subfield>
+						<subfield code="2">idszbz</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="0" tag="650">
+						<subfield code="a">Aesthetics</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="0" tag="650">
+						<subfield code="a">Architecture, Italian</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="0" tag="650">
+						<subfield code="a">Architecture, Renaissance</subfield>
+						<subfield code="z">Italy</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="0" tag="650">
+						<subfield code="a">Art criticism</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="0" tag="650">
+						<subfield code="a">Art, Italian</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="0" tag="650">
+						<subfield code="a">Art</subfield>
+						<subfield code="z">Italy</subfield>
+						<subfield code="x">History</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="0" tag="650">
+						<subfield code="a">Civilization</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="7" tag="650">
+						<subfield code="a">ARCHITEKTURTHEORIE + ARCHITEKTURÄSTHETIK</subfield>
+						<subfield code="9">ger</subfield>
+						<subfield code="0">(ETHUDK)000035455</subfield>
+						<subfield code="2">ethudk</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="7" tag="650">
+						<subfield code="a">GESAMMELTE WERKE EINZELNER VERFASSER</subfield>
+						<subfield code="9">ger</subfield>
+						<subfield code="0">(ETHUDK)000009346</subfield>
+						<subfield code="2">ethudk</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="7" tag="650">
+						<subfield code="a">ITALIEN (SÜDEUROPA). REPUBLIK ITALIEN</subfield>
+						<subfield code="9">ger</subfield>
+						<subfield code="0">(ETHUDK)000003602</subfield>
+						<subfield code="2">ethudk</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="7" tag="650">
+						<subfield code="a">RENAISSANCE (ARCHITECTURE)</subfield>
+						<subfield code="9">fre</subfield>
+						<subfield code="0">(ETHUDK)000035495</subfield>
+						<subfield code="2">ethudk</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="7" tag="650">
+						<subfield code="a">Kunst</subfield>
+						<subfield code="x">Renaissance</subfield>
+						<subfield code="z">Italien</subfield>
+						<subfield code="2">idsbb</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="7" tag="650">
+						<subfield code="a">Architektur</subfield>
+						<subfield code="x">Renaissance</subfield>
+						<subfield code="z">Italien</subfield>
+						<subfield code="2">idsbb</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="7" tag="650">
+						<subfield code="a">Architektur</subfield>
+						<subfield code="0">(DE-588)4002851-3</subfield>
+						<subfield code="2">gnd</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="7" tag="650">
+						<subfield code="a">Renaissance</subfield>
+						<subfield code="0">(DE-588)4049450-0</subfield>
+						<subfield code="2">gnd</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="7" tag="651">
+						<subfield code="a">Italien</subfield>
+						<subfield code="2">idszbz</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="7" tag="651">
+						<subfield code="a">Italien</subfield>
+						<subfield code="0">(DE-588)4027833-5</subfield>
+						<subfield code="2">gnd</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="690">
+						<subfield code="a">Italien. Architektur. Renaissance</subfield>
+						<subfield code="2">uzb-US</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="690">
+						<subfield code="a">Burckhardt, Jacob</subfield>
+						<subfield code="2">ubs-AC</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="690">
+						<subfield code="a">Renaissance; Marmor; Gewölbe; Kirchenbau; Palast; Gegenstand; Altar; Malerei; Festungsbau; Baukunst; Grabmal; Ordnung; Backsteinbau; Element; Fayence; Fries; Gesims; Gitter; Heraldik; Schornstein; Treppe; Basilika; Feste; Behandlung; Bramante; Garten; Gesinnung; Kloster; Rom; Schule</subfield>
+						<subfield code="2">idssg-J</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="690">
+						<subfield code="a">Palastbau; Hochrenaissance; Zentralbau; Protorenaissance; Halbsäule; Klosterbau; Kranzgesims; Langbau; Privatbau; Profanbau; Theaterbau; Villenbau; Wandaltar; Bruderschaftsgebäude; Formenbehandlung; Gewölbekirche; Gewölbemalerei; Langkirche; Tischaufsatz; Vergnügungsbau; Adenmalerei; Altareinfassung; Flächenverzierung; Grundplan; Gräbertype; Nebentype; Pilasterordnung; Adentyp; Ausdrucksweise; Backsteinhof; Barockzeit; Baudilettant; Baugesinnung; Baumodell; Baurest; Bischofshof; Chorstuhl; Darstellungsweise; Denkweise; Detailprobe; Familienloggia; Festkünstler; Flachdecke; Formensystem; Gassenhalle; Gasthof; Gewaltherrscher; Goldschmiedearbeit; Machtumfang; OberItalien; Palasthof; Personenregister; Prachtbett; Ruhmsinn; Sachregister; Schnitzwerk; Schönschreiber; Stadtanlage; Triumphbogen; Weihbecken; Zierform; Zwischenstockwerk</subfield>
+						<subfield code="2">idssg-J</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="690">
+						<subfield code="a">anderes Gefäß; besonderes Formensystem; dorische Ordnung; flachgedecktes Kirchen; früher Palastbau; achtes Kapitel; allgemeine Ansicht; allgemeiner Charakter; allgemeine Stellung; andere Kunst; andere Parade; andere Stadt; ander Zentralbau; antik Sculpturen; antik Bau; antike Groteske; antike Ordnung; architektonisches Element; dreischiffige Gewölbekirche; dreizehntes Kapitel; drittes Kapitel; editorisches Nachwort; einschiffige Gewölbekirche; einschiffiges Kirchen; einzeln Capellen; einzeln Sacristeien; elftes Kapitel; erst Stuccaturen; erstes Kapitel; erst Zentralbau; falsch-etruskische Ordnung; früh Zentralbau; fünftes Kapitel; fünfzehntes Kapitel; geistliche Bruderschaft; geschnitzte Flachdecke; gesetzmäßig Cubischer; griechischer Baurest; großer Guss; harter Stein; hölzerne Pforte; innere Anlage; irdenes Gefäß; italienisch Gothik; italienische Architektur; italienischer Palastbau; kirchliche Arbeit; kirchliches Formensystem; künstlerische Absicht; monumentaler Sinn; neue Stadt; neue Stadtanlage; neuntes Kapitel; reiches Vornehmen; römisch Fac; römischer Baurest; römisches Detail; römischer Palasthof; römische Treppe; sechstes Kapitel; siebentes Kapitel; spät Decorationsmalerei; spät Vitruvianer; später Hass; spät Zentralbau; textkritische Anmerkung; toscanischer Palastbau; toscanischer Typus; unregelmäßiger Grundplan; venezianischer Typus; verschiedener Gegenstand; viertes Kapitel; vierzehntes Kapitel; volle Herrschaft; vortretende Säule; weitere Theorie; weiß Stucco; weißer Marmor; weltliche Arbeit; wichtige Gräbertype; zehntes Kapitel; zusätzliche Abbildung; zweites Kapitel; zwölftes Kapitel; öffentlicher Palast; übriges Italien; übriger Papst</subfield>
+						<subfield code="2">idssg-J</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="690">
+						<subfield code="a">Italien C4EUIT; Jemen C7YEME; Schweiz C4EXSI; Deutschland C4EUGE</subfield>
+						<subfield code="2">idssg-J</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="690">
+						<subfield code="a">antik Sculpturen Ruinen; Architektur Erstes Kapitel; B. Alberti; B. Decoration Erstes Kapitel; Beck- en hen; Beck- en hen Schwabe Co. Basel; C. H; Decorationsmalerei Stuccatur; Decorative Sculptur; Florenz Siena; hölzern Pforten Wandbekleidungen; Jacob Burckhardt; Julius II; Leon Battista Albern; Mark Umbrien; Maurizio Ghelardi; neu Städte Quartiere; Papst Nicolaus; Perin del Vaga; Protorenaissance Toscana Rom; Romano; San Miniato; Sansovino Palladio</subfield>
+						<subfield code="2">idssg-J</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="691">
+						<subfield code="e">3.5.3.3.1</subfield>
+						<subfield code="2">ubs-FA</subfield>
+					</datafield>
+					<datafield ind1="1" ind2=" " tag="700">
+						<subfield code="a">Ghelardi, Maurizio</subfield>
+						<subfield code="d">1952-</subfield>
+						<subfield code="0">(DE-588)142899585</subfield>
+					</datafield>
+					<datafield ind1="4" ind2=" " tag="856">
+						<subfield code="u">http://unisg.link/hm00265019</subfield>
+						<subfield code="z">Inhaltsverzeichnis</subfield>
+					</datafield>
+					<datafield ind1="1" ind2=" " tag="800">
+						<subfield code="a">Burckhardt, Jacob</subfield>
+						<subfield code="d">1818-1897</subfield>
+						<subfield code="t">Werke</subfield>
+						<subfield code="v">5</subfield>
+						<subfield code="w">(IDSBB)002027441DSV01</subfield>
+					</datafield>
+					<datafield ind1="0" ind2="1" tag="852">
+						<subfield code="a">41SLSP_RZH</subfield>
+						<subfield code="6">990041027140205526</subfield>
+						<subfield code="9">P</subfield>
+					</datafield>
+					<datafield ind1="0" ind2="1" tag="852">
+						<subfield code="a">41SLSP_UZB</subfield>
+						<subfield code="6">990041027140205508</subfield>
+						<subfield code="9">P</subfield>
+					</datafield>
+					<datafield ind1="0" ind2="1" tag="852">
+						<subfield code="a">41SLSP_HSG</subfield>
+						<subfield code="6">995042170105506</subfield>
+						<subfield code="9">P</subfield>
+					</datafield>
+					<datafield ind1="0" ind2="1" tag="852">
+						<subfield code="a">41SLSP_UBE</subfield>
+						<subfield code="6">99116731251005511</subfield>
+						<subfield code="9">P</subfield>
+					</datafield>
+					<datafield ind1="0" ind2="1" tag="852">
+						<subfield code="a">41SLSP_RZS</subfield>
+						<subfield code="6">993580600105505</subfield>
+						<subfield code="9">P</subfield>
+					</datafield>
+					<datafield ind1="0" ind2="1" tag="852">
+						<subfield code="a">41SLSP_ZBS</subfield>
+						<subfield code="6">9922145290105528</subfield>
+						<subfield code="9">P</subfield>
+					</datafield>
+					<datafield ind1="0" ind2="1" tag="852">
+						<subfield code="a">41SLSP_UBS</subfield>
+						<subfield code="6">9922145290105504</subfield>
+						<subfield code="9">P</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="900">
+						<subfield code="a">IDSZ2zbzmon200304l</subfield>
+						<subfield code="c">IDSZ2emme</subfield>
+						<subfield code="d">IDSZ2zbzswk200310b</subfield>
+						<subfield code="e">IDSZ2kotr</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="911">
+						<subfield code="a">Burckhardt, Jacob</subfield>
+						<subfield code="c">Kulturhistoriker, Kunsthistoriker, Schweiz</subfield>
+						<subfield code="d">1818 - 1897</subfield>
+						<subfield code="5">IDSLU/ger</subfield>
+					</datafield>
+				</record>
+			</recordData>
+			<recordIdentifier>991139375609705501</recordIdentifier>
+			<recordPosition>5</recordPosition>
+		</record>
+		<record>
+			<recordSchema>marcxml</recordSchema>
+			<recordPacking>xml</recordPacking>
+			<recordData>
+				<record xmlns="http://www.loc.gov/MARC21/slim">
+					<leader>01896nam a2200361 c 4500</leader>
+					<controlfield tag="001">991023939149705501</controlfield>
+					<controlfield tag="005">20201223014544.0</controlfield>
+					<controlfield tag="008">091210s2001    gw            00| | ger^^</controlfield>
+					<datafield ind1=" " ind2=" " tag="020">
+						<subfield code="a">3406471560</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="035">
+						<subfield code="a">(swissbib)003365093-41slsp_network</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="035">
+						<subfield code="a">003365093</subfield>
+						<subfield code="9">ExL</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="035">
+						<subfield code="a">(IDSSG)000504215HSB01</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="040">
+						<subfield code="a">SzZuIDS HSG</subfield>
+						<subfield code="b">ger</subfield>
+						<subfield code="e">kids</subfield>
+						<subfield code="d">CH-ZuSLS</subfield>
+					</datafield>
+					<datafield ind1="1" ind2=" " tag="100">
+						<subfield code="a">Burckhardt, Jacob</subfield>
+					</datafield>
+					<datafield ind1="1" ind2="0" tag="245">
+						<subfield code="a">&lt;&lt;Der&gt;&gt; Cicerone</subfield>
+						<subfield code="b">eine Anleitung zum Genuss der Kunstwerke Italiens : Architektur und Sculptur</subfield>
+						<subfield code="c">Jacob Burckhardt ; hrsg. von Bernd Roeck ... [et al.]</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="1" tag="264">
+						<subfield code="a">München</subfield>
+						<subfield code="b">Beck</subfield>
+						<subfield code="c">2001</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="300">
+						<subfield code="a">827 S.</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="336">
+						<subfield code="b">txt</subfield>
+						<subfield code="2">rdacontent</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="337">
+						<subfield code="b">n</subfield>
+						<subfield code="2">rdamedia</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="338">
+						<subfield code="b">nc</subfield>
+						<subfield code="2">rdacarrier</subfield>
+					</datafield>
+					<datafield ind1="1" ind2=" " tag="490">
+						<subfield code="a">Werke / Jacob Burckhardt</subfield>
+						<subfield code="v">Bd. 2</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="7" tag="648">
+						<subfield code="a">Geschichte</subfield>
+						<subfield code="2">gnd</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="7" tag="650">
+						<subfield code="a">Architektur</subfield>
+						<subfield code="0">(DE-588)4002851-3</subfield>
+						<subfield code="2">gnd</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="7" tag="650">
+						<subfield code="a">Plastik</subfield>
+						<subfield code="0">(DE-588)4046277-8</subfield>
+						<subfield code="2">gnd</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="7" tag="651">
+						<subfield code="a">Italien</subfield>
+						<subfield code="0">(DE-588)4027833-5</subfield>
+						<subfield code="2">gnd</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="690">
+						<subfield code="a">Architektur; Glasmalerei; Register; Antike; Renaissance; Burckhardt; Cicerone; Übersicht; Kommentar; Literatur</subfield>
+						<subfield code="2">idssg-J</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="690">
+						<subfield code="a">Personenregister; Sachregister; Gesamtregister; Ortsregister; Hochrenaissance</subfield>
+						<subfield code="2">idssg-J</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="690">
+						<subfield code="a">altniederländischer Meister; altchristliche Architektur; altdeutscher Meister; byzantinische Malerei; editorisches Nachwort; ganze Renaissance; germanische Architektur; germanische Malerei; moderne Malerei; romanische Architektur; romanische Malerei; textkritische Anmerkung</subfield>
+						<subfield code="2">idssg-J</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="690">
+						<subfield code="a">Italien C4EUIT; Deutschland C4EUGE; Schweiz C4EXSI</subfield>
+						<subfield code="2">idssg-J</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="690">
+						<subfield code="a">Beck; Bernd Roeck; C. H; Christine Tauber; Franz Kugler; Jacob Burckhardt; Katja Amato; Martin Warnke; Schwabe Co. Basel JBW2 Architektur; Sibylle Backmann</subfield>
+						<subfield code="2">idssg-J</subfield>
+					</datafield>
+					<datafield ind1="1" ind2=" " tag="700">
+						<subfield code="a">Roeck, Bernd</subfield>
+					</datafield>
+					<datafield ind1="4" ind2=" " tag="856">
+						<subfield code="u">http://unisg.link/hm00265017</subfield>
+						<subfield code="z">Inhaltsverzeichnis</subfield>
+					</datafield>
+					<datafield ind1="1" ind2=" " tag="800">
+						<subfield code="a">Burckhardt, Jacob</subfield>
+						<subfield code="d">1818-1897</subfield>
+						<subfield code="t">Werke</subfield>
+						<subfield code="v">2</subfield>
+						<subfield code="w">(IDSSG)000501601HSB01</subfield>
+					</datafield>
+					<datafield ind1="0" ind2="1" tag="852">
+						<subfield code="a">41SLSP_HSG</subfield>
+						<subfield code="6">995042150105506</subfield>
+						<subfield code="9">P</subfield>
+					</datafield>
+				</record>
+			</recordData>
+			<recordIdentifier>991023939149705501</recordIdentifier>
+			<recordPosition>6</recordPosition>
+		</record>
+		<record>
+			<recordSchema>marcxml</recordSchema>
+			<recordPacking>xml</recordPacking>
+			<recordData>
+				<record xmlns="http://www.loc.gov/MARC21/slim">
+					<leader>01786nam a2200349 c 4500</leader>
+					<controlfield tag="001">991031381879705501</controlfield>
+					<controlfield tag="005">20201223013956.0</controlfield>
+					<controlfield tag="008">091210s2001    gw            00| | ger^^</controlfield>
+					<datafield ind1=" " ind2=" " tag="020">
+						<subfield code="a">3406471692</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="035">
+						<subfield code="a">(swissbib)003365107-41slsp_network</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="035">
+						<subfield code="a">003365107</subfield>
+						<subfield code="9">ExL</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="035">
+						<subfield code="a">(IDSSG)000504216HSB01</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="040">
+						<subfield code="a">SzZuIDS HSG</subfield>
+						<subfield code="b">ger</subfield>
+						<subfield code="e">kids</subfield>
+						<subfield code="d">CH-ZuSLS</subfield>
+					</datafield>
+					<datafield ind1="1" ind2=" " tag="100">
+						<subfield code="a">Burckhardt, Jacob</subfield>
+					</datafield>
+					<datafield ind1="1" ind2="0" tag="245">
+						<subfield code="a">&lt;&lt;Der&gt;&gt; Cicerone</subfield>
+						<subfield code="b">eine Anleitung zum Genuss der Kunstwerke Italiens : Malerei</subfield>
+						<subfield code="c">Jacob Burckhardt ; hrsg. von Bernd Roeck ... [et al.]</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="1" tag="264">
+						<subfield code="a">München</subfield>
+						<subfield code="b">Beck</subfield>
+						<subfield code="c">2001</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="300">
+						<subfield code="a">504 S.</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="336">
+						<subfield code="b">txt</subfield>
+						<subfield code="2">rdacontent</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="337">
+						<subfield code="b">n</subfield>
+						<subfield code="2">rdamedia</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="338">
+						<subfield code="b">nc</subfield>
+						<subfield code="2">rdacarrier</subfield>
+					</datafield>
+					<datafield ind1="1" ind2=" " tag="490">
+						<subfield code="a">Werke / Jacob Burckhardt</subfield>
+						<subfield code="v">Bd. 3</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="7" tag="648">
+						<subfield code="a">Geschichte</subfield>
+						<subfield code="2">gnd</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="7" tag="650">
+						<subfield code="a">Malerei</subfield>
+						<subfield code="0">(DE-588)4037220-0</subfield>
+						<subfield code="2">gnd</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="7" tag="651">
+						<subfield code="a">Italien</subfield>
+						<subfield code="0">(DE-588)4027833-5</subfield>
+						<subfield code="2">gnd</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="690">
+						<subfield code="a">Glasmalerei; Architektur; Register; Antike; Renaissance; Übersicht; Burckhardt; Cicerone</subfield>
+						<subfield code="2">idssg-J</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="690">
+						<subfield code="a">Ortsregister; Personenregister; Sachregister; Gesamtregister; Hochrenaissance</subfield>
+						<subfield code="2">idssg-J</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="690">
+						<subfield code="a">altchristliche Malerei; altniederländischer Meister; altchristliche Architektur; altdeutscher Meister; byzantinische Malerei; editorisches Nachwort; ganze Renaissance; germanische Architektur; germanische Malerei; moderne Malerei; romanische Architektur; textkritische Anmerkung</subfield>
+						<subfield code="2">idssg-J</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="690">
+						<subfield code="a">Italien C4EUIT; Deutschland C4EUGE; Schweiz C4EXSI</subfield>
+						<subfield code="2">idssg-J</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="690">
+						<subfield code="a">Beck; Bernd Roeck; C. H; Christine Tauber; Franz Kugler; Jacob Burckhardt; Katja Amato; Martin Warnke; Schwabe Co.; Sibylle Backmann</subfield>
+						<subfield code="2">idssg-J</subfield>
+					</datafield>
+					<datafield ind1="1" ind2=" " tag="700">
+						<subfield code="a">Roeck, Bernd</subfield>
+					</datafield>
+					<datafield ind1="4" ind2=" " tag="856">
+						<subfield code="u">http://unisg.link/hm00265018</subfield>
+						<subfield code="z">Inhaltsverzeichnis</subfield>
+					</datafield>
+					<datafield ind1="1" ind2=" " tag="800">
+						<subfield code="a">Burckhardt, Jacob</subfield>
+						<subfield code="d">1818-1897</subfield>
+						<subfield code="t">Werke</subfield>
+						<subfield code="v">3</subfield>
+						<subfield code="w">(IDSSG)000501601HSB01</subfield>
+					</datafield>
+					<datafield ind1="0" ind2="1" tag="852">
+						<subfield code="a">41SLSP_HSG</subfield>
+						<subfield code="6">995042160105506</subfield>
+						<subfield code="9">P</subfield>
+					</datafield>
+				</record>
+			</recordData>
+			<recordIdentifier>991031381879705501</recordIdentifier>
+			<recordPosition>7</recordPosition>
+		</record>
+		<record>
+			<recordSchema>marcxml</recordSchema>
+			<recordPacking>xml</recordPacking>
+			<recordData>
+				<record xmlns="http://www.loc.gov/MARC21/slim">
+					<leader>03101nam a2200853 ca4500</leader>
+					<controlfield tag="001">991101771719705501</controlfield>
+					<controlfield tag="005">20201229232415.0</controlfield>
+					<controlfield tag="008">201011s2001    gw            00| | ger^^</controlfield>
+					<datafield ind1=" " ind2=" " tag="020">
+						<subfield code="a">3406471560</subfield>
+						<subfield code="c">(Architektur und Sculptur)</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="020">
+						<subfield code="a">3406471692</subfield>
+						<subfield code="c">(Malerei)</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="035">
+						<subfield code="a">(swissbib)214830780-41slsp_network</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="035">
+						<subfield code="a">214830780</subfield>
+						<subfield code="9">ExL</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="035">
+						<subfield code="a">(NEBIS)004187077EBI01</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="035">
+						<subfield code="a">(IDSLU)000357358ILU01</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="035">
+						<subfield code="a">(IDSBB)002399077DSV01</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="040">
+						<subfield code="a">SzZuIDS NEBIS SIK</subfield>
+						<subfield code="d">CH-ZuSLS</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="7" tag="072">
+						<subfield code="a">630</subfield>
+						<subfield code="2">IDS LU</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="7" tag="072">
+						<subfield code="a">kh</subfield>
+						<subfield code="2">SzZuIDS BS/BE</subfield>
+					</datafield>
+					<datafield ind1="0" ind2="0" tag="082">
+						<subfield code="a">909</subfield>
+						<subfield code="2">23</subfield>
+					</datafield>
+					<datafield ind1="0" ind2="4" tag="082">
+						<subfield code="a">709.45</subfield>
+						<subfield code="2">21</subfield>
+					</datafield>
+					<datafield ind1="1" ind2="4" tag="082">
+						<subfield code="a">914.5</subfield>
+						<subfield code="2">21</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="084">
+						<subfield code="a">9,10</subfield>
+						<subfield code="2">ssgn</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="084">
+						<subfield code="a">CG 2100</subfield>
+						<subfield code="2">rvk</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="084">
+						<subfield code="a">LH 64840</subfield>
+						<subfield code="2">rvk</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="084">
+						<subfield code="a">NB 6128</subfield>
+						<subfield code="2">rvk</subfield>
+					</datafield>
+					<datafield ind1="1" ind2=" " tag="100">
+						<subfield code="a">Burckhardt, Jacob</subfield>
+						<subfield code="d">1818-1897</subfield>
+						<subfield code="0">(DE-588)11851752X</subfield>
+					</datafield>
+					<datafield ind1="1" ind2="0" tag="245">
+						<subfield code="a">&lt;&lt;Der&gt;&gt; Cicerone</subfield>
+						<subfield code="b">eine Anleitung zum Genuss der Kunstwerke Italiens</subfield>
+						<subfield code="c">Jacob Burckhardt ; hrsg. von Bernd Roeck ... [et al.]</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="1" tag="264">
+						<subfield code="a">München</subfield>
+						<subfield code="b">Beck</subfield>
+						<subfield code="c">2001</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="300">
+						<subfield code="a">2 Teile (827 S. ; 504 S.)</subfield>
+						<subfield code="c">23 cm</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="336">
+						<subfield code="b">txt</subfield>
+						<subfield code="2">rdacontent</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="337">
+						<subfield code="b">n</subfield>
+						<subfield code="2">rdamedia</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="338">
+						<subfield code="b">nc</subfield>
+						<subfield code="2">rdacarrier</subfield>
+					</datafield>
+					<datafield ind1="1" ind2=" " tag="490">
+						<subfield code="a">Werke / Jacob Burckhardt</subfield>
+						<subfield code="v">Band 2-3</subfield>
+					</datafield>
+					<datafield ind1="0" ind2="0" tag="505">
+						<subfield code="g">[1]</subfield>
+						<subfield code="t">Architektur und Sculptur</subfield>
+					</datafield>
+					<datafield ind1="0" ind2="0" tag="505">
+						<subfield code="g">[2]</subfield>
+						<subfield code="t">Malerei</subfield>
+					</datafield>
+					<datafield ind1="1" ind2="7" tag="600">
+						<subfield code="a">Burckhardt, Jacob</subfield>
+						<subfield code="d">1818-1897</subfield>
+						<subfield code="0">(DE-588)11851752X</subfield>
+						<subfield code="2">gnd</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="7" tag="648">
+						<subfield code="a">Geschichte</subfield>
+						<subfield code="2">gnd</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="7" tag="648">
+						<subfield code="a">Geschichte 500 v. Chr</subfield>
+						<subfield code="2">gnd</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="7" tag="648">
+						<subfield code="a">Geschichte</subfield>
+						<subfield code="2">idszbz</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="7" tag="650">
+						<subfield code="a">Antike</subfield>
+						<subfield code="0">(DE-588)4068754-5</subfield>
+						<subfield code="2">gnd</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="7" tag="650">
+						<subfield code="a">Architektur</subfield>
+						<subfield code="0">(DE-588)4002851-3</subfield>
+						<subfield code="2">gnd</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="7" tag="650">
+						<subfield code="a">Barock</subfield>
+						<subfield code="0">(DE-588)4004541-9</subfield>
+						<subfield code="2">gnd</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="7" tag="650">
+						<subfield code="a">Kunst</subfield>
+						<subfield code="0">(DE-588)4114333-4</subfield>
+						<subfield code="2">gnd</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="7" tag="650">
+						<subfield code="a">Malerei</subfield>
+						<subfield code="0">(DE-588)4037220-0</subfield>
+						<subfield code="2">gnd</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="7" tag="650">
+						<subfield code="a">Mittelalter</subfield>
+						<subfield code="0">(DE-588)4129108-6</subfield>
+						<subfield code="2">gnd</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="7" tag="650">
+						<subfield code="a">Plastik</subfield>
+						<subfield code="0">(DE-588)4046277-8</subfield>
+						<subfield code="2">gnd</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="7" tag="650">
+						<subfield code="a">Renaissance</subfield>
+						<subfield code="0">(DE-588)4049450-0</subfield>
+						<subfield code="2">gnd</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="7" tag="650">
+						<subfield code="a">Architektur</subfield>
+						<subfield code="2">idszbz</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="7" tag="650">
+						<subfield code="a">Malerei</subfield>
+						<subfield code="2">idszbz</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="7" tag="650">
+						<subfield code="a">Plastik</subfield>
+						<subfield code="2">idszbz</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="0" tag="650">
+						<subfield code="a">Aesthetics</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="0" tag="650">
+						<subfield code="a">Architecture, Italian</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="0" tag="650">
+						<subfield code="a">Architecture</subfield>
+						<subfield code="z">Italy</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="0" tag="650">
+						<subfield code="a">Art criticism</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="0" tag="650">
+						<subfield code="a">Art, Italian</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="0" tag="650">
+						<subfield code="a">Art</subfield>
+						<subfield code="z">Italy</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="0" tag="650">
+						<subfield code="a">Art</subfield>
+						<subfield code="z">Italy</subfield>
+						<subfield code="x">History</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="0" tag="650">
+						<subfield code="a">Civilization</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="7" tag="650">
+						<subfield code="a">ARCHITEKTUR</subfield>
+						<subfield code="9">ger</subfield>
+						<subfield code="0">(ETHUDK)000035449</subfield>
+						<subfield code="2">ethudk</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="7" tag="650">
+						<subfield code="a">GESAMMELTE WERKE EINZELNER VERFASSER</subfield>
+						<subfield code="9">ger</subfield>
+						<subfield code="0">(ETHUDK)000009346</subfield>
+						<subfield code="2">ethudk</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="7" tag="650">
+						<subfield code="a">SKULPTUREN + STATUEN + BÜSTEN (BILDHAUEREI)</subfield>
+						<subfield code="9">ger</subfield>
+						<subfield code="0">(ETHUDK)000035758</subfield>
+						<subfield code="2">ethudk</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="7" tag="650">
+						<subfield code="a">TAFELMALEREI + ALTARBILDER</subfield>
+						<subfield code="9">ger</subfield>
+						<subfield code="0">(ETHUDK)000035855</subfield>
+						<subfield code="2">ethudk</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="7" tag="651">
+						<subfield code="a">Italien</subfield>
+						<subfield code="2">idszbz</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="7" tag="651">
+						<subfield code="a">Italien</subfield>
+						<subfield code="0">(DE-588)4027833-5</subfield>
+						<subfield code="2">gnd</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="7" tag="655">
+						<subfield code="a">Führer</subfield>
+						<subfield code="2">idszbz</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="7" tag="655">
+						<subfield code="a">Kunstführer</subfield>
+						<subfield code="2">gnd-content</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="690">
+						<subfield code="a">Italien. Architektur. Renaissance</subfield>
+						<subfield code="2">uzb-US</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="690">
+						<subfield code="a">Italien. Plastik. Renaissance</subfield>
+						<subfield code="2">uzb-US</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="690">
+						<subfield code="a">Italien. Malerei. Renaissance</subfield>
+						<subfield code="2">uzb-US</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="690">
+						<subfield code="a">Burckhardt, Jacob</subfield>
+						<subfield code="2">ubs-AC</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="691">
+						<subfield code="e">3.5.3.3.1</subfield>
+						<subfield code="2">ubs-FA</subfield>
+					</datafield>
+					<datafield ind1="1" ind2=" " tag="700">
+						<subfield code="a">Roeck, Bernd</subfield>
+						<subfield code="d">1953-</subfield>
+						<subfield code="0">(DE-588)120854325</subfield>
+					</datafield>
+					<datafield ind1="1" ind2=" " tag="800">
+						<subfield code="a">Burckhardt, Jacob</subfield>
+						<subfield code="d">1818-1897</subfield>
+						<subfield code="t">Werke</subfield>
+						<subfield code="v">2-3</subfield>
+						<subfield code="w">(IDSBB)002027441DSV01</subfield>
+					</datafield>
+					<datafield ind1="0" ind2="1" tag="852">
+						<subfield code="a">41SLSP_RZH</subfield>
+						<subfield code="6">990041870770205526</subfield>
+						<subfield code="9">P</subfield>
+					</datafield>
+					<datafield ind1="0" ind2="1" tag="852">
+						<subfield code="a">41SLSP_UZB</subfield>
+						<subfield code="6">990041870770205508</subfield>
+						<subfield code="9">P</subfield>
+					</datafield>
+					<datafield ind1="0" ind2="1" tag="852">
+						<subfield code="a">41SLSP_UBE</subfield>
+						<subfield code="6">99116816776105511</subfield>
+						<subfield code="9">P</subfield>
+					</datafield>
+					<datafield ind1="0" ind2="1" tag="852">
+						<subfield code="a">41SLSP_RZS</subfield>
+						<subfield code="6">993573580105505</subfield>
+						<subfield code="9">P</subfield>
+					</datafield>
+					<datafield ind1="0" ind2="1" tag="852">
+						<subfield code="a">41SLSP_ZBS</subfield>
+						<subfield code="6">9923990770105528</subfield>
+						<subfield code="9">P</subfield>
+					</datafield>
+					<datafield ind1="0" ind2="1" tag="852">
+						<subfield code="a">41SLSP_UBS</subfield>
+						<subfield code="6">9923990770105504</subfield>
+						<subfield code="9">P</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="900">
+						<subfield code="a">IDSZ2zbzmon200304l</subfield>
+						<subfield code="c">IDSZ2emme</subfield>
+						<subfield code="d">IDSZ2zbzswk200310b</subfield>
+						<subfield code="e">IDSZ2kotr</subfield>
+					</datafield>
+				</record>
+			</recordData>
+			<recordIdentifier>991101771719705501</recordIdentifier>
+			<recordPosition>8</recordPosition>
+		</record>
+		<record>
+			<recordSchema>marcxml</recordSchema>
+			<recordPacking>xml</recordPacking>
+			<recordData>
+				<record xmlns="http://www.loc.gov/MARC21/slim">
+					<leader>03871nam a2200865 c 4500</leader>
+					<controlfield tag="001">991120976659705501</controlfield>
+					<controlfield tag="005">20201126033752.0</controlfield>
+					<controlfield tag="008">201012s2018    gw |||||      00| ||ger|^</controlfield>
+					<datafield ind1=" " ind2=" " tag="015">
+						<subfield code="a">17,N46</subfield>
+						<subfield code="2">dnb</subfield>
+					</datafield>
+					<datafield ind1="7" ind2=" " tag="016">
+						<subfield code="a">1143614496</subfield>
+						<subfield code="2">DE-101</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="020">
+						<subfield code="a">3406721575</subfield>
+						<subfield code="q">Hardback</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="020">
+						<subfield code="a">9783406721571</subfield>
+						<subfield code="c">circa EUR 148.00 (DE)</subfield>
+					</datafield>
+					<datafield ind1="3" ind2=" " tag="024">
+						<subfield code="a">9783406721571</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="035">
+						<subfield code="a">(swissbib)236758888-41slsp_network</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="035">
+						<subfield code="a">236758888</subfield>
+						<subfield code="9">ExL</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="035">
+						<subfield code="a">(IDSLU)001320315ILU01</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="035">
+						<subfield code="a">(IDSSG)001018612HSB01</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="035">
+						<subfield code="a">(NEBIS)011184558EBI01</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="035">
+						<subfield code="a">(IDSBB)006799786DSV01</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="035">
+						<subfield code="a">(OCoLC)1012135083</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="035">
+						<subfield code="a">(DE-599)DNB1143614496</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="035">
+						<subfield code="a">(OCoLC)1035942972</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="040">
+						<subfield code="a">1245</subfield>
+						<subfield code="b">ger</subfield>
+						<subfield code="e">rda</subfield>
+						<subfield code="d">CH-ZuSLS</subfield>
+					</datafield>
+					<datafield ind1="0" ind2=" " tag="041">
+						<subfield code="a">ger</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="7" tag="072">
+						<subfield code="a">630</subfield>
+						<subfield code="2">IDS LU</subfield>
+					</datafield>
+					<datafield ind1="1" ind2="4" tag="082">
+						<subfield code="a">940</subfield>
+						<subfield code="2">15</subfield>
+					</datafield>
+					<datafield ind1="1" ind2="4" tag="082">
+						<subfield code="a">700</subfield>
+						<subfield code="2">15</subfield>
+					</datafield>
+					<datafield ind1="1" ind2="4" tag="082">
+						<subfield code="a">900</subfield>
+						<subfield code="2">15</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="084">
+						<subfield code="a">NK 7800</subfield>
+						<subfield code="2">rvk</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="084">
+						<subfield code="a">LH 64840</subfield>
+						<subfield code="2">rvk</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="084">
+						<subfield code="a">GB 1632</subfield>
+						<subfield code="2">rvk</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="084">
+						<subfield code="a">GE 6701</subfield>
+						<subfield code="2">rvk</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="084">
+						<subfield code="a">LH 63190</subfield>
+						<subfield code="2">rvk</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="084">
+						<subfield code="a">NB 6128</subfield>
+						<subfield code="2">rvk</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="084">
+						<subfield code="a">NN 1595</subfield>
+						<subfield code="2">rvk</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="084">
+						<subfield code="a">NB 6129</subfield>
+						<subfield code="2">rvk</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="084">
+						<subfield code="a">3</subfield>
+						<subfield code="2">sdnb</subfield>
+					</datafield>
+					<datafield ind1="1" ind2=" " tag="100">
+						<subfield code="a">Burckhardt, Jacob</subfield>
+						<subfield code="d">1818-1897</subfield>
+						<subfield code="0">(DE-588)11851752X</subfield>
+						<subfield code="e">Verfasser</subfield>
+						<subfield code="4">aut</subfield>
+					</datafield>
+					<datafield ind1="1" ind2="0" tag="240">
+						<subfield code="a">&lt;&lt;Die&gt;&gt; Kultur der Renaissance in Italien</subfield>
+					</datafield>
+					<datafield ind1="1" ind2="0" tag="245">
+						<subfield code="a">&lt;&lt;Die&gt;&gt; Cultur der Renaissance in Italien</subfield>
+						<subfield code="b">ein Versuch</subfield>
+						<subfield code="c">herausgegeben von Mikkel Mangold auf der Grundlage der Vorarbeiten von Kenji Hara und Hiroyuki Numata</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="1" tag="264">
+						<subfield code="a">München</subfield>
+						<subfield code="b">C.H. Beck</subfield>
+						<subfield code="a">Basel</subfield>
+						<subfield code="b">Schwabe</subfield>
+						<subfield code="c">[2018]</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="300">
+						<subfield code="a">724 Seiten</subfield>
+						<subfield code="b">Illustrationen</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="336">
+						<subfield code="b">txt</subfield>
+						<subfield code="2">rdacontent</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="337">
+						<subfield code="b">n</subfield>
+						<subfield code="2">rdamedia</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="338">
+						<subfield code="b">nc</subfield>
+						<subfield code="2">rdacarrier</subfield>
+					</datafield>
+					<datafield ind1="1" ind2=" " tag="490">
+						<subfield code="a">Werke / Jacob Burckhardt</subfield>
+						<subfield code="v">Band 4</subfield>
+					</datafield>
+					<datafield ind1="1" ind2="0" tag="600">
+						<subfield code="a">Burckhardt, Jacob</subfield>
+						<subfield code="d">1818-1897</subfield>
+						<subfield code="t">Cultur der Renaissance in Italien</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="7" tag="648">
+						<subfield code="a">Geschichte 1420-1600</subfield>
+						<subfield code="2">gnd</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="7" tag="648">
+						<subfield code="a">Geistesgeschichte 1300-1550</subfield>
+						<subfield code="2">gnd</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="7" tag="650">
+						<subfield code="a">Kultur</subfield>
+						<subfield code="0">(DE-588)4125698-0</subfield>
+						<subfield code="2">gnd</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="7" tag="650">
+						<subfield code="a">ITALIEN (SÜDEUROPA). REPUBLIK ITALIEN</subfield>
+						<subfield code="9">ger</subfield>
+						<subfield code="0">(ETHUDK)000003602</subfield>
+						<subfield code="2">ethudk</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="7" tag="650">
+						<subfield code="a">KULTURGESCHICHTE DER NEUZEIT</subfield>
+						<subfield code="9">ger</subfield>
+						<subfield code="0">(ETHUDK)000045532</subfield>
+						<subfield code="2">ethudk</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="7" tag="650">
+						<subfield code="a">Kunst</subfield>
+						<subfield code="0">(DE-588)4114333-4</subfield>
+						<subfield code="2">gnd</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="7" tag="650">
+						<subfield code="a">Renaissance</subfield>
+						<subfield code="0">(DE-588)4049450-0</subfield>
+						<subfield code="2">gnd</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="0" tag="650">
+						<subfield code="a">Aesthetics</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="0" tag="650">
+						<subfield code="a">Art criticism</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="0" tag="650">
+						<subfield code="a">Art, Italian</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="0" tag="650">
+						<subfield code="a">Renaissance</subfield>
+						<subfield code="z">Italy</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="7" tag="651">
+						<subfield code="a">Italien</subfield>
+						<subfield code="0">(DE-588)4027833-5</subfield>
+						<subfield code="2">gnd</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="0" tag="651">
+						<subfield code="a">Europe</subfield>
+						<subfield code="x">History</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="0" tag="651">
+						<subfield code="a">Italy</subfield>
+						<subfield code="x">Civilization</subfield>
+						<subfield code="y">1268-1559</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="690">
+						<subfield code="a">Renaissance; Register; Experiment; Burckhardt; Welt; Beck; Kunstwerk; Entdeckung; Entwicklung; Kommentar; Literatur; Mensch; Basel; Individuum; Übersicht; Feste; Religion; Sitte; Staat</subfield>
+						<subfield code="2">idssg-J</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="690">
+						<subfield code="a">Personenregister; Sachregister; Inhaltsübersicht; Titelangabe</subfield>
+						<subfield code="2">idssg-J</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="690">
+						<subfield code="a">dritter Abschnitt; editorisches Nachwort; erster Abschnitt; fünfter Abschnitt; genaue Titelangabe; häufig Citirten; sechster Abschnitt; textkritische Anmerkung; vierter Abschnitt; zweiter Abschnitt</subfield>
+						<subfield code="2">idssg-J</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="690">
+						<subfield code="a">Italien C4EUIT; Bayern C4EUGE; Deutschland C4EUGE; Schweiz C4EXSI; Welt C00WOR</subfield>
+						<subfield code="2">idssg-J</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="690">
+						<subfield code="a">Hiroyuki Numata Beck München Schwabe Basel; Italien Erster Abschnitt; Jacob Burckhardt; Kenji Hara; Mangold; sechst Abschnitt Sitte; zweit Abschnitt Entwicklung</subfield>
+						<subfield code="2">idssg-J</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="690">
+						<subfield code="a">Burckhardt, Jacob</subfield>
+						<subfield code="2">uzb-US</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="690">
+						<subfield code="a">Italien. Kulturgeschichte. Renaissance</subfield>
+						<subfield code="2">uzb-US</subfield>
+					</datafield>
+					<datafield ind1="1" ind2=" " tag="700">
+						<subfield code="a">Mangold, Mikkel</subfield>
+						<subfield code="d">1966-</subfield>
+						<subfield code="0">(DE-588)12889413X</subfield>
+						<subfield code="e">Herausgeber</subfield>
+						<subfield code="4">edt</subfield>
+					</datafield>
+					<datafield ind1="1" ind2=" " tag="700">
+						<subfield code="a">Hara, Kenji</subfield>
+						<subfield code="d">1951-2008</subfield>
+						<subfield code="0">(DE-588)135890586</subfield>
+						<subfield code="e">Mitwirkender</subfield>
+						<subfield code="4">ctb</subfield>
+					</datafield>
+					<datafield ind1="1" ind2=" " tag="700">
+						<subfield code="a">Numata, Hiroyuki</subfield>
+						<subfield code="d">1936-</subfield>
+						<subfield code="0">(DE-588)142058092</subfield>
+						<subfield code="e">Mitwirkender</subfield>
+						<subfield code="4">ctb</subfield>
+					</datafield>
+					<datafield ind1="4" ind2=" " tag="856">
+						<subfield code="3">Titelblatt und Inhaltsverzeichnis</subfield>
+						<subfield code="u">https://toc.library.ethz.ch/objects/pdf03/z01_978-3-406-72157-1_01.pdf</subfield>
+						<subfield code="q">pdf</subfield>
+					</datafield>
+					<datafield ind1="1" ind2=" " tag="800">
+						<subfield code="a">Burckhardt, Jacob</subfield>
+						<subfield code="d">1818-1897</subfield>
+						<subfield code="t">Werke</subfield>
+						<subfield code="v">4</subfield>
+						<subfield code="w">(IDSLU)000279112ILU01</subfield>
+					</datafield>
+					<datafield ind1="0" ind2="1" tag="852">
+						<subfield code="a">41SLSP_RZH</subfield>
+						<subfield code="6">990111845580205526</subfield>
+						<subfield code="9">P</subfield>
+					</datafield>
+					<datafield ind1="0" ind2="1" tag="852">
+						<subfield code="a">41SLSP_UZB</subfield>
+						<subfield code="6">990111845580205508</subfield>
+						<subfield code="9">P</subfield>
+					</datafield>
+					<datafield ind1="0" ind2="1" tag="852">
+						<subfield code="a">41SLSP_HSG</subfield>
+						<subfield code="6">9910186120105506</subfield>
+						<subfield code="9">P</subfield>
+					</datafield>
+					<datafield ind1="0" ind2="1" tag="852">
+						<subfield code="a">41SLSP_UBE</subfield>
+						<subfield code="6">99116928456705511</subfield>
+						<subfield code="9">P</subfield>
+					</datafield>
+					<datafield ind1="0" ind2="1" tag="852">
+						<subfield code="a">41SLSP_RZS</subfield>
+						<subfield code="6">9913203150105505</subfield>
+						<subfield code="9">P</subfield>
+					</datafield>
+					<datafield ind1="0" ind2="1" tag="852">
+						<subfield code="a">41SLSP_ZBS</subfield>
+						<subfield code="6">9967997860105528</subfield>
+						<subfield code="9">P</subfield>
+					</datafield>
+					<datafield ind1="0" ind2="1" tag="852">
+						<subfield code="a">41SLSP_UBS</subfield>
+						<subfield code="6">9967997860105504</subfield>
+						<subfield code="9">P</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="900">
+						<subfield code="a">IDSZ2zbzmon201806l</subfield>
+						<subfield code="c">IDSZ2rusc</subfield>
+						<subfield code="d">IDSZ2zbzswk201806g</subfield>
+						<subfield code="e">IDSZ2schl</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="900">
+						<subfield code="a">IDSDSStoppsignal FRED</subfield>
+					</datafield>
+				</record>
+			</recordData>
+			<recordIdentifier>991120976659705501</recordIdentifier>
+			<recordPosition>9</recordPosition>
+		</record>
+		<record>
+			<recordSchema>marcxml</recordSchema>
+			<recordPacking>xml</recordPacking>
+			<recordData>
+				<record xmlns="http://www.loc.gov/MARC21/slim">
+					<leader>02886nam a2200733 c 4500</leader>
+					<controlfield tag="001">991043195259705501</controlfield>
+					<controlfield tag="005">20201231095640.0</controlfield>
+					<controlfield tag="008">201012s2006    gw            00| | ger^^</controlfield>
+					<datafield ind1=" " ind2=" " tag="020">
+						<subfield code="a">9783406550362</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="020">
+						<subfield code="a">3406550363</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="035">
+						<subfield code="a">(swissbib)236766465-41slsp_network</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="035">
+						<subfield code="a">236766465</subfield>
+						<subfield code="9">ExL</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="035">
+						<subfield code="a">(IDSBB)003984289DSV01</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="035">
+						<subfield code="a">(IDSLU)000501719ILU01</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="035">
+						<subfield code="a">(NEBIS)005243996EBI01</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="035">
+						<subfield code="a">(IDSSG)000504262HSB01</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="040">
+						<subfield code="a">SzZuIDS BS/BE A348</subfield>
+						<subfield code="e">kids</subfield>
+						<subfield code="d">CH-ZuSLS</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="7" tag="072">
+						<subfield code="a">kh</subfield>
+						<subfield code="2">SzZuIDS BS/BE</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="7" tag="072">
+						<subfield code="a">gw</subfield>
+						<subfield code="2">SzZuIDS BS/BE</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="7" tag="072">
+						<subfield code="a">460</subfield>
+						<subfield code="2">IDS LU</subfield>
+					</datafield>
+					<datafield ind1="0" ind2="4" tag="082">
+						<subfield code="a">909</subfield>
+						<subfield code="2">23</subfield>
+					</datafield>
+					<datafield ind1="0" ind2="4" tag="082">
+						<subfield code="a">759.04</subfield>
+						<subfield code="2">22</subfield>
+					</datafield>
+					<datafield ind1="0" ind2="4" tag="082">
+						<subfield code="a">834</subfield>
+						<subfield code="2">21</subfield>
+					</datafield>
+					<datafield ind1="1" ind2="4" tag="082">
+						<subfield code="a">759.9493</subfield>
+						<subfield code="2">21</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="084">
+						<subfield code="a">9,10</subfield>
+						<subfield code="2">ssgn</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="084">
+						<subfield code="a">NB 6128</subfield>
+						<subfield code="2">rvk</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="084">
+						<subfield code="a">NB 6129</subfield>
+						<subfield code="2">rvk</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="084">
+						<subfield code="a">LO 10355</subfield>
+						<subfield code="2">rvk</subfield>
+					</datafield>
+					<datafield ind1="1" ind2=" " tag="100">
+						<subfield code="a">Burckhardt, Jacob</subfield>
+						<subfield code="d">1818-1897</subfield>
+						<subfield code="0">(DE-588)11851752X</subfield>
+					</datafield>
+					<datafield ind1="1" ind2="0" tag="245">
+						<subfield code="a">Erinnerungen aus Rubens</subfield>
+						<subfield code="c">Jacob Burckhardt ; aus dem Nachlass hrsg. von Edith Struchholz und Martin Warnke</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="1" tag="264">
+						<subfield code="a">München</subfield>
+						<subfield code="b">Beck</subfield>
+						<subfield code="c">2006</subfield>
+						<subfield code="a">Basel</subfield>
+						<subfield code="b">Schwabe</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="300">
+						<subfield code="a">275 S.</subfield>
+						<subfield code="c">23 cm</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="336">
+						<subfield code="b">txt</subfield>
+						<subfield code="2">rdacontent</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="337">
+						<subfield code="b">n</subfield>
+						<subfield code="2">rdamedia</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="338">
+						<subfield code="b">nc</subfield>
+						<subfield code="2">rdacarrier</subfield>
+					</datafield>
+					<datafield ind1="1" ind2=" " tag="490">
+						<subfield code="a">Werke / Jacob Burckhardt</subfield>
+						<subfield code="v">Bd. 11</subfield>
+					</datafield>
+					<datafield ind1="1" ind2="7" tag="600">
+						<subfield code="a">Rubens, Peter P</subfield>
+						<subfield code="2">idszbz</subfield>
+					</datafield>
+					<datafield ind1="1" ind2="0" tag="600">
+						<subfield code="a">Rubens, Peter Paul</subfield>
+						<subfield code="d">1577-1640</subfield>
+						<subfield code="x">Criticism and interpretation</subfield>
+					</datafield>
+					<datafield ind1="1" ind2="7" tag="600">
+						<subfield code="a">Burckhardt, Jacob</subfield>
+						<subfield code="d">1818-1897</subfield>
+						<subfield code="0">(DE-588)11851752X</subfield>
+						<subfield code="2">gnd</subfield>
+					</datafield>
+					<datafield ind1="1" ind2="7" tag="600">
+						<subfield code="a">Rubens, Peter Paul</subfield>
+						<subfield code="d">1577-1640</subfield>
+						<subfield code="0">(DE-588)11860354X</subfield>
+						<subfield code="2">gnd</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="7" tag="648">
+						<subfield code="a">Geschichte 1577</subfield>
+						<subfield code="2">gnd</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="7" tag="650">
+						<subfield code="a">Kunst</subfield>
+						<subfield code="0">(DE-588)4114333-4</subfield>
+						<subfield code="2">gnd</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="0" tag="650">
+						<subfield code="a">Aesthetics</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="0" tag="650">
+						<subfield code="a">Art criticism</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="0" tag="650">
+						<subfield code="a">Art, Italian</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="7" tag="650">
+						<subfield code="a">BAROCKE MALEREI</subfield>
+						<subfield code="9">ger</subfield>
+						<subfield code="0">(ETHUDK)000046249</subfield>
+						<subfield code="2">ethudk</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="7" tag="650">
+						<subfield code="a">KUNSTGESCHICHTE</subfield>
+						<subfield code="9">ger</subfield>
+						<subfield code="0">(ETHUDK)000035233</subfield>
+						<subfield code="2">ethudk</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="7" tag="655">
+						<subfield code="a">Biografie</subfield>
+						<subfield code="2">gnd-content</subfield>
+					</datafield>
+					<datafield ind1=" " ind2="7" tag="655">
+						<subfield code="a">Biographie</subfield>
+						<subfield code="2">idszbz</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="690">
+						<subfield code="a">Rubens, Peter Paul</subfield>
+						<subfield code="2">ubs-A5</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="690">
+						<subfield code="a">Burckhardt, Jacob</subfield>
+						<subfield code="2">ubs-AC</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="690">
+						<subfield code="a">Rubens, Peter Paul. Besondere Aspekte</subfield>
+						<subfield code="2">uzb-US</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="690">
+						<subfield code="a">Burckhardt, Jacob</subfield>
+						<subfield code="2">uzb-US</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="690">
+						<subfield code="a">Register; Erinnerung; Sammlung; Burckhardt; Beck; Kommentar; Literatur; Übersicht; Museum; Basel</subfield>
+						<subfield code="2">idssg-J</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="690">
+						<subfield code="a">Ortsregister; Personenregister; Sachregister; Werkregister; Inhaltsübersicht</subfield>
+						<subfield code="2">idssg-J</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="690">
+						<subfield code="a">editorisches Nachwort; textkritische Anmerkung</subfield>
+						<subfield code="2">idssg-J</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="690">
+						<subfield code="a">Deutschland C4EUGE; Schweiz C4EXSI</subfield>
+						<subfield code="2">idssg-J</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="690">
+						<subfield code="a">Beck; Edith Struchholz; Jacob Burckhardt; Martin Warnke; Rubens; Schwabe Basel; St. C. H</subfield>
+						<subfield code="2">idssg-J</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="691">
+						<subfield code="e">3.5.3.3.1</subfield>
+						<subfield code="2">ubs-FA</subfield>
+					</datafield>
+					<datafield ind1="1" ind2=" " tag="700">
+						<subfield code="a">Warnke, Martin</subfield>
+						<subfield code="d">1937-2019</subfield>
+						<subfield code="0">(DE-588)11586055X</subfield>
+					</datafield>
+					<datafield ind1="1" ind2=" " tag="700">
+						<subfield code="a">Struchholz, Edith</subfield>
+						<subfield code="d">1961-</subfield>
+						<subfield code="0">(DE-588)114017581</subfield>
+					</datafield>
+					<datafield ind1="4" ind2=" " tag="856">
+						<subfield code="u">http://unisg.link/hm00265024</subfield>
+						<subfield code="z">Inhaltsverzeichnis</subfield>
+					</datafield>
+					<datafield ind1="1" ind2=" " tag="800">
+						<subfield code="a">Burckhardt, Jacob</subfield>
+						<subfield code="d">1818-1897</subfield>
+						<subfield code="t">Werke</subfield>
+						<subfield code="v">11</subfield>
+						<subfield code="w">(IDSLU)000279112ILU01</subfield>
+					</datafield>
+					<datafield ind1="0" ind2="1" tag="852">
+						<subfield code="a">41SLSP_RZH</subfield>
+						<subfield code="6">990052439960205526</subfield>
+						<subfield code="9">P</subfield>
+					</datafield>
+					<datafield ind1="0" ind2="1" tag="852">
+						<subfield code="a">41SLSP_UZB</subfield>
+						<subfield code="6">990052439960205508</subfield>
+						<subfield code="9">P</subfield>
+					</datafield>
+					<datafield ind1="0" ind2="1" tag="852">
+						<subfield code="a">41SLSP_HSG</subfield>
+						<subfield code="6">995042620105506</subfield>
+						<subfield code="9">P</subfield>
+					</datafield>
+					<datafield ind1="0" ind2="1" tag="852">
+						<subfield code="a">41SLSP_UBE</subfield>
+						<subfield code="6">99116822698305511</subfield>
+						<subfield code="9">P</subfield>
+					</datafield>
+					<datafield ind1="0" ind2="1" tag="852">
+						<subfield code="a">41SLSP_RZS</subfield>
+						<subfield code="6">995017190105505</subfield>
+						<subfield code="9">P</subfield>
+					</datafield>
+					<datafield ind1="0" ind2="1" tag="852">
+						<subfield code="a">41SLSP_ZBS</subfield>
+						<subfield code="6">9939842890105528</subfield>
+						<subfield code="9">P</subfield>
+					</datafield>
+					<datafield ind1="0" ind2="1" tag="852">
+						<subfield code="a">41SLSP_UBS</subfield>
+						<subfield code="6">9939842890105504</subfield>
+						<subfield code="9">P</subfield>
+					</datafield>
+					<datafield ind1=" " ind2=" " tag="900">
+						<subfield code="a">IDSZ2zbzmon200610l</subfield>
+						<subfield code="c">IDSZ2haab</subfield>
+						<subfield code="d">IDSZ2zbzswk200611b</subfield>
+						<subfield code="e">IDSZ2kupp</subfield>
+					</datafield>
+				</record>
+			</recordData>
+			<recordIdentifier>991043195259705501</recordIdentifier>
+			<recordPosition>10</recordPosition>
+		</record>
+	</records>
+	<nextRecordPosition>11</nextRecordPosition>
+	<extraResponseData xmlns:xb="http://www.exlibris.com/repository/search/xmlbeans/">
+		<xb:exact>true</xb:exact>
+		<xb:responseDate>2022-10-11T15:21:18+0200</xb:responseDate>
+	</extraResponseData>
+</searchRetrieveResponse>
