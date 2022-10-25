@@ -1,45 +1,67 @@
-<div *ngIf="entities$ | async as entities">
-  <ng-container
-                *ngIf="entities.length > 0; then entitylist; else noentities"></ng-container>
-  <ng-template #noentities>
-    <h1>no-entities</h1>
-    <input>
-  </ng-template>
+<div class="eca-actions">
+  <button mat-flat-button color="secondary" (click)="reset()" [disabled]="!selectedEntity">Reset</button>
+  <button mat-flat-button color="primary" (click)="reset()" [disabled]="!bibInfoResult">Export</button>
+</div>
+<div *ngIf="bibEntities.length == 0">
+  <h2>No Bibliographic Entities found, search for MMSID</h2>
+</div>
+<div *ngIf="bibEntities.length > 0">
+  <mat-card *ngFor="let bibEntity of bibEntities" [ngClass]="{ 'hidden' : selectedEntity && bibEntity.entity.id != selectedEntity.entity.id }">
+    <mat-card-title><span class="uxf-icon uxf-book-alt"></span> {{bibEntity.entity.description}}</mat-card-title>
+    <mat-card-content>
+      <mat-list>
+        <mat-list-item><span class="bold">NZ MMS ID:&nbsp;</span> {{ (bibEntity.nzMmsId | async) || '...' }}</mat-list-item>
+        <mat-list-item><span class="bold">Related Records:&nbsp;</span> {{ (bibEntity.relatedRecords | async | number: '1.0-0') || '...' }}</mat-list-item>
+      </mat-list>
+    </mat-card-content>
+    <mat-card-actions class="bib-entity-actions" *ngIf="!selectedEntity">
+      <button mat-flat-button color="primary" (click)="showHierarchy(bibEntity)">Show hierarchy</button>
+    </mat-card-actions>
+  </mat-card>
+  <div class="result-actions">
+    <button mat-flat-button color="secondary" *ngIf="bibInfoResult">Popout</button>
+  </div>
+  <table [hidden]="!bibInfoResult" class="result-table" mat-table matSort [dataSource]="bibInfoResult">
+    <ng-container matColumnDef="order">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+        Order
+      </th>
+      <td mat-cell *matCellDef="let bibinfo" data-label="Order"> {{bibinfo.order}} </td>
+    </ng-container>
+    <ng-container matColumnDef="title">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+        Title
+      </th>
+      <td mat-cell *matCellDef="let bibinfo" data-label="Title"> {{bibinfo.title}} </td>
+    </ng-container>
+    <ng-container matColumnDef="year">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+        Year
+      </th>
+      <td mat-cell *matCellDef="let bibinfo" data-label="Year"> {{bibinfo.year}} </td>
+    </ng-container>
+    <ng-container matColumnDef="edition">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+        Edition
+      </th>
+      <td mat-cell *matCellDef="let bibinfo" data-label="Edition"> {{bibinfo.edition}} </td>
+    </ng-container>
+    <ng-container matColumnDef="mmsId">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+        MMS ID
+      </th>
+      <td mat-cell *matCellDef="let bibinfo" data-label="MMS ID"> {{bibinfo.mmsId}} </td>
+    </ng-container>
+    <ng-container matColumnDef="holdings">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+        Holdings
+      </th>
+      <td mat-cell *matCellDef="let bibinfo" data-label="Holdings"> {{bibinfo.holdings}} </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
 
-  <ng-template #entitylist>
-    <div class="eca-actions">
-      <button mat-flat-button color="secondary" (click)="clear()" [disabled]="!selectedEntity">Clear</button>
-    </div>
-    <h1>Entities</h1>
-    <mat-card [style.display]="apiResult1 ? '' : 'none'">
-      <mat-card-header>
-        <mat-card-title>API Result</mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
-        <textarea #apiResult1Area [value]="apiResult1 | json"></textarea>
-        <div *ngIf="resultCount">Results: {{resultCount}}</div>
-        <textarea #apiResult2Area [value]="apiResult2 | json"></textarea>
-      </mat-card-content>
-    </mat-card>
-    <mat-card [style.display]="selectedEntity ? '' : 'none'">
-      <mat-card-header>
-        <mat-card-title>Selected Entity</mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
-        <pre>{{selectedEntity | json}}</pre>
-      </mat-card-content>
-    </mat-card>
-    <label id="entities-radio-group-label">Select an entity:</label>
-    <mat-radio-group
-                     aria-labelledby="entities-radio-group-label"
-                     class="entities-radio-group"
-                     [(ngModel)]="selectedEntity"
-                     (change)="entitySelected($event)">
-      <mat-radio-button *ngFor="let entity of entities" [value]="entity">
-        {{entity.description}}
-      </mat-radio-button>
-    </mat-radio-group>
-  </ng-template>
 </div>
 <div class="loading-shade" *ngIf="loader.isLoading | async">
   <mat-spinner diameter="50" [mode]="loader.mode | async" [value]="loader.progress | async"></mat-spinner>

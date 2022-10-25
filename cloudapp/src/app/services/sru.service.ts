@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http'
 import { Injectable } from '@angular/core'
-import { EMPTY, Observable } from 'rxjs'
-import { expand, map, reduce, tap } from 'rxjs/operators'
+import { EMPTY, Observable, of } from 'rxjs'
+import { expand, map, reduce, switchMap, tap } from 'rxjs/operators'
 import { SruQuery } from '../sru/sru-query'
 import { LoadingIndicatorService } from './loading-indicator.service'
 import { LogService } from './log.service'
@@ -15,7 +15,6 @@ export class SruService {
 
 	private static ALMA_DOMAIN: string = 'https://eu03.alma.exlibrisgroup.com'
 	private static SRU_PATH: string = '/view/sru/'
-	private static INSTITUTION_CODE: string = '41SLSP_HSG'
 	private static NETWORK_CODE: string = '41SLSP_NETWORK'
 
 	private params: HttpParams
@@ -28,7 +27,6 @@ export class SruService {
 		this.params = new HttpParams()
 			.set('version', '1.2')
 			.set('operation', 'searchRetrieve')
-			.set('maximumRecords', '50')
 			.set('recordSchema', 'marcxml')
 	}
 
@@ -36,10 +34,19 @@ export class SruService {
 		return SruService.ALMA_DOMAIN + SruService.SRU_PATH + SruService.NETWORK_CODE
 	}
 
-	private getParams(query: SruQuery, startRecord: number) {
+	private getParams(query: SruQuery, startRecord: number, maximumRecords: number) {
 		return this.params
 			.set(SruQuery.QUERY, query.get())
 			.set('startRecord', String(startRecord))
+			.set('maximumRecords', String(maximumRecords))
+	}
+
+	querNZRecordCount(query: SruQuery): Observable<number> {
+		const url: string = this.getNzUrl()
+		return this.call(url, query, 1, 0)
+			.pipe(
+				switchMap(response => of(this.parser.getNumberOfRecords(response)))
+			)
 	}
 
 	queryNZ(query: SruQuery): Observable<Element[]> {
@@ -65,8 +72,8 @@ export class SruService {
 		)
 	}
 
-	private call(url: string, query: SruQuery, startRecord: number = 1): Observable<string> {
-		const params: HttpParams = this.getParams(query, startRecord)
+	private call(url: string, query: SruQuery, startRecord: number = 1, maximumRecords: number = 50): Observable<string> {
+		const params: HttpParams = this.getParams(query, startRecord, maximumRecords)
 		this.log.info('SRU Query URL: ', url + '?' + params.toString())
 		return this.httpClient.get(url, {
 			responseType: 'text',
