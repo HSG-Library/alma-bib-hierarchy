@@ -31,3 +31,5 @@ MMSID: 991075127889705501
 SRU: https://eu03.alma.exlibrisgroup.com/view/sru/41SLSP_NETWORK?version=1.2&operation=searchRetrieve&query=mms_id=991075127889705501
 
 Follow-up SRU:   https://eu03.alma.exlibrisgroup.com/view/sru/41SLSP_NETWORK?startRecord=1&version=1.2&operation=searchRetrieve&query=other_system_number=(swissbib)218169426-41slsp_network%20OR%20other_system_number=218169426%20OR%20other_system_number=(IDSSG)000501601HSB01%20OR%20other_system_number=(NEBIS)004076210EBI01%20OR%20other_system_number=(IDSLU)000279112ILU01%20OR%20other_system_number=(IDSBB)002027441DSV01
+
+991075127889705501

@@ -1,11 +1,11 @@
-import { Component, ElementRef, OnDestroy, OnInit, Renderer2, ViewChild } from '@angular/core'
-import { MatSort } from '@angular/material/sort'
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core'
 import { MatTableDataSource } from '@angular/material/table'
 import { CloudAppEventsService, CloudAppRestService, Entity, EntityType, HttpMethod } from '@exlibris/exl-cloudapp-angular-lib'
 import { Observable, of } from 'rxjs'
 import { filter, switchMap, tap } from 'rxjs/operators'
 import { BibEntity } from '../models/bib-entity.model'
 import { BibInfo } from '../models/bib-info.model'
+import { ResultTableComponent } from '../result-table/result-table.component'
 import { LoadingIndicatorService } from '../services/loading-indicator.service'
 import { LogService } from '../services/log.service'
 import { SruResponseParserService } from '../services/sru-response-parsers.service'
@@ -19,19 +19,18 @@ import { SruQuery } from '../sru/sru-query'
 })
 export class MainComponent implements OnInit, OnDestroy {
 
-  apiResult1: any
-  apiResult2: any
-  resultCount: number
-
   bibEntities: BibEntity[]
   selectedEntity: BibEntity
-  bibInfoResult: MatTableDataSource<BibInfo>
-  displayedColumns: string[] = ['order', 'title', 'year', 'edition', 'mmsId', 'holdings'];
 
-  @ViewChild(MatSort) sort: MatSort
+  bibInfoResult: MatTableDataSource<BibInfo>
+
+  @ViewChild(ResultTableComponent) resultTable: ResultTableComponent
+
+  expanded: boolean = false
 
   entities$: Observable<Entity[]> = this.eventsService.entities$
     .pipe(
+      tap(() => this.reset()),
       filter(entites => entites.every(entity => entity.type === EntityType.BIB_MMS))
     )
 
@@ -42,7 +41,6 @@ export class MainComponent implements OnInit, OnDestroy {
     private loader: LoadingIndicatorService,
     private restService: CloudAppRestService,
     private eventsService: CloudAppEventsService,
-    private elementRef: ElementRef
   ) { }
 
   ngOnInit() {
@@ -77,23 +75,25 @@ export class MainComponent implements OnInit, OnDestroy {
         switchMap(records => {
           const otherSystemNumbers: string[] = this.sruParser.getOtherSystemNumbers(records)
           this.log.info('other system numbers: ', otherSystemNumbers)
-          this.apiResult1 = otherSystemNumbers
           const query: SruQuery = SruQuery.OTHER_SYSTEM_NUMBER(otherSystemNumbers)
           return this.sruService.queryNZ(query)
         })
       ).subscribe(records => {
         const bibInfos: BibInfo[] = this.sruParser.getBibInfo(records)
         const datasource = new MatTableDataSource(bibInfos.sort((a, b) => (a.order ? a.order : 0) - (b.order ? b.order : 0)))
-        datasource.sort = this.sort
+        datasource.sort = this.resultTable.getMatSort()
         this.bibInfoResult = datasource
         this.loader.hide()
       })
   }
 
+  expand() {
+    // break out of iframe and dispatch a click event to the expand button of the CloudApp sidebar, due to lack of corresponding api. sorry
+    window.parent.document.querySelector('#floating-sidepane-upper-actions-expand').dispatchEvent(new Event('click'))
+    this.expanded = !this.expanded
+  }
+
   reset() {
-    this.apiResult1 = null
-    this.apiResult2 = null
-    this.resultCount = null
     this.selectedEntity = null
     this.bibInfoResult = null
   }
