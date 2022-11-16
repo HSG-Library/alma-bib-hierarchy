@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core'
+import { MatSort, MatSortable } from '@angular/material/sort'
 import { MatTableDataSource } from '@angular/material/table'
 import { CloudAppEventsService, CloudAppRestService, Entity, EntityType, HttpMethod } from '@exlibris/exl-cloudapp-angular-lib'
 import { Observable, of } from 'rxjs'
@@ -80,8 +81,10 @@ export class MainComponent implements OnInit, OnDestroy {
         })
       ).subscribe(records => {
         const bibInfos: BibInfo[] = this.sruParser.getBibInfo(records)
-        const datasource = new MatTableDataSource(bibInfos.sort((a, b) => (a.order ? a.order : 0) - (b.order ? b.order : 0)))
-        datasource.sort = this.resultTable.getMatSort()
+        const datasource = new MatTableDataSource(bibInfos)
+        const matSort: MatSort = this.resultTable.getMatSort()
+        matSort.sort(({ id: 'order', start: 'asc' }) as MatSortable)
+        datasource.sort = matSort
         this.bibInfoResult = datasource
         this.loader.hide()
       })

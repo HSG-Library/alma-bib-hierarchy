@@ -72,7 +72,7 @@ export class SruService {
 		)
 	}
 
-	private call(url: string, query: SruQuery, startRecord: number = 1, maximumRecords: number = 50): Observable<string> {
+	private call(url: string, query: SruQuery, startRecord: number = 1, maximumRecords: number = 20): Observable<string> {
 		const params: HttpParams = this.getParams(query, startRecord, maximumRecords)
 		this.log.info('SRU Query URL: ', url + '?' + params.toString())
 		return this.httpClient.get(url, {

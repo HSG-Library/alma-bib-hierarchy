@@ -51,7 +51,7 @@ export class SruResponseParserService {
 			const singleRecordDocument: Document = new Document()
 			singleRecordDocument.append(record)
 			const mmsId: string = this.extractMmsId(singleRecordDocument)
-			const order: number = this.extractOrder(singleRecordDocument)
+			const order: string = this.extractOrder(singleRecordDocument)
 			const title: string = this.extractTitle(singleRecordDocument)
 			const year: number = this.extractYear(singleRecordDocument)
 			const edition: string = this.exctractEdtition(singleRecordDocument)
@@ -67,28 +67,36 @@ export class SruResponseParserService {
 		return field001[0] || ''
 	}
 
-	private extractOrder(document: Document): number {
+	private extractOrder(document: Document): string {
 		const field800v: string[] = this.xpathQuery(document, this.XPATH_QUERY_800v_ORDER)
 		const field810v: string[] = this.xpathQuery(document, this.XPATH_QUERY_810v_ORDER)
 		const field830v: string[] = this.xpathQuery(document, this.XPATH_QUERY_830v_ORDER)
 		// take first number from one of the fields 800v/810v/830v
-		let order: number = field800v.concat(field810v).concat(field830v)
-			.map(entry => Number(entry))
-			.find(entry => isFinite(entry))
+		let order: string = field800v.concat(field810v).concat(field830v)
+			.filter(e => e?.match(/\d+/))
+			.find(entry => entry)
+
 		// if no number was found: try to extract from 773g
 		if (!order) {
 			const field773g: string[] = this.xpathQuery(document, this.XPATH_QUERY_773g_ORDER)
 			order = field773g
-				.filter(entry => entry.startsWith('no:'))
-				.map(entry => entry.substring('no:'.length))
-				.map(entry => Number(entry)) // convert to number
-				.find(entry => isFinite(entry)) // check if the value is actually a number, not NaN
+				.filter(e => e.startsWith('no:'))
+				.map(e => e?.match(/\d+/)[0])
+				.find(entry => entry)
+			if (!order) {
+				order = field773g
+					.filter(e => e?.match(/\d+/))
+					.filter(e => e.indexOf('year:') == -1)
+					.map(e => e?.match(/\d+/)[0])
+					.find(entry => entry)
+			}
 		}
 		if (!order) {
-			const field773g: string[] = this.xpathQuery(document, this.XPATH_QUERY_773q_ORDER)
-			order = field773g
-				.map(entry => Number(entry)) // convert to number
-				.find(entry => isFinite(entry)) // check if the value is actually a number, not NaN
+			const field773q: string[] = this.xpathQuery(document, this.XPATH_QUERY_773q_ORDER)
+			order = field773q
+				.filter(e => e?.match(/\d+/))
+				.map(e => e?.match(/\d+/)[0])
+				.find(entry => entry)
 		}
 		return order
 	}

@@ -6,8 +6,8 @@ export class BibInfo {
 		return this._mmsId
 	}
 	// "773$$q or 830$$v"
-	private _order: number
-	public get order(): number {
+	private _order: string
+	public get order(): string {
 		return this._order
 	}
 	private _title: string
@@ -31,7 +31,7 @@ export class BibInfo {
 		return this._sameAs
 	}
 
-	constructor(mmsId: string, order: number, title: string, year: number, edition: string, holdings: string[], sameAs?: string[]) {
+	constructor(mmsId: string, order: string, title: string, year: number, edition: string, holdings: string[], sameAs?: string[]) {
 		this._mmsId = mmsId
 		this._order = order
 		this._title = title
