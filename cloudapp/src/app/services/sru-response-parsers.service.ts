@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core'
-import { isNumber } from 'lodash'
 import { BibInfo } from '../models/bib-info.model'
+import { FindDuplicatesService } from './find-duplicates.service'
 
 @Injectable({
 	providedIn: 'root'
@@ -15,12 +15,15 @@ export class SruResponseParserService {
 	private readonly XPATH_QUERY_810v_ORDER: string = "//default:datafield[@tag='810']/default:subfield[@code='v']"
 	private readonly XPATH_QUERY_830v_ORDER: string = "//default:datafield[@tag='830']/default:subfield[@code='v']"
 	private readonly XPATH_QUERY_773g_ORDER: string = "//default:datafield[@tag='773']/default:subfield[@code='g']"
+	private readonly XPATH_QUERY_773q_ORDER: string = "//default:datafield[@tag='773']/default:subfield[@code='q']"
 	private readonly XPATH_QUERY_245_TITLE: string = "//default:datafield[@tag='245']/default:subfield"
 	private readonly XPATH_QUERY_008_YEAR: string = "//default:controlfield[@tag='008']"
 	private readonly XPATH_QUERY_250_EDITION: string = "//default:datafield[@tag='250']/default:subfield"
+	private readonly XPATH_QUERY_852_HOLDINGS: string = "//default:datafield[@tag='852']/default:subfield[@code='a']"
 
-	constructor() {
-	}
+	constructor(
+		private duplicateService: FindDuplicatesService
+	) { }
 
 	getRecords(xmlString: string): Element[] {
 		const recordDocument: Document = this.extractRecords(xmlString)
@@ -49,19 +52,19 @@ export class SruResponseParserService {
 			singleRecordDocument.append(record)
 			const mmsId: string = this.extractMmsId(singleRecordDocument)
 			const order: number = this.extractOrder(singleRecordDocument)
-			const title: string[] = this.xpathQuery(singleRecordDocument, this.XPATH_QUERY_245_TITLE)
-			const year: string[] = this.xpathQuery(singleRecordDocument, this.XPATH_QUERY_008_YEAR)
-			const edition: string[] = this.xpathQuery(singleRecordDocument, this.XPATH_QUERY_250_EDITION)
+			const title: string = this.extractTitle(singleRecordDocument)
+			const year: number = this.extractYear(singleRecordDocument)
+			const edition: string = this.exctractEdtition(singleRecordDocument)
+			const holdings: string[] = this.extractHoldings(singleRecordDocument)
 			return new BibInfo(
-				mmsId, order, title[0], Number(year[0].substring(7, 11)), edition[0], true)
+				mmsId, order, title, year, edition, holdings)
 		})
-		// find duplicates: https://stackoverflow.com/a/53212154
-		return bibInfos
+		return this.duplicateService.findPossibleDublicates(bibInfos)
 	}
 
 	private extractMmsId(document: Document): string {
 		const field001: string[] = this.xpathQuery(document, this.XPATH_QUERY_001_MMSID)
-		return field001[0]
+		return field001[0] || ''
 	}
 
 	private extractOrder(document: Document): number {
@@ -76,12 +79,107 @@ export class SruResponseParserService {
 		if (!order) {
 			const field773g: string[] = this.xpathQuery(document, this.XPATH_QUERY_773g_ORDER)
 			order = field773g
-				.filter(entry => entry.startsWith(':no'))
-				.map(entry => entry.substring(':no'.length))
-				.map(entry => Number(entry))
-				.find(entry => isFinite(entry))
+				.filter(entry => entry.startsWith('no:'))
+				.map(entry => entry.substring('no:'.length))
+				.map(entry => Number(entry)) // convert to number
+				.find(entry => isFinite(entry)) // check if the value is actually a number, not NaN
+		}
+		if (!order) {
+			const field773g: string[] = this.xpathQuery(document, this.XPATH_QUERY_773q_ORDER)
+			order = field773g
+				.map(entry => Number(entry)) // convert to number
+				.find(entry => isFinite(entry)) // check if the value is actually a number, not NaN
 		}
 		return order
+	}
+
+	private extractTitle(document: Document): string {
+		const field245: string[] = this.xpathQuery(document, this.XPATH_QUERY_245_TITLE)
+		return field245.join()
+	}
+
+	private extractYear(document: Document): number {
+		const year: string[] = this.xpathQuery(document, this.XPATH_QUERY_008_YEAR)
+		return Number(year[0].substring(7, 11))
+	}
+
+	private exctractEdtition(document: Document): string {
+		const edition: string[] = this.xpathQuery(document, this.XPATH_QUERY_250_EDITION)
+		return edition[0] || ''
+	}
+
+	private extractHoldings(document: Document): string[] {
+		return this.xpathQuery(document, this.XPATH_QUERY_852_HOLDINGS)
+	}
+
+	private findDublicates(bibInfos: BibInfo[]): BibInfo[] {
+		const lookup: { [id: string]: string[] } = {}
+
+		bibInfos.forEach(b => {
+			const id: string = this.getDedupId(b)
+			if (lookup.hasOwnProperty(id)) {
+				lookup[id].push(b.mmsId)
+			} else {
+				lookup[id] = [b.mmsId]
+			}
+		})
+
+		return bibInfos.map(b => {
+			const id: string = this.getDedupId(b)
+			if (lookup.hasOwnProperty(id)) {
+				const duplicates: string[] = lookup[id].filter(id => id != b.mmsId)
+				if (duplicates.length > 0) {
+					return new BibInfo(b.mmsId, b.order, b.title, b.year, b.edition, b.holdings, duplicates)
+				}
+			}
+			return b
+		})
+	}
+
+	private getDedupId(bibInfo: BibInfo): string {
+		return bibInfo.order + bibInfo.edition + bibInfo.year
+	}
+
+
+	private similarity(s1, s2) {
+		var longer = s1
+		var shorter = s2
+		if (s1.length < s2.length) {
+			longer = s2
+			shorter = s1
+		}
+		var longerLength = longer.length
+		if (longerLength == 0) {
+			return 1.0
+		}
+		return (longerLength - this.editDistance(longer, shorter)) / parseFloat(longerLength)
+	}
+
+	private editDistance(s1, s2) {
+		s1 = s1.toLowerCase()
+		s2 = s2.toLowerCase()
+
+		var costs = new Array()
+		for (var i = 0; i <= s1.length; i++) {
+			var lastValue = i
+			for (var j = 0; j <= s2.length; j++) {
+				if (i == 0)
+					costs[j] = j
+				else {
+					if (j > 0) {
+						var newValue = costs[j - 1]
+						if (s1.charAt(i - 1) != s2.charAt(j - 1))
+							newValue = Math.min(Math.min(newValue, lastValue),
+								costs[j]) + 1
+						costs[j - 1] = lastValue
+						lastValue = newValue
+					}
+				}
+			}
+			if (i > 0)
+				costs[s2.length] = lastValue
+		}
+		return costs[s2.length]
 	}
 
 	getNumberOfRecords(xmlString: string): number {

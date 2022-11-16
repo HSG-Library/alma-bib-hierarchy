@@ -1,17 +1,18 @@
 <div class="eca-actions">
   <button mat-flat-button color="secondary" (click)="reset()" [disabled]="!selectedEntity">Reset</button>
-  <button mat-flat-button color="primary" (click)="reset()" [disabled]="!bibInfoResult">Export</button>
 </div>
+
 <div *ngIf="bibEntities.length == 0">
   <h2>No Bibliographic Entities found, search for MMSID</h2>
 </div>
+
 <div *ngIf="bibEntities.length > 0">
-  <mat-card *ngFor="let bibEntity of bibEntities" [ngClass]="{ 'hidden' : selectedEntity && bibEntity.entity.id != selectedEntity.entity.id }">
+  <mat-card *ngFor="let bibEntity of bibEntities" [ngClass]="{'hidden' : selectedEntity && (bibEntity.entity.id != selectedEntity.entity.id) }">
     <mat-card-title><span class="uxf-icon uxf-book-alt"></span> {{bibEntity.entity.description}}</mat-card-title>
     <mat-card-content>
       <mat-list>
-        <mat-list-item><span class="bold">NZ MMS ID:&nbsp;</span> {{ (bibEntity.nzMmsId | async) || '...' }}</mat-list-item>
-        <mat-list-item><span class="bold">Related Records:&nbsp;</span> {{ (bibEntity.relatedRecords | async | number: '1.0-0') || '...' }}</mat-list-item>
+        <mat-list-item><span class="bold">MMS ID (NZ):&nbsp;</span><span [ngClass]="{ 'loading' : !(bibEntity.nzMmsId | async )}">{{ (bibEntity.nzMmsId | async)}}</span></mat-list-item>
+        <mat-list-item><span class="bold">Related Records:&nbsp;</span><span [ngClass]="{ 'loading' : !(bibEntity.relatedRecords | async | number: '1.0-0') }">{{ (bibEntity.relatedRecords | async | number: '1.0-0') }}</span></mat-list-item>
       </mat-list>
     </mat-card-content>
     <mat-card-actions class="bib-entity-actions" *ngIf="!selectedEntity">
@@ -19,16 +20,22 @@
     </mat-card-actions>
   </mat-card>
   <div class="result-actions">
-    <button mat-flat-button color="secondary" (click)="popup.toggle()" *ngIf="bibInfoResult">{{ popup.isOpen() ? 'PopIn' : 'PopOut' }}</button>
-    <button mat-flat-button color="secondary" (click)="expand()" *ngIf="bibInfoResult">{{ expanded ? 'Collapse' : 'Expand'}}</button>
+    <button mat-flat-button color="secondary" (click)="popup.toggle()" *ngIf="bibInfoResult && bibInfoResult.data.length > 0">{{ (popup.popupOpen | async) ? 'PopIn' : 'PopOut' }}</button>
+    <button mat-flat-button color="secondary" (click)="expand()" *ngIf="bibInfoResult && bibInfoResult.data.length > 0">{{ expanded ? 'Collapse' : 'Expand'}}</button>
+    <button mat-flat-button color="primary" (click)="reset()" *ngIf="bibInfoResult && bibInfoResult.data.length > 0">Export</button>
+  </div>
+
+  <div *ngIf="bibInfoResult && !bibInfoResult.data.length">
+    <span class="uxf-icon uxf-list" style="font-size: 3em;"></span>
+    <p>no titems</p>
   </div>
 
   <popup #popup>
     <app-result-table [hidden]="!bibInfoResult" [result]="bibInfoResult"></app-result-table>
   </popup>
 
-
 </div>
+
 <div class="loading-shade" *ngIf="loader.isLoading | async">
   <mat-spinner diameter="50" [mode]="loader.mode | async" [value]="loader.progress | async"></mat-spinner>
 </div>

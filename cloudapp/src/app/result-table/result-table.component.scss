@@ -1,8 +1,40 @@
+.title {
+	width: 40%
+}
+
+.holdings {
+	width: 20%;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+.mat-table .mat-cell {
+	padding-right: 5px;
+}
+
+.mat-standard-chip {
+	padding: 0px 7px;
+	border-radius: 7px;
+	min-height: 25px;
+}
+
+.duplicate-button {
+	box-shadow: none;
+}
+
 .result-table {
 	width: 100%;
 }
 
 @media screen and (max-width: 450px) {
+	.title {
+		width: 100%;
+	}
+
+	.holdings {
+		width: 100%;
+	}
+
 	.mat-table {
 		border: 0;
 		vertical-align: middle
@@ -31,30 +63,26 @@
 	}
 
 	.mat-table .mat-cell {
-		border-bottom: 1px solid #ddd;
 		display: block;
+		height: fit-content;
 		font-size: 1em;
-		text-align: right;
-		height: 30px;
-		margin-bottom: 4%;
-		padding: 0;
+		border-bottom: 1px solid #ddd;
+		padding-left: 0;
+		padding-top: 5px;
+		padding-bottom: 5px;
 	}
 
 	.mat-table .mat-cell:before {
-		/*
-    * aria-label has no advantage, it won't be read inside a table
-    content: attr(aria-label);
-    */
 		content: attr(data-label);
-		float: left;
 		text-transform: uppercase;
 		font-weight: normal;
-
 		font-size: .85em;
+		display: block;
 	}
 
 	.mat-table .mat-cell:last-child {
 		border-bottom: 0;
+		margin-bottom: 25px;
 	}
 
 	.mat-table .mat-cell:first-child {

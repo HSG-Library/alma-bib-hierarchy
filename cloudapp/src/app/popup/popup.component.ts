@@ -1,4 +1,5 @@
 import { Component, ElementRef, OnDestroy, Renderer2, ViewChild } from '@angular/core'
+import { Subject } from 'rxjs'
 
 @Component({
 	selector: 'popup',
@@ -6,7 +7,7 @@ import { Component, ElementRef, OnDestroy, Renderer2, ViewChild } from '@angular
     <div #innerWrapper style="width: 100%; height: 100%; overflow: auto;">
       <ng-content></ng-content>
 		</div>
-		<div *ngIf="isOpen()">
+		<div *ngIf="popupOpen | async">
 			<p>
 				Content is displayed in a popup window. Click 'PopIn' to display it here again.
 			</p>
@@ -18,19 +19,17 @@ export class PopupComponent implements OnDestroy {
 	@ViewChild('innerWrapper') private innerWrapper: ElementRef
 
 	private popoutWindow: Window
-	private popupOpen: boolean
+	popupOpen: Subject<boolean> = new Subject<boolean>()
 
 	constructor(
 		private renderer2: Renderer2,
 		private elementRef: ElementRef
-	) { }
+	) {
+		this.popupOpen.next(false)
+	}
 
 	ngOnDestroy(): void {
 		this.close()
-	}
-
-	public isOpen(): boolean {
-		return this.popupOpen
 	}
 
 	public toggle(): void {
@@ -67,7 +66,7 @@ export class PopupComponent implements OnDestroy {
 			this.renderer2.appendChild(this.popoutWindow.document.body, this.innerWrapper.nativeElement)
 
 			this.popoutWindow.addEventListener('unload', () => this.close())
-			this.popupOpen = true
+			this.popupOpen.next(true)
 		} else {
 			this.popoutWindow.focus()
 		}
@@ -75,7 +74,7 @@ export class PopupComponent implements OnDestroy {
 
 	public close(): void {
 		this.renderer2.appendChild(this.elementRef.nativeElement, this.innerWrapper.nativeElement)
-		this.popupOpen = false
+		this.popupOpen.next(false)
 		this.popoutWindow.close()
 		this.popoutWindow = null
 	}

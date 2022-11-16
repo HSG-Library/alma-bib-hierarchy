@@ -11,6 +11,7 @@ import { AppRoutingModule } from './app-routing.module'
 import { MainComponent } from './main/main.component'
 import { ResultTableComponent } from './result-table/result-table.component'
 import { PopupComponent } from './popup/popup.component'
+import { ClipboardModule } from '@angular/cdk/clipboard'
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { PopupComponent } from './popup/popup.component'
     AlertModule,
     FormsModule,
     ReactiveFormsModule,
+    ClipboardModule,
     CloudAppTranslateModule.forRoot(),
   ],
   providers: [

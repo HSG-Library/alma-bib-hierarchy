@@ -87,13 +87,13 @@ export class MainComponent implements OnInit, OnDestroy {
       })
   }
 
-  expand() {
+  expand(): void {
     // break out of iframe and dispatch a click event to the expand button of the CloudApp sidebar, due to lack of corresponding api. sorry
     window.parent.document.querySelector('#floating-sidepane-upper-actions-expand').dispatchEvent(new Event('click'))
     this.expanded = !this.expanded
   }
 
-  reset() {
+  reset(): void {
     this.selectedEntity = null
     this.bibInfoResult = null
   }

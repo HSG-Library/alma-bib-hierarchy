@@ -22,17 +22,22 @@ export class BibInfo {
 	public get edition(): string {
 		return this._edition
 	}
-	private _holdings: boolean
-	public get holdings(): boolean {
+	private _holdings: string[]
+	public get holdings(): string[] {
 		return this._holdings
 	}
+	private _sameAs: string[]
+	public get sameAs(): string[] {
+		return this._sameAs
+	}
 
-	constructor(mmsId: string, order: number, title: string, year: number, edition: string, holdings: boolean) {
+	constructor(mmsId: string, order: number, title: string, year: number, edition: string, holdings: string[], sameAs?: string[]) {
 		this._mmsId = mmsId
 		this._order = order
 		this._title = title
 		this._year = year
 		this._edition = edition
 		this._holdings = holdings
+		this._sameAs = sameAs
 	}
 }
