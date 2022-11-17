@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core'
+import { Observable, of } from 'rxjs'
 import { utils as XLSXutils, WorkBook, writeFile } from 'xlsx'
 import { BibInfo } from '../models/bib-info.model'
 
@@ -10,8 +11,8 @@ export class ExcelExportService {
 	private readonly filePrefix: string = 'BibHierarchy-'
 	private readonly fileExtention: string = '.xlsx'
 
-	export(data: BibInfo[], fileId: string): void {
-		this.createXslsFile(this.sanitizeForExport(data), fileId)
+	export(data: BibInfo[], fileId: string): Observable<any> {
+		return this.createXslsFile(this.sanitizeForExport(data), fileId)
 	}
 
 	private sanitizeForExport(data: BibInfo[]): any {
@@ -29,11 +30,11 @@ export class ExcelExportService {
 			})
 	}
 
-	private createXslsFile(data: any, fileId: string): void {
+	private createXslsFile(data: any, fileId: string): Observable<any> {
 		const ws = XLSXutils.json_to_sheet(data)
 		const wb: WorkBook = XLSXutils.book_new()
 		XLSXutils.book_append_sheet(wb, ws, 'Sheet1')
-		writeFile(wb, this.createFileName(fileId))
+		return of(writeFile(wb, this.createFileName(fileId)))
 	}
 
 	private createFileName(fileId: string): string {

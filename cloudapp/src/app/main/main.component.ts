@@ -104,7 +104,12 @@ export class MainComponent implements OnInit, OnDestroy {
   }
 
   export(): void {
+    this.loader.show()
     this.excelExportService.export(this.bibInfoResult.data, this.selectedEntity.entity.id)
+      .subscribe(result => {
+        console.log(result)
+        this.loader.hide()
+      })
   }
 
   private getNzMmsIdFromEntity(bibEntity: BibEntity): Observable<string> {
