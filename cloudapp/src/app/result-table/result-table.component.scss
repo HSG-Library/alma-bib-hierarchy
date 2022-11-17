@@ -26,6 +26,10 @@
 	width: 100%;
 }
 
+tr:nth-child(even) {
+	background: #f9f9f9;
+}
+
 @media screen and (max-width: 450px) {
 	.title {
 		width: 100%;
@@ -33,6 +37,10 @@
 
 	.holdings {
 		width: 100%;
+	}
+
+	tr:nth-child(even) {
+		background: transparent;
 	}
 
 	.mat-table {
@@ -82,7 +90,7 @@
 
 	.mat-table .mat-cell:last-child {
 		border-bottom: 0;
-		margin-bottom: 25px;
+		margin-bottom: 55px;
 	}
 
 	.mat-table .mat-cell:first-child {
