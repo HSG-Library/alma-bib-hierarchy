@@ -22,6 +22,19 @@
   }
 }
 
+.empty-list {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+  button {
+    margin-top: 20px;
+  }
+}
+
 .loading:after {
   overflow: hidden;
   display: inline-block;

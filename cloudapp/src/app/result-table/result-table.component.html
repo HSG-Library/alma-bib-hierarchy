@@ -35,12 +35,13 @@
 		</th>
 		<td class="duplicate" mat-cell *matCellDef="let bibinfo" data-label="Duplicate">
 			<button style="box-shadow: none"
-							*ngIf="bibinfo.sameAs?.length"
+							*ngIf="bibinfo.duplicates?.length"
 							mat-mini-fab color="warn"
-							[cdkCopyToClipboard]="bibinfo.sameAs?.join(', ')"
-							matTooltip="{{bibinfo.sameAs?.join(', ') || '-'}} - click to copy">
+							[cdkCopyToClipboard]="bibinfo.duplicates?.join(', ')"
+							matTooltip="{{bibinfo.duplicates?.join(', ') || '-'}} - click to copy">
 				<mat-icon>priority_high</mat-icon>
 			</button>
+			<span *ngIf="!bibinfo.duplicates?.length">-</span>
 		</td>
 	</ng-container>
 	<ng-container matColumnDef="holdings">
@@ -50,7 +51,9 @@
 		<td class="holdings" mat-cell *matCellDef="let bibinfo" data-label="Holdings">
 			<mat-chip-list selectable="false">
 				<mat-chip *ngFor="let holding of bibinfo.holdings"
-									color="{{ holding == instCode ? 'accent' : '' }}" disabled="{{ holding != instCode}}" selected="{{ holding == instCode}}">{{holding}}</mat-chip>
+									color="{{ holding == instCode ? 'accent' : '' }}"
+									disabled="{{ holding != instCode}}"
+									selected="{{ holding == instCode}}">{{holding}}</mat-chip>
 			</mat-chip-list>
 		</td>
 	</ng-container>

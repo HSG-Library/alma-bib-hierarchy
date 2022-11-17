@@ -7,6 +7,7 @@ import { filter, switchMap, tap } from 'rxjs/operators'
 import { BibEntity } from '../models/bib-entity.model'
 import { BibInfo } from '../models/bib-info.model'
 import { ResultTableComponent } from '../result-table/result-table.component'
+import { ExcelExportService } from '../services/excel-export.service'
 import { LoadingIndicatorService } from '../services/loading-indicator.service'
 import { LogService } from '../services/log.service'
 import { SruResponseParserService } from '../services/sru-response-parsers.service'
@@ -38,6 +39,7 @@ export class MainComponent implements OnInit, OnDestroy {
   constructor(
     private sruService: SruService,
     private sruParser: SruResponseParserService,
+    private excelExportService: ExcelExportService,
     private log: LogService,
     private loader: LoadingIndicatorService,
     private restService: CloudAppRestService,
@@ -99,6 +101,10 @@ export class MainComponent implements OnInit, OnDestroy {
   reset(): void {
     this.selectedEntity = null
     this.bibInfoResult = null
+  }
+
+  export(): void {
+    this.excelExportService.export(this.bibInfoResult.data, this.selectedEntity.entity.id)
   }
 
   private getNzMmsIdFromEntity(bibEntity: BibEntity): Observable<string> {

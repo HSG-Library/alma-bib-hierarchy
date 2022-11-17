@@ -1,5 +1,6 @@
 <div class="eca-actions">
-  <button mat-flat-button color="secondary" (click)="reset()" [disabled]="!selectedEntity">Reset</button>
+  <button mat-flat-button color="secondary" (click)="reset()" [disabled]="!selectedEntity || (loader.isLoading | async)">Reset</button>
+  <button mat-flat-button color="primary" (click)="export()" [disabled]="!bibInfoResult || bibInfoResult.data.length < 0">Export</button>
 </div>
 
 <div *ngIf="bibEntities.length == 0">
@@ -20,14 +21,14 @@
     </mat-card-actions>
   </mat-card>
   <div class="result-actions">
-    <button mat-flat-button color="secondary" (click)="popup.toggle()" *ngIf="bibInfoResult && bibInfoResult.data.length > 0">{{ (popup.popupOpen | async) ? 'PopIn' : 'PopOut' }}</button>
-    <button mat-flat-button color="secondary" (click)="expand()" *ngIf="bibInfoResult && bibInfoResult.data.length > 0">{{ expanded ? 'Collapse' : 'Expand'}}</button>
-    <button mat-flat-button color="primary" (click)="reset()" *ngIf="bibInfoResult && bibInfoResult.data.length > 0">Export</button>
+    <button mat-flat-button color="secondary" (click)="popup.toggle()" *ngIf="bibInfoResult && bibInfoResult.data.length > 0">{{ (popup.popupOpen | async) ? 'Close window' : 'Popup window' }}</button>
+    <button mat-flat-button color="primary" (click)="expand()" *ngIf="bibInfoResult && bibInfoResult.data.length > 0">{{ expanded ? 'Collapse view' : 'Expand view'}}</button>
   </div>
 
-  <div *ngIf="bibInfoResult && !bibInfoResult.data.length">
+  <div *ngIf="bibInfoResult && !bibInfoResult.data.length" class="empty-list">
+    <p>No related records found</p>
     <span class="uxf-icon uxf-list" style="font-size: 3em;"></span>
-    <p>no titems</p>
+    <button mat-flat-button color="primary" (click)="reset()" [disabled]="!selectedEntity">Reset selection</button>
   </div>
 
   <popup #popup>
