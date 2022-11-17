@@ -21,6 +21,7 @@ import { SruQuery } from '../sru/sru-query'
 })
 export class MainComponent implements OnInit, OnDestroy {
 
+  instCode: string
   bibEntities: BibEntity[]
   selectedEntity: BibEntity
 
@@ -48,6 +49,7 @@ export class MainComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.loader.show()
+    this.eventsService.getInitData().subscribe(data => this.instCode = data.instCode)
 
     this.entities$
       .pipe(
@@ -83,7 +85,8 @@ export class MainComponent implements OnInit, OnDestroy {
         })
       ).subscribe(records => {
         const bibInfos: BibInfo[] = this.sruParser.getBibInfo(records)
-        const datasource = new MatTableDataSource(bibInfos)
+        const bibInfosSorted: BibInfo[] = this.sortHoldings(bibInfos)
+        const datasource = new MatTableDataSource(bibInfosSorted)
         const matSort: MatSort = this.resultTable.getMatSort()
         matSort.sort(({ id: 'order', start: 'asc' }) as MatSortable)
         datasource.sort = matSort
@@ -110,6 +113,19 @@ export class MainComponent implements OnInit, OnDestroy {
         console.log(result)
         this.loader.hide()
       })
+  }
+
+  private sortHoldings(bibInfos: BibInfo[]): BibInfo[] {
+    return bibInfos.map(b => {
+      b.holdings.sort((a, b) => {
+        if (a == this.instCode) {
+          return -1
+        }
+        return a.localeCompare(b)
+      })
+      const holdings: string[] = b.holdings
+      return new BibInfo(b.title, b.order, b.title, b.year, b.edition, holdings, b.duplicates)
+    })
   }
 
   private getNzMmsIdFromEntity(bibEntity: BibEntity): Observable<string> {

@@ -53,7 +53,8 @@
 				<mat-chip *ngFor="let holding of bibinfo.holdings"
 									color="{{ holding == instCode ? 'accent' : '' }}"
 									disabled="{{ holding != instCode}}"
-									selected="{{ holding == instCode}}">{{holding}}</mat-chip>
+									selected="{{ holding == instCode}}"
+									matTooltip="{{holding}}">{{ shortHolding(holding) }}</mat-chip>
 			</mat-chip-list>
 		</td>
 	</ng-container>

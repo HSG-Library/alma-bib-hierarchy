@@ -10,10 +10,8 @@ import { BibInfo } from '../models/bib-info.model'
 	styleUrls: ['./result-table.component.scss']
 })
 export class ResultTableComponent {
-
 	displayedColumns: string[] = ['order', 'title', 'year', 'edition', 'mmsId', 'duplicate', 'holdings'];
 	instCode: string
-
 
 	@Input()
 	result: MatTableDataSource<BibInfo>
@@ -28,5 +26,9 @@ export class ResultTableComponent {
 
 	getMatSort() {
 		return this.sort
+	}
+
+	shortHolding(holding: string): string {
+		return holding.replace(/^.+_/, '')
 	}
 }
