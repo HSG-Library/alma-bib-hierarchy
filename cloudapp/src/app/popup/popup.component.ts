@@ -73,9 +73,11 @@ export class PopupComponent implements OnDestroy {
 	}
 
 	public close(): void {
-		this.renderer2.appendChild(this.elementRef.nativeElement, this.innerWrapper.nativeElement)
-		this.popupOpen.next(false)
-		this.popoutWindow.close()
-		this.popoutWindow = null
+		if (this.popoutWindow) {
+			this.renderer2.appendChild(this.elementRef.nativeElement, this.innerWrapper.nativeElement)
+			this.popupOpen.next(false)
+			this.popoutWindow.close()
+			this.popoutWindow = null
+		}
 	}
 }
