@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core'
 import { EMPTY, Observable, of } from 'rxjs'
 import { expand, map, reduce, switchMap, tap } from 'rxjs/operators'
 import { SruQuery } from '../sru/sru-query'
+import { ConfigurationService } from './configuration.service'
 import { LoadingIndicatorService } from './loading-indicator.service'
 import { LogService } from './log.service'
 import { SruResponseParserService } from './sru-response-parsers.service'
@@ -13,13 +14,13 @@ import { SruResponseParserService } from './sru-response-parsers.service'
 })
 export class SruService {
 
-	private static ALMA_DOMAIN: string = 'https://eu03.alma.exlibrisgroup.com'
 	private static SRU_PATH: string = '/view/sru/'
 	private static NETWORK_CODE: string = '41SLSP_NETWORK'
 
 	private params: HttpParams
 
 	constructor(
+		private configService: ConfigurationService,
 		private parser: SruResponseParserService,
 		private log: LogService,
 		private loader: LoadingIndicatorService,
@@ -30,11 +31,13 @@ export class SruService {
 			.set('recordSchema', 'marcxml')
 	}
 
-	private getNzUrl() {
-		return SruService.ALMA_DOMAIN + SruService.SRU_PATH + SruService.NETWORK_CODE
+	private getNzUrl(): Observable<string> {
+		return this.configService.getAlmaUrl().pipe(
+			switchMap(url => of(this.buildPath(url, SruService.SRU_PATH, SruService.NETWORK_CODE)))
+		)
 	}
 
-	private getParams(query: SruQuery, startRecord: number, maximumRecords: number) {
+	private getParams(query: SruQuery, startRecord: number, maximumRecords: number): HttpParams {
 		return this.params
 			.set(SruQuery.QUERY, query.get())
 			.set('startRecord', String(startRecord))
@@ -42,16 +45,16 @@ export class SruService {
 	}
 
 	querNZRecordCount(query: SruQuery): Observable<number> {
-		const url: string = this.getNzUrl()
-		return this.call(url, query, 1, 0)
+		return this.getNzUrl()
 			.pipe(
+				switchMap(url => this.call(url, query, 1, 0)),
 				switchMap(response => of(this.parser.getNumberOfRecords(response)))
 			)
 	}
 
 	queryNZ(query: SruQuery): Observable<Element[]> {
-		const url: string = this.getNzUrl()
-		return this.call(url, query).pipe(
+		return this.getNzUrl().pipe(
+			switchMap(url => this.call(url, query)),
 			tap(response => this.log.info('Number of records: ', this.parser.getNumberOfRecords(response))),
 			expand(response => {
 				this.loader.hasProgress(true)
@@ -59,7 +62,7 @@ export class SruService {
 				const next: number = this.parser.getNextRecordPosition(response)
 				this.loader.setProgress(Math.round((next / total) * 100))
 				if (next > 0) {
-					return this.call(url, query, next)
+					return this.getNzUrl().pipe(switchMap(url => this.call(url, query, next)))
 				}
 				return EMPTY
 			}),
@@ -79,5 +82,15 @@ export class SruService {
 			responseType: 'text',
 			params: params
 		})
+	}
+
+	private buildPath(...args: string[]) {
+		return args.map((part, i) => {
+			if (i === 0) {
+				return part.trim().replace(/[\/]*$/g, '')
+			} else {
+				return part.trim().replace(/(^[\/]*|[\/]*$)/g, '')
+			}
+		}).filter(x => x.length).join('/')
 	}
 }
