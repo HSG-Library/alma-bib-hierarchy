@@ -1,12 +1,13 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core'
 import { MatSort, MatSortable } from '@angular/material/sort'
 import { MatTableDataSource } from '@angular/material/table'
-import { CloudAppEventsService, CloudAppRestService, Entity, EntityType, HttpMethod } from '@exlibris/exl-cloudapp-angular-lib'
+import { AlertService, CloudAppEventsService, CloudAppRestService, Entity, EntityType, HttpMethod } from '@exlibris/exl-cloudapp-angular-lib'
 import { Observable, of } from 'rxjs'
 import { filter, switchMap, tap } from 'rxjs/operators'
 import { BibEntity } from '../models/bib-entity.model'
 import { BibInfo } from '../models/bib-info.model'
 import { ResultTableComponent } from '../result-table/result-table.component'
+import { ConfigurationService } from '../services/configuration.service'
 import { ExcelExportService } from '../services/excel-export.service'
 import { LoadingIndicatorService } from '../services/loading-indicator.service'
 import { LogService } from '../services/log.service'
@@ -24,6 +25,7 @@ export class MainComponent implements OnInit, OnDestroy {
   instCode: string
   bibEntities: BibEntity[]
   selectedEntity: BibEntity
+  almaUrl: string
 
   bibInfoResult: MatTableDataSource<BibInfo>
 
@@ -43,13 +45,16 @@ export class MainComponent implements OnInit, OnDestroy {
     private excelExportService: ExcelExportService,
     private log: LogService,
     private loader: LoadingIndicatorService,
+    private configService: ConfigurationService,
     private restService: CloudAppRestService,
     private eventsService: CloudAppEventsService,
+    private alert: AlertService,
   ) { }
 
   ngOnInit(): void {
     this.loader.show()
     this.eventsService.getInitData().subscribe(data => this.instCode = data.instCode)
+    this.configService.getAlmaUrl().subscribe(url => this.almaUrl = url)
 
     this.entities$
       .pipe(
@@ -83,16 +88,23 @@ export class MainComponent implements OnInit, OnDestroy {
           const query: SruQuery = SruQuery.OTHER_SYSTEM_NUMBER(otherSystemNumbers)
           return this.sruService.queryNZ(query)
         })
-      ).subscribe(records => {
-        const bibInfos: BibInfo[] = this.sruParser.getBibInfo(records)
-        const bibInfosSorted: BibInfo[] = this.sortHoldings(bibInfos)
-        const datasource = new MatTableDataSource(bibInfosSorted)
-        const matSort: MatSort = this.resultTable.getMatSort()
-        matSort.sort(({ id: 'order', start: 'asc' }) as MatSortable)
-        datasource.sort = matSort
-        this.bibInfoResult = datasource
-        this.loader.hide()
-      })
+      ).subscribe(
+        (records) => {
+          const bibInfos: BibInfo[] = this.sruParser.getBibInfo(records)
+          const bibInfosSorted: BibInfo[] = this.sortHoldings(bibInfos)
+          const datasource = new MatTableDataSource(bibInfosSorted)
+          const matSort: MatSort = this.resultTable.getMatSort()
+          matSort.sort(({ id: 'order', start: 'asc' }) as MatSortable)
+          datasource.sort = matSort
+          this.bibInfoResult = datasource
+          this.loader.hide()
+        },
+        (error) => {
+          this.alert.error(`Could not show hierarchy, please check the Alma URL '${this.almaUrl}'`, { autoClose: false })
+          console.error('Error in showHierarchy()', error)
+          this.reset()
+          this.loader.hide()
+        })
   }
 
   expand(): void {
@@ -109,10 +121,16 @@ export class MainComponent implements OnInit, OnDestroy {
   export(): void {
     this.loader.show()
     this.excelExportService.export(this.bibInfoResult.data, this.selectedEntity.entity.id)
-      .subscribe(result => {
-        console.log(result)
-        this.loader.hide()
-      })
+      .subscribe(
+        (result) => {
+          this.loader.hide()
+        },
+        (error) => {
+          this.alert.error(`Error during Excel export'`, { autoClose: false })
+          this.log.error('Error in export()', error)
+          this.loader.hide()
+        }
+      )
   }
 
   private sortHoldings(bibInfos: BibInfo[]): BibInfo[] {
