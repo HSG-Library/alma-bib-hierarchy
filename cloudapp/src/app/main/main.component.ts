@@ -47,7 +47,7 @@ export class MainComponent implements OnInit, OnDestroy {
     private eventsService: CloudAppEventsService,
   ) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.loader.show()
     this.eventsService.getInitData().subscribe(data => this.instCode = data.instCode)
 
