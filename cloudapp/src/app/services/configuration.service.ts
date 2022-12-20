@@ -9,7 +9,8 @@ import { Settings } from '../models/settings.model'
 })
 export class ConfigurationService {
 
-	private readonly ALMA_CONFIG_GENERAL: string = "/almaws/v1/conf/general"
+	private readonly ALMA_CONFIG_GENERAL: string = '/almaws/v1/conf/general'
+	private readonly NETWORK: string = 'NETWORK'
 
 	constructor(
 		private restService: CloudAppRestService,
@@ -56,4 +57,46 @@ export class ConfigurationService {
 			})
 		)
 	}
+
+	getNetworkCode(): Observable<string> {
+		return this.settingsService.get()
+			.pipe(
+				switchMap(result => {
+					const settings: Settings = result as Settings
+					if (settings.networkCode) {
+						return of(settings.networkCode)
+					} else {
+						return this.getNetworkCodeFromConfig()
+					}
+				})
+			)
+	}
+
+	getNetworkCodeFromConfig(): Observable<string> {
+		return this.configService.get()
+			.pipe(
+				switchMap(result => {
+					const settings: Settings = result as Settings
+					if (settings.networkCode) {
+						return of(settings.networkCode)
+					} else {
+						return this.getNetworkCodeFromApi()
+					}
+				})
+			)
+	}
+
+	getNetworkCodeFromApi(): Observable<string> {
+		return this.restService.call({
+			method: HttpMethod.GET,
+			url: this.ALMA_CONFIG_GENERAL,
+		}).pipe(
+			switchMap(response => {
+				const institutionCode: string = response.institution.value
+				const networkCode: string = institutionCode.replace(/_.+/, `_${this.NETWORK}`)
+				return of(networkCode)
+			})
+		)
+	}
+
 }

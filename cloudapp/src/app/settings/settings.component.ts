@@ -14,6 +14,7 @@ export class SettingsComponent implements OnInit {
 	form: FormGroup
 	saving: boolean = false
 	defaultUrl: string
+	defaultNetworkCode: string
 
 	constructor(
 		private configurationService: ConfigurationService,
@@ -31,6 +32,7 @@ export class SettingsComponent implements OnInit {
 			this.saving = false
 		})
 		this.configurationService.getAlmaUrlFromConfig().subscribe(url => this.defaultUrl = url)
+		this.configurationService.getNetworkCodeFromConfig().subscribe(networkCode => this.defaultNetworkCode = networkCode)
 	}
 
 	save() {

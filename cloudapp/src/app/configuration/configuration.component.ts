@@ -6,14 +6,15 @@ import { ConfigurationService } from '../services/configuration.service'
 
 @Component({
 	selector: 'app-config',
-	templateUrl: './configuration.component.html',
-	styleUrls: ['./configuration.component.scss']
+	templateUrl: '../settings/settings.component.html',
+	styleUrls: ['../settings/settings.component.scss']
 })
 export class ConfigurationComponent implements OnInit {
 
 	form: FormGroup
 	saving: boolean = false
 	defaultUrl: string
+	defaultNetworkCode: string
 
 	constructor(
 		private configurationService: ConfigurationService,
@@ -30,6 +31,7 @@ export class ConfigurationComponent implements OnInit {
 			this.saving = false
 		})
 		this.configurationService.getAlmaUrlFromApi().subscribe(url => this.defaultUrl = url)
+		this.configurationService.getNetworkCodeFromApi().subscribe(networkCode => this.defaultNetworkCode = networkCode)
 	}
 
 	save() {

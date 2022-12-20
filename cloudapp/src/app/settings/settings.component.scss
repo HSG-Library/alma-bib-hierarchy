@@ -1,8 +1,13 @@
-.settings-section {
+.configuration-section {
 	display: flex;
+	flex-direction: column;
 	align-content: center;
 	align-items: center;
 	margin: 10px 0;
+
+	mat-form-field {
+		margin-bottom: 20px;
+	}
 }
 
 .full-width {

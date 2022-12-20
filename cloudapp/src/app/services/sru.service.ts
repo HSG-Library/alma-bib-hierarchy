@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http'
 import { Injectable } from '@angular/core'
-import { EMPTY, Observable, of } from 'rxjs'
+import { EMPTY, forkJoin, Observable, of } from 'rxjs'
 import { expand, map, reduce, switchMap, tap } from 'rxjs/operators'
 import { SruQuery } from '../sru/sru-query'
 import { ConfigurationService } from './configuration.service'
@@ -15,7 +15,6 @@ import { SruResponseParserService } from './sru-response-parsers.service'
 export class SruService {
 
 	private static SRU_PATH: string = '/view/sru/'
-	private static NETWORK_CODE: string = '41SLSP_NETWORK'
 
 	private params: HttpParams
 
@@ -32,8 +31,11 @@ export class SruService {
 	}
 
 	private getNzUrl(): Observable<string> {
-		return this.configService.getAlmaUrl().pipe(
-			switchMap(url => of(this.buildPath(url, SruService.SRU_PATH, SruService.NETWORK_CODE)))
+		return forkJoin({
+			url: this.configService.getAlmaUrl(),
+			networkCode: this.configService.getNetworkCode()
+		}).pipe(
+			switchMap(data => of(this.buildPath(data.url, SruService.SRU_PATH, data.networkCode)))
 		)
 	}
 
@@ -75,7 +77,7 @@ export class SruService {
 		)
 	}
 
-	private call(url: string, query: SruQuery, startRecord: number = 1, maximumRecords: number = 20): Observable<string> {
+	private call(url: string, query: SruQuery, startRecord: number = 1, maximumRecords: number = 50): Observable<string> {
 		const params: HttpParams = this.getParams(query, startRecord, maximumRecords)
 		this.log.info('SRU Query URL: ', url + '?' + params.toString())
 		return this.httpClient.get(url, {

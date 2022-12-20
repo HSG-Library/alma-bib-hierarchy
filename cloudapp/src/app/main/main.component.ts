@@ -135,14 +135,14 @@ export class MainComponent implements OnInit, OnDestroy {
 
   private sortHoldings(bibInfos: BibInfo[]): BibInfo[] {
     return bibInfos.map(b => {
-      b.holdings.sort((a, b) => {
-        if (a == this.instCode) {
+      b.holdings.sort((o1, o2) => {
+        if (o1 == this.instCode) {
           return -1
         }
-        return a.localeCompare(b)
+        return o1.localeCompare(o2)
       })
       const holdings: string[] = b.holdings
-      return new BibInfo(b.title, b.order, b.title, b.year, b.edition, holdings, b.duplicates)
+      return new BibInfo(b.mmsId, b.order, b.title, b.year, b.edition, holdings, b.duplicates)
     })
   }
 
