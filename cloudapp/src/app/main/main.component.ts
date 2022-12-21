@@ -85,7 +85,7 @@ export class MainComponent implements OnInit, OnDestroy {
     bibEntity.nzMmsId
       .pipe(
         switchMap(nzMmsId => of(SruQuery.MMS_ID(nzMmsId))),
-        tap(() => this.status.set('Searching via SRU to collect other system numbers')),
+        tap(() => this.status.set('Collecting other system numbers')),
         switchMap(query => this.sruService.queryNZ(query)),
         switchMap(records => {
           const otherSystemNumbers: string[] = this.sruParser.getOtherSystemNumbers(records)
