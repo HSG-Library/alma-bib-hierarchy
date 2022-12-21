@@ -4,6 +4,11 @@
    "subtitle": "Display bibliographic hierarchies in Alma",
    "author": "Jonas Furrer",
    "description": "Collect bibliographic hierarchies on NZ level.",
+   "license": "",
+   "icon": {
+      "type": "url",
+      "value": "/assets/app-icon.png"
+   },
    "contentSecurity": {
       "connectSrc": [
          "https://*.alma.exlibrisgroup.com"
@@ -12,6 +17,10 @@
          "popups": true,
          "downloads": true
       }
+   },
+   "pages": {
+      "config": "/#/config",
+      "settings": "/#/settings"
    },
    "entities": [
       "BIB_MMS"
