@@ -1,10 +1,10 @@
 <div class="eca-actions">
-  <button mat-flat-button color="secondary" (click)="reset()" [disabled]="!selectedEntity || (loader.isLoading | async)">Reset</button>
-  <button mat-flat-button color="primary" (click)="export()" [disabled]="!bibInfoResult || bibInfoResult.data.length < 0">Export</button>
+  <button mat-flat-button color="secondary" (click)="reset()" [disabled]="!selectedEntity || (loader.isLoading | async)">{{ 'main.resetButtonLabel' | translate }}</button>
+  <button mat-flat-button color="primary" (click)="export()" [disabled]="!bibInfoResult || bibInfoResult.data.length < 0">{{ 'main.exportButtonLabel' | translate }}</button>
 </div>
 
 <div *ngIf="bibEntities.length == 0">
-  <h2>No Bibliographic Entities found, search for MMSID</h2>
+  <h2 translate>main.noMmsIdMsg</h2>
 </div>
 
 <div *ngIf="bibEntities.length > 0">
@@ -12,23 +12,23 @@
     <mat-card-title><span class="uxf-icon uxf-book-alt"></span> {{bibEntity.entity.description}}</mat-card-title>
     <mat-card-content>
       <mat-list>
-        <mat-list-item><span class="bold">MMS ID (NZ):&nbsp;</span><span [ngClass]="{ 'loading' : !(bibEntity.nzMmsId | async )}">{{ (bibEntity.nzMmsId | async)}}</span></mat-list-item>
-        <mat-list-item><span class="bold">Related Records:&nbsp;</span><span [ngClass]="{ 'loading' : !(bibEntity.relatedRecords | async | number: '1.0-0') }">{{ (bibEntity.relatedRecords | async | number: '1.0-0') }}</span></mat-list-item>
+        <mat-list-item><span class="bold">{{ 'main.mmsIdNz' | translate }}:&nbsp;</span><span [ngClass]="{ 'loading' : !(bibEntity.nzMmsId | async )}">{{ (bibEntity.nzMmsId | async)}}</span></mat-list-item>
+        <mat-list-item><span class="bold">{{ 'main.relatedRecords' | translate }}:&nbsp;</span><span [ngClass]="{ 'loading' : !(bibEntity.relatedRecords | async | number: '1.0-0') }">{{ (bibEntity.relatedRecords | async | number: '1.0-0') }}</span></mat-list-item>
       </mat-list>
     </mat-card-content>
     <mat-card-actions class="bib-entity-actions" *ngIf="!selectedEntity">
-      <button mat-flat-button color="primary" (click)="showHierarchy(bibEntity)">Show hierarchy</button>
+      <button mat-flat-button color="primary" (click)="showHierarchy(bibEntity)">{{ 'main.showHierarchyButtonLabel' | translate }}</button>
     </mat-card-actions>
   </mat-card>
   <div class="result-actions">
-    <button mat-flat-button color="secondary" (click)="popup.toggle()" *ngIf="bibInfoResult && bibInfoResult.data.length > 0">{{ (popup.popupOpen | async) ? 'Close window' : 'Popup window' }}</button>
-    <button mat-flat-button color="primary" (click)="expand()" *ngIf="bibInfoResult && bibInfoResult.data.length > 0">{{ expanded ? 'Collapse view' : 'Expand view'}}</button>
+    <button mat-flat-button color="secondary" (click)="popup.toggle()" *ngIf="bibInfoResult && bibInfoResult.data.length > 0">{{ (popup.popupOpen | async) ? ('main.closeWindowButtonLabel' | translate) : ('main.popUpWindowButtonLabel' | translate) }}</button>
+    <button mat-flat-button color="primary" (click)="expand()" *ngIf="bibInfoResult && bibInfoResult.data.length > 0">{{ expanded ? ('main.collapseViewButtonLabel' | translate) : ('main.expandViewButtonLabel' | translate)}}</button>
   </div>
 
   <div *ngIf="bibInfoResult && !bibInfoResult.data.length" class="empty-list">
-    <p>No related records found</p>
+    <p translate>main.noRelatedRecordsFoundMsg</p>
     <span class="uxf-icon uxf-list" style="font-size: 3em;"></span>
-    <button mat-flat-button color="primary" (click)="reset()" [disabled]="!selectedEntity">Reset selection</button>
+    <button mat-flat-button color="primary" (click)="reset()" [disabled]="!selectedEntity">{{ 'main.resetSelectionButtonLabel' | translate }}</button>
   </div>
 
   <popup #popup>

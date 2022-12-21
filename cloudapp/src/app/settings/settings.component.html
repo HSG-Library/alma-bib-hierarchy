@@ -12,12 +12,12 @@
 <div *ngIf="form">
 	<form [formGroup]="form">
 		<section class="settings-section">
-			<mat-form-field appearance="fill" class="full-width" hintLabel="Leave empty for preset value '{{defaultUrl}}'">
-				<mat-label>Alma SRU URL</mat-label>
+			<mat-form-field appearance="fill" class="full-width" hintLabel="{{ 'settings.leaveEmtpyForPreset' | translate }} '{{defaultUrl ? defaultUrl : ('settings.loading' | translate)}}'">
+				<mat-label translate>settings.almaSruUrlLabel</mat-label>
 				<input matInput formControlName="almaSruUrl" [value] />
 			</mat-form-field>
-			<mat-form-field appearance="fill" class="full-width" hintLabel="Leave empty for default value '{{defaultNetworkCode}}'">
-				<mat-label>Network code</mat-label>
+			<mat-form-field appearance="fill" class="full-width" hintLabel="{{ 'settings.leaveEmtpyForPreset' | translate }} '{{defaultNetworkCode ? defaultNetworkCode : ('settings.loading' | translate)}}'">
+				<mat-label translate>settings.networkCodeLabel</mat-label>
 				<input matInput formControlName="networkCode" [value] />
 			</mat-form-field>
 		</section>

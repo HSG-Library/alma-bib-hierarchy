@@ -1,44 +1,44 @@
 <table class="result-table" mat-table matSort matSortActive="order" [dataSource]="result">
 	<ng-container matColumnDef="order">
 		<th mat-header-cell *matHeaderCellDef mat-sort-header>
-			Order
+			{{ 'result.orderHeader' | translate }}
 		</th>
 		<td class="order" mat-cell *matCellDef="let bibinfo" data-label="Order"> {{bibinfo.order || '-'}} </td>
 	</ng-container>
 	<ng-container matColumnDef="title">
 		<th mat-header-cell *matHeaderCellDef mat-sort-header>
-			Title
+			{{ 'result.titleHeader' | translate }}
 		</th>
 		<td class="title" mat-cell *matCellDef="let bibinfo" data-label="Title"> {{bibinfo.title || '-'}} </td>
 	</ng-container>
 	<ng-container matColumnDef="year">
 		<th mat-header-cell *matHeaderCellDef mat-sort-header>
-			Year
+			{{ 'result.yearHeader' | translate }}
 		</th>
 		<td class="year" mat-cell *matCellDef="let bibinfo" data-label="Year"> {{bibinfo.year || '-'}} </td>
 	</ng-container>
 	<ng-container matColumnDef="edition">
 		<th mat-header-cell *matHeaderCellDef mat-sort-header>
-			Edition
+			{{ 'result.editionHeader' | translate }}
 		</th>
 		<td class="edititon" mat-cell *matCellDef="let bibinfo" data-label="Edition"> {{bibinfo.edition || '-'}} </td>
 	</ng-container>
 	<ng-container matColumnDef="mmsId">
 		<th mat-header-cell *matHeaderCellDef mat-sort-header>
-			MMS ID
+			{{ 'result.mmsidHeader' | translate }}
 		</th>
 		<td class="mmsid" mat-cell *matCellDef="let bibinfo" data-label="MMS ID"> {{bibinfo.mmsId || '-'}} </td>
 	</ng-container>
 	<ng-container matColumnDef="duplicate">
 		<th mat-header-cell *matHeaderCellDef mat-sort-header>
-			Duplicate
+			{{ 'result.duplicateHeader' | translate }}
 		</th>
 		<td class="duplicate" mat-cell *matCellDef="let bibinfo" data-label="Duplicate">
 			<button style="box-shadow: none"
 							*ngIf="bibinfo.duplicates?.length"
 							mat-mini-fab color="warn"
 							[cdkCopyToClipboard]="bibinfo.duplicates?.join(', ')"
-							matTooltip="{{bibinfo.duplicates?.join(', ') || '-'}} - click to copy">
+							matTooltip="{{bibinfo.duplicates?.join(', ') || '-'}} - {{ 'result.clickToCopyMsg' | translate}}">
 				<mat-icon>priority_high</mat-icon>
 			</button>
 			<span *ngIf="!bibinfo.duplicates?.length">-</span>
@@ -46,7 +46,7 @@
 	</ng-container>
 	<ng-container matColumnDef="holdings">
 		<th mat-header-cell *matHeaderCellDef mat-sort-header>
-			Holdings
+			{{ 'result.holdingsHeader' | translate }}
 		</th>
 		<td class="holdings" mat-cell *matCellDef="let bibinfo" data-label="Holdings">
 			<mat-chip-list selectable="false">
