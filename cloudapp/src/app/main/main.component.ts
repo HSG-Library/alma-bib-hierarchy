@@ -13,6 +13,7 @@ import { LoadingIndicatorService } from '../services/loading-indicator.service'
 import { LogService } from '../services/log.service'
 import { SruResponseParserService } from '../services/sru-response-parsers.service'
 import { SruService } from '../services/sru.service'
+import { StatusMessageService } from '../services/status-message.service.ts'
 import { SruQuery } from '../sru/sru-query'
 
 @Component({
@@ -45,6 +46,7 @@ export class MainComponent implements OnInit, OnDestroy {
     private excelExportService: ExcelExportService,
     private log: LogService,
     private loader: LoadingIndicatorService,
+    private status: StatusMessageService,
     private configService: ConfigurationService,
     private restService: CloudAppRestService,
     private eventsService: CloudAppEventsService,
@@ -53,6 +55,7 @@ export class MainComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.loader.show()
+    this.status.set("loading")
     this.eventsService.getInitData().subscribe(data => this.instCode = data.instCode)
     this.configService.getAlmaUrl().subscribe(url => this.almaUrl = url)
 
@@ -78,14 +81,18 @@ export class MainComponent implements OnInit, OnDestroy {
     this.selectedEntity = bibEntity
 
     this.loader.show()
+    this.status.set('Collecting infos for ' + bibEntity.entity.description)
     bibEntity.nzMmsId
       .pipe(
         switchMap(nzMmsId => of(SruQuery.MMS_ID(nzMmsId))),
+        tap(() => this.status.set('Searching via SRU to collect other system numbers')),
         switchMap(query => this.sruService.queryNZ(query)),
         switchMap(records => {
           const otherSystemNumbers: string[] = this.sruParser.getOtherSystemNumbers(records)
+          this.status.set('Found ' + otherSystemNumbers.length + ' system numbers')
           this.log.info('other system numbers: ', otherSystemNumbers)
           const query: SruQuery = SruQuery.OTHER_SYSTEM_NUMBER(otherSystemNumbers)
+          this.status.set('Querying SRU for related records')
           return this.sruService.queryNZ(query)
         })
       ).subscribe(

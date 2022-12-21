@@ -7,6 +7,7 @@ import { ConfigurationService } from './configuration.service'
 import { LoadingIndicatorService } from './loading-indicator.service'
 import { LogService } from './log.service'
 import { SruResponseParserService } from './sru-response-parsers.service'
+import { StatusMessageService } from './status-message.service.ts'
 
 
 @Injectable({
@@ -14,7 +15,8 @@ import { SruResponseParserService } from './sru-response-parsers.service'
 })
 export class SruService {
 
-	private static SRU_PATH: string = '/view/sru/'
+	private static readonly SRU_PATH: string = '/view/sru/'
+	private readonly MAX_RECORDS: number = 50
 
 	private params: HttpParams
 
@@ -23,6 +25,7 @@ export class SruService {
 		private parser: SruResponseParserService,
 		private log: LogService,
 		private loader: LoadingIndicatorService,
+		private status: StatusMessageService,
 		private httpClient: HttpClient) {
 		this.params = new HttpParams()
 			.set('version', '1.2')
@@ -59,10 +62,13 @@ export class SruService {
 			switchMap(url => this.call(url, query)),
 			tap(response => this.log.info('Number of records: ', this.parser.getNumberOfRecords(response))),
 			expand(response => {
-				this.loader.hasProgress(true)
 				const total: number = this.parser.getNumberOfRecords(response)
 				const next: number = this.parser.getNextRecordPosition(response)
-				this.loader.setProgress(Math.round((next / total) * 100))
+				if (total > 1) {
+					this.loader.hasProgress(true)
+					this.loader.setProgress(Math.round((next / total) * 100) + 1)
+					this.status.set('Calling SRU for records ' + next + ' to ' + (next + this.MAX_RECORDS - 1) + ' of ' + total)
+				}
 				if (next > 0) {
 					return this.getNzUrl().pipe(switchMap(url => this.call(url, query, next)))
 				}
@@ -77,7 +83,7 @@ export class SruService {
 		)
 	}
 
-	private call(url: string, query: SruQuery, startRecord: number = 1, maximumRecords: number = 50): Observable<string> {
+	private call(url: string, query: SruQuery, startRecord: number = 1, maximumRecords: number = this.MAX_RECORDS): Observable<string> {
 		const params: HttpParams = this.getParams(query, startRecord, maximumRecords)
 		this.log.info('SRU Query URL: ', url + '?' + params.toString())
 		return this.httpClient.get(url, {
@@ -93,6 +99,6 @@ export class SruService {
 			} else {
 				return part.trim().replace(/(^[\/]*|[\/]*$)/g, '')
 			}
-		}).filter(x => x.length).join('/')
+		}).filter(pathParts => pathParts.length).join('/')
 	}
 }

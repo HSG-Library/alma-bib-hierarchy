@@ -39,4 +39,5 @@
 
 <div class="loading-shade" *ngIf="loader.isLoading | async">
   <mat-spinner diameter="50" [mode]="loader.mode | async" [value]="loader.progress | async"></mat-spinner>
+  <p class="loading-info">{{ status.message | async }}</p>
 </div>
