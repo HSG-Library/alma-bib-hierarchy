@@ -1,0 +1,32 @@
+{
+	"main": {
+		"closeWindowButtonLabel": "Popup schliessen",
+		"collapseViewButtonLabel": "Ansicht verkleinern",
+		"expandViewButtonLabel": "Ansicht erweitern",
+		"exportButtonLabel": "Exportieren",
+		"mmsIdNz": "MMS ID (NZ)",
+		"noMmsIdMsg": "Keine Titel gefunden, bitte nach MMS ID suchen",
+		"noRelatedRecordsFoundMsg": "Keine vernküpften Datensätze gefunden",
+		"popUpWindowButtonLabel": "Popup öffnen",
+		"relatedRecords": "Verknüpfte Datensätze",
+		"resetButtonLabel": "Zurücksetzen",
+		"resetSelectionButtonLabel": "Auswahl Zurücksetzen",
+		"showHierarchyButtonLabel": "Hierarchie anzeigen"
+	},
+	"result": {
+		"clickToCopyMsg": "klick zum zu kopieren",
+		"duplicateHeader": "Dublette",
+		"editionHeader": "Auflage",
+		"holdingsHeader": "Bestand",
+		"mmsidHeader": "MMS ID",
+		"orderHeader": "Band",
+		"titleHeader": "Titel",
+		"yearHeader": "Jahr"
+	},
+	"settings": {
+		"almaSruUrlLabel": "Alma SRU URL",
+		"leaveEmtpyForPreset": "Leer lassen für Standard: ",
+		"loading": "...lade...",
+		"networkCodeLabel": "Netzwerk Code"
+	}
+}
