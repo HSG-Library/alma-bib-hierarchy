@@ -45,12 +45,12 @@ export class MainComponent implements OnInit, OnDestroy {
     private sruParser: SruResponseParserService,
     private excelExportService: ExcelExportService,
     private log: LogService,
-    private loader: LoadingIndicatorService,
-    private status: StatusMessageService,
     private configService: ConfigurationService,
     private restService: CloudAppRestService,
     private eventsService: CloudAppEventsService,
     private alert: AlertService,
+    public status: StatusMessageService,
+    public loader: LoadingIndicatorService,
   ) { }
 
   ngOnInit(): void {
