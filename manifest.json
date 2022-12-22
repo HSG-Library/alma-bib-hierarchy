@@ -2,9 +2,9 @@
    "id": "bib-hierarchy",
    "title": "Bib-Hierarchy",
    "subtitle": "Display bibliographic hierarchies in Alma",
-   "author": "Jonas Furrer",
+   "author": "Jonas Furrer, University St.Gallen",
    "description": "Collect bibliographic hierarchies on NZ level.",
-   "license": "",
+   "license": "https://github.com/HSG-Library/alma-bib-hierarchy/blob/main/LICENSE",
    "icon": {
       "type": "url",
       "value": "/assets/app-icon.png"
