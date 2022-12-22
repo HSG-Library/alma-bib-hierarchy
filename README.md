@@ -28,7 +28,7 @@ The result data is retrieved via SRU (see [SRU documentation](https://developers
 5. Parse the result and display as nice table
 
 ## Which fields are used
-To display the result table, the following fields are used. If this does not work for you, please open an issue on Github.
+To display the result table, the following fields are used. If this does not work for you, please open an [issue on Github](https://github.com/HSG-Library/alma-bib-hierarchy/issues).
 
 * Order: `800$v`, `810$v`, `830$v`, `773$q`
 * Title: `245`
