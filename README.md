@@ -38,7 +38,8 @@ To display the result table, the following fields are used. If this does not wor
 * Duplicate: records with the same order and edition are marked as duplicates
 * Holding: `852$a`
 
-## Example SRU queries
+## Development notes
+### Example SRU queries
 Example queries for 'Gesamtausgabe Martin Heidegger, Heidegger, Martin', MMS ID (NZ): 991012502969705501
 
 1. Get record by MMS ID: `https://eu03.alma.exlibrisgroup.com/view/sru/41SLSP_NETWORK?version=1.2&operation=searchRetrieve&recordSchema=marcxml&query=mms_id=991012502969705501&startRecord=1&maximumRecords=50`
@@ -873,3 +874,10 @@ Example queries for 'Gesamtausgabe Martin Heidegger, Heidegger, Martin', MMS ID 
 </searchRetrieveResponse>
 ```
 </details>
+
+### Further resources
+- Bib-Hierarchy by [gabriele-h](https://github.com/gabriele-h) https://github.com/gabriele-h/bib-hierarchy
+- Running version of the code above https://bibdata.univie.ac.at/bib-hierarchy/
+- ExLibris Cloud App documentation: https://developers.exlibrisgroup.com/cloudapps/
+- ExLibris SRU documentation: https://developers.exlibrisgroup.com/alma/integrations/sru/
+-
