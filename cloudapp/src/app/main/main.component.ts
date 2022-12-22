@@ -3,7 +3,7 @@ import { MatSort, MatSortable } from '@angular/material/sort'
 import { MatTableDataSource } from '@angular/material/table'
 import { AlertService, CloudAppEventsService, CloudAppRestService, Entity, EntityType, HttpMethod } from '@exlibris/exl-cloudapp-angular-lib'
 import { Observable, of } from 'rxjs'
-import { filter, switchMap, tap } from 'rxjs/operators'
+import { filter, shareReplay, switchMap, tap } from 'rxjs/operators'
 import { BibEntity } from '../models/bib-entity.model'
 import { BibInfo } from '../models/bib-info.model'
 import { ResultTableComponent } from '../result-table/result-table.component'
@@ -180,9 +180,13 @@ export class MainComponent implements OnInit, OnDestroy {
         switchMap(query => this.sruService.queryNZ(query)),
         switchMap(records => {
           const otherSystemNumbers: string[] = this.sruParser.getOtherSystemNumbers(records)
+          if (otherSystemNumbers.length == 0) {
+            return of(0)
+          }
           const query: SruQuery = SruQuery.OTHER_SYSTEM_NUMBER(otherSystemNumbers)
           return this.sruService.querNZRecordCount(query)
-        })
+        }),
+        shareReplay(1)
       )
   }
 }
