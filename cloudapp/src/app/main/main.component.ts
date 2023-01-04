@@ -80,16 +80,22 @@ export class MainComponent implements OnInit, OnDestroy {
 
     this.loader.show()
     this.status.set('Collecting infos for ' + bibEntity.entity.description)
+    let currentNzMmsId: string
     bibEntity.nzMmsId
       .pipe(
-        switchMap(nzMmsId => of(SruQuery.MMS_ID(nzMmsId))),
+        switchMap(nzMmsId => {
+          currentNzMmsId = nzMmsId
+          return of(SruQuery.MMS_ID(nzMmsId))
+        }),
         tap(() => this.status.set('Collecting other system numbers')),
         switchMap(query => this.sruService.queryNZ(query)),
         switchMap(records => {
           const otherSystemNumbers: string[] = this.sruParser.getOtherSystemNumbers(records)
           this.status.set('Found ' + otherSystemNumbers.length + ' system numbers')
           this.log.info('other system numbers: ', otherSystemNumbers)
-          const query: SruQuery = SruQuery.OTHER_SYSTEM_NUMBER(otherSystemNumbers)
+          const otherSystemNumbersAndMmsId = [...otherSystemNumbers, currentNzMmsId]
+          this.log.info('other system numbers + mmsid, used for query: ', otherSystemNumbersAndMmsId)
+          const query: SruQuery = SruQuery.OTHER_SYSTEM_NUMBER(otherSystemNumbersAndMmsId)
           this.status.set('Querying SRU for related records')
           return this.sruService.queryNZ(query)
         })
@@ -166,16 +172,20 @@ export class MainComponent implements OnInit, OnDestroy {
   }
 
   private getRelatedRecords(bibEntity: BibEntity): Observable<number> {
+    let currentNzMmsId: string
     return bibEntity.nzMmsId
       .pipe(
-        switchMap(nzMmsId => of(SruQuery.MMS_ID(nzMmsId))),
+        switchMap(nzMmsId => {
+          currentNzMmsId = nzMmsId
+          return of(SruQuery.MMS_ID(nzMmsId))
+        }),
         switchMap(query => this.sruService.queryNZ(query)),
         switchMap(records => {
           const otherSystemNumbers: string[] = this.sruParser.getOtherSystemNumbers(records)
           if (otherSystemNumbers.length == 0) {
             return of(0)
           }
-          const query: SruQuery = SruQuery.OTHER_SYSTEM_NUMBER(otherSystemNumbers)
+          const query: SruQuery = SruQuery.OTHER_SYSTEM_NUMBER([...otherSystemNumbers, currentNzMmsId])
           return this.sruService.querNZRecordCount(query)
         }),
         shareReplay(1)
