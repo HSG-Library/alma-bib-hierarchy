@@ -46,23 +46,27 @@ export class PopupComponent implements OnDestroy {
 			this.popoutWindow = window.open(
 				'',
 				`popoutWindow${Date.now()}`,
-				`width=${window.parent.window.innerWidth - 20},
-        height=${window.innerHeight - 20},
-        left=${window.screenX + 10},
-        top=${window.screenY - 10}`
+				`width=${window.screen.width - 20},
+        height=${window.innerHeight - 20}`
 			)
 
 			this.popoutWindow.document.title = window.document.title
 			this.popoutWindow.document.body.style.margin = '0'
 
+			document.head.querySelectorAll('link[rel="stylesheet"]').forEach(node => {
+				this.popoutWindow.document.head.insertAdjacentHTML('beforeend',
+					`<link rel="stylesheet" href="${(node as HTMLLinkElement).href}">`)
+			})
+
 			document.head.querySelectorAll('style').forEach(node => {
 				this.popoutWindow.document.head.appendChild(node.cloneNode(true))
 			})
 
-			document.head.querySelectorAll('link[rel="stylesheet"]').forEach(node => {
-				this.popoutWindow.document.head.insertAdjacentHTML('beforeend',
-					`<link rel="stylesheet" type="${(node as HTMLLinkElement).type}" href="${(node as HTMLLinkElement).href}">`)
-			})
+			Array.from(document.body.classList).forEach((className) => this.popoutWindow.document.body.classList.add(className))
+
+			this.popoutWindow.document.head.removeChild(this.popoutWindow.document.head.querySelector('title'))
+			this.popoutWindow.document.head.insertAdjacentHTML('afterbegin', '<title>Bib-Hierarchy - Popup</title>')
+
 			this.renderer2.appendChild(this.popoutWindow.document.body, this.innerWrapper.nativeElement)
 
 			this.popoutWindow.addEventListener('unload', () => this.close())

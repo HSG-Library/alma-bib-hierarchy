@@ -22,8 +22,8 @@
   </mat-card>
   <div class="result-actions">
     <button mat-flat-button color="secondary" (click)="popup.toggle()" *ngIf="bibInfoResult && bibInfoResult.data.length > 0">{{ (popup.popupOpen | async) ? ('main.closeWindowButtonLabel' | translate) : ('main.popUpWindowButtonLabel' | translate) }}</button>
-    <button mat-flat-button color="primary" (click)="expand()" *ngIf="bibInfoResult && bibInfoResult.data.length > 0">{{ expanded ? ('main.collapseViewButtonLabel' | translate) : ('main.expandViewButtonLabel' | translate)}}</button>
   </div>
+  <p class="expand-view-info" *ngIf="bibInfoResult && bibInfoResult.data.length > 0">{{ 'main.expandInfo' | translate }}: <i class="icon-density ng-star-inserted uxf-icon uxf-resize-large" style="transform: rotate(45deg);"></i></p>
 
   <div *ngIf="bibInfoResult && !bibInfoResult.data.length" class="empty-list">
     <p translate>main.noRelatedRecordsFoundMsg</p>

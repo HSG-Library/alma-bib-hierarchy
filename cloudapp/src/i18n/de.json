@@ -1,8 +1,7 @@
 {
 	"main": {
 		"closeWindowButtonLabel": "Popup schliessen",
-		"collapseViewButtonLabel": "Ansicht verkleinern",
-		"expandViewButtonLabel": "Ansicht erweitern",
+		"expandInfo": "Zum erweitern den Erweitern Button in der Toolbar klicken",
 		"exportButtonLabel": "Exportieren",
 		"mmsIdNz": "MMS ID (NZ)",
 		"noMmsIdMsg": "Keine Titel gefunden, bitte nach MMS ID suchen",
