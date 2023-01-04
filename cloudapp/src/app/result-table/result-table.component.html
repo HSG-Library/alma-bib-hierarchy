@@ -3,37 +3,37 @@
 		<th mat-header-cell *matHeaderCellDef mat-sort-header>
 			{{ 'result.orderHeader' | translate }}
 		</th>
-		<td class="order" mat-cell *matCellDef="let bibinfo" data-label="Order"> {{bibinfo.order || '-'}} </td>
+		<td class="order" mat-cell *matCellDef="let bibinfo" [attr.data-label]="'result.orderHeader' | translate"> {{bibinfo.order || '-'}} </td>
 	</ng-container>
 	<ng-container matColumnDef="title">
 		<th mat-header-cell *matHeaderCellDef mat-sort-header>
 			{{ 'result.titleHeader' | translate }}
 		</th>
-		<td class="title" mat-cell *matCellDef="let bibinfo" data-label="Title"> {{bibinfo.title || '-'}} </td>
+		<td class="title" mat-cell *matCellDef="let bibinfo" [attr.data-label]="'result.titleHeader' | translate"> {{bibinfo.title || '-'}} </td>
 	</ng-container>
 	<ng-container matColumnDef="year">
 		<th mat-header-cell *matHeaderCellDef mat-sort-header>
 			{{ 'result.yearHeader' | translate }}
 		</th>
-		<td class="year" mat-cell *matCellDef="let bibinfo" data-label="Year"> {{bibinfo.year || '-'}} </td>
+		<td class="year" mat-cell *matCellDef="let bibinfo" [attr.data-label]="'result.yearHeader' | translate"> {{bibinfo.year || '-'}} </td>
 	</ng-container>
 	<ng-container matColumnDef="edition">
 		<th mat-header-cell *matHeaderCellDef mat-sort-header>
 			{{ 'result.editionHeader' | translate }}
 		</th>
-		<td class="edititon" mat-cell *matCellDef="let bibinfo" data-label="Edition"> {{bibinfo.edition || '-'}} </td>
+		<td class="edititon" mat-cell *matCellDef="let bibinfo" [attr.data-label]="'result.editionHeader' | translate"> {{bibinfo.edition || '-'}} </td>
 	</ng-container>
 	<ng-container matColumnDef="mmsId">
 		<th mat-header-cell *matHeaderCellDef mat-sort-header>
 			{{ 'result.mmsidHeader' | translate }}
 		</th>
-		<td class="mmsid" mat-cell *matCellDef="let bibinfo" data-label="MMS ID"> {{bibinfo.mmsId || '-'}} </td>
+		<td class="mmsid" mat-cell *matCellDef="let bibinfo" [attr.data-label]="'result.mmsidHeader' | translate"> {{bibinfo.mmsId || '-'}} </td>
 	</ng-container>
 	<ng-container matColumnDef="duplicate">
 		<th mat-header-cell *matHeaderCellDef mat-sort-header>
 			{{ 'result.duplicateHeader' | translate }}
 		</th>
-		<td class="duplicate" mat-cell *matCellDef="let bibinfo" data-label="Duplicate">
+		<td class="duplicate" mat-cell *matCellDef="let bibinfo" [attr.data-label]="'result.duplicateHeader' | translate">
 			<button style="box-shadow: none"
 							*ngIf="bibinfo.duplicates?.length"
 							mat-mini-fab color="warn"
@@ -48,7 +48,7 @@
 		<th mat-header-cell *matHeaderCellDef mat-sort-header>
 			{{ 'result.holdingsHeader' | translate }}
 		</th>
-		<td class="holdings" mat-cell *matCellDef="let bibinfo" data-label="Holdings">
+		<td class="holdings" mat-cell *matCellDef="let bibinfo" [attr.data-label]="'result.holdingsHeader' | translate">
 			<mat-chip-list selectable="false">
 				<mat-chip *ngFor="let holding of bibinfo.holdings"
 									color="{{ holding == instCode ? 'accent' : '' }}"
