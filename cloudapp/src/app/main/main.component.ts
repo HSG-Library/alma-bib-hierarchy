@@ -104,6 +104,7 @@ export class MainComponent implements OnInit, OnDestroy {
           const bibInfos: BibInfo[] = this.sruParser.getBibInfo(records)
           const bibInfosSorted: BibInfo[] = this.sortHoldings(bibInfos)
           const datasource = new MatTableDataSource(bibInfosSorted)
+          datasource.sortData = this.tableSortFunction()
           const matSort: MatSort = this.resultTable.getMatSort()
           matSort.sort(({ id: 'order', start: 'asc' }) as MatSortable)
           datasource.sort = matSort
@@ -191,4 +192,62 @@ export class MainComponent implements OnInit, OnDestroy {
         shareReplay(1)
       )
   }
+
+  private tableSortFunction(): (items: BibInfo[], sort: MatSort) => BibInfo[] {
+    return (items: BibInfo[], sort: MatSort): BibInfo[] => {
+      return items.sort((a: BibInfo, b: BibInfo) => {
+        let comparatorResult = 0
+        switch (sort.active) {
+          case 'order':
+            if (a.order && b.order) {
+              const regex: RegExp = /\b\d+\b/
+              const matchA: RegExpMatchArray = a.order.match(regex)
+              const matchB: RegExpMatchArray = b.order.match(regex)
+              if (matchA && matchB) {
+                const aOrder: number = Number(matchA[0] || -1)
+                const bOrder: number = Number(matchB[0] || -1)
+                comparatorResult = aOrder - bOrder
+              } else {
+                comparatorResult = -1
+              }
+            } else {
+              comparatorResult = !a.order && !b.order ? 0 : a.order && !b.order ? 1 : !a.order && b.order ? -1 : 0
+            }
+            break
+          case 'title':
+            comparatorResult = a.title.localeCompare(b.title)
+            break
+          case 'year':
+            comparatorResult = a.year - b.year
+            break
+          case 'edition':
+            comparatorResult = a.edition.localeCompare(b.edition)
+            break
+          case 'mmsId':
+            comparatorResult = a.mmsId.localeCompare(b.mmsId)
+            break
+          case 'duplicate':
+            if (a.duplicates && b.duplicates) {
+              const aDup0: number = Number(a.duplicates[0] || -1)
+              const bDup0: number = Number(b.duplicates[0] || -1)
+              comparatorResult = aDup0 - bDup0
+            } else {
+              comparatorResult = !a.duplicates && !b.duplicates ? 0 : a.duplicates && !b.duplicates ? 1 : !a.duplicates && b.duplicates ? -1 : 0
+            }
+            break
+          case 'holdings':
+            const aHol0: string = a.holdings[0] || '-'
+            const bHol0: string = b.holdings[0] || '-'
+            comparatorResult = aHol0.localeCompare(bHol0)
+            break
+          default:
+            console.log('fallback for', sort.active)
+            comparatorResult = 0
+            break
+        }
+        return comparatorResult * (sort.direction == 'asc' ? 1 : -1)
+      })
+    }
+  }
+
 }
