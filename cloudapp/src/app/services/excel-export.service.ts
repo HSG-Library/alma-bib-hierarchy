@@ -25,7 +25,7 @@ export class ExcelExportService {
 					Year: entry.year,
 					Edition: entry.edition,
 					Holdings: entry.holdings?.join(', '),
-					Dulplicates: entry.duplicates?.join(', ')
+					'Possible duplicates': entry.duplicates?.join(', ')
 				}
 			})
 	}

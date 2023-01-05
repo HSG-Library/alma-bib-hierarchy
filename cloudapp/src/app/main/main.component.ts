@@ -32,8 +32,6 @@ export class MainComponent implements OnInit, OnDestroy {
 
   @ViewChild(ResultTableComponent) resultTable: ResultTableComponent
 
-  expanded: boolean = false
-
   entities$: Observable<Entity[]> = this.eventsService.entities$
     .pipe(
       tap(() => this.reset()),
@@ -82,16 +80,22 @@ export class MainComponent implements OnInit, OnDestroy {
 
     this.loader.show()
     this.status.set('Collecting infos for ' + bibEntity.entity.description)
+    let currentNzMmsId: string
     bibEntity.nzMmsId
       .pipe(
-        switchMap(nzMmsId => of(SruQuery.MMS_ID(nzMmsId))),
+        switchMap(nzMmsId => {
+          currentNzMmsId = nzMmsId
+          return of(SruQuery.MMS_ID(nzMmsId))
+        }),
         tap(() => this.status.set('Collecting other system numbers')),
         switchMap(query => this.sruService.queryNZ(query)),
         switchMap(records => {
           const otherSystemNumbers: string[] = this.sruParser.getOtherSystemNumbers(records)
           this.status.set('Found ' + otherSystemNumbers.length + ' system numbers')
           this.log.info('other system numbers: ', otherSystemNumbers)
-          const query: SruQuery = SruQuery.OTHER_SYSTEM_NUMBER(otherSystemNumbers)
+          const otherSystemNumbersAndMmsId = [...otherSystemNumbers, currentNzMmsId]
+          this.log.info('other system numbers + mmsid, used for query: ', otherSystemNumbersAndMmsId)
+          const query: SruQuery = SruQuery.OTHER_SYSTEM_NUMBER(otherSystemNumbersAndMmsId)
           this.status.set('Querying SRU for related records')
           return this.sruService.queryNZ(query)
         })
@@ -100,6 +104,7 @@ export class MainComponent implements OnInit, OnDestroy {
           const bibInfos: BibInfo[] = this.sruParser.getBibInfo(records)
           const bibInfosSorted: BibInfo[] = this.sortHoldings(bibInfos)
           const datasource = new MatTableDataSource(bibInfosSorted)
+          datasource.sortData = this.tableSortFunction()
           const matSort: MatSort = this.resultTable.getMatSort()
           matSort.sort(({ id: 'order', start: 'asc' }) as MatSortable)
           datasource.sort = matSort
@@ -112,12 +117,6 @@ export class MainComponent implements OnInit, OnDestroy {
           this.reset()
           this.loader.hide()
         })
-  }
-
-  expand(): void {
-    // break out of iframe and dispatch a click event to the expand button of the CloudApp sidebar, due to lack of corresponding api. sorry
-    window.parent.document.querySelector('#floating-sidepane-upper-actions-expand').dispatchEvent(new Event('click'))
-    this.expanded = !this.expanded
   }
 
   reset(): void {
@@ -174,19 +173,81 @@ export class MainComponent implements OnInit, OnDestroy {
   }
 
   private getRelatedRecords(bibEntity: BibEntity): Observable<number> {
+    let currentNzMmsId: string
     return bibEntity.nzMmsId
       .pipe(
-        switchMap(nzMmsId => of(SruQuery.MMS_ID(nzMmsId))),
+        switchMap(nzMmsId => {
+          currentNzMmsId = nzMmsId
+          return of(SruQuery.MMS_ID(nzMmsId))
+        }),
         switchMap(query => this.sruService.queryNZ(query)),
         switchMap(records => {
           const otherSystemNumbers: string[] = this.sruParser.getOtherSystemNumbers(records)
           if (otherSystemNumbers.length == 0) {
             return of(0)
           }
-          const query: SruQuery = SruQuery.OTHER_SYSTEM_NUMBER(otherSystemNumbers)
+          const query: SruQuery = SruQuery.OTHER_SYSTEM_NUMBER([...otherSystemNumbers, currentNzMmsId])
           return this.sruService.querNZRecordCount(query)
         }),
         shareReplay(1)
       )
   }
+
+  private tableSortFunction(): (items: BibInfo[], sort: MatSort) => BibInfo[] {
+    return (items: BibInfo[], sort: MatSort): BibInfo[] => {
+      return items.sort((a: BibInfo, b: BibInfo) => {
+        let comparatorResult = 0
+        switch (sort.active) {
+          case 'order':
+            if (a.order && b.order) {
+              const regex: RegExp = /\b\d+\b/
+              const matchA: RegExpMatchArray = a.order.match(regex)
+              const matchB: RegExpMatchArray = b.order.match(regex)
+              if (matchA && matchB) {
+                const aOrder: number = Number(matchA[0] || -1)
+                const bOrder: number = Number(matchB[0] || -1)
+                comparatorResult = aOrder - bOrder
+              } else {
+                comparatorResult = -1
+              }
+            } else {
+              comparatorResult = !a.order && !b.order ? 0 : a.order && !b.order ? 1 : !a.order && b.order ? -1 : 0
+            }
+            break
+          case 'title':
+            comparatorResult = a.title.localeCompare(b.title)
+            break
+          case 'year':
+            comparatorResult = a.year - b.year
+            break
+          case 'edition':
+            comparatorResult = a.edition.localeCompare(b.edition)
+            break
+          case 'mmsId':
+            comparatorResult = a.mmsId.localeCompare(b.mmsId)
+            break
+          case 'duplicate':
+            if (a.duplicates && b.duplicates) {
+              const aDup0: number = Number(a.duplicates[0] || -1)
+              const bDup0: number = Number(b.duplicates[0] || -1)
+              comparatorResult = aDup0 - bDup0
+            } else {
+              comparatorResult = !a.duplicates && !b.duplicates ? 0 : a.duplicates && !b.duplicates ? 1 : !a.duplicates && b.duplicates ? -1 : 0
+            }
+            break
+          case 'holdings':
+            const aHol0: string = a.holdings[0] || '-'
+            const bHol0: string = b.holdings[0] || '-'
+            comparatorResult = aHol0.localeCompare(bHol0)
+            break
+          default:
+            console.log('fallback for', sort.active)
+            comparatorResult = 0
+            break
+        }
+        return comparatorResult * (sort.direction == 'asc' ? 1 : -1)
+      })
+    }
+  }
+
 }

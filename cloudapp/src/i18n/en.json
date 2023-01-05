@@ -1,8 +1,7 @@
 {
 	"main": {
 		"closeWindowButtonLabel": "Close window",
-		"collapseViewButtonLabel": "Collapse view",
-		"expandViewButtonLabel": "Expand view",
+		"expandInfo": "To expand the view click the expand button in the toolbar",
 		"exportButtonLabel": "Export",
 		"mmsIdNz": "MMS ID (NZ)",
 		"noMmsIdMsg": "No Bibliographic Entities found, search for MMSID",
@@ -14,8 +13,8 @@
 		"showHierarchyButtonLabel": "Show hierarchy"
 	},
 	"result": {
-		"clickToCopyMsg": "click to copy",
-		"duplicateHeader": "Duplicate",
+		"clickToCopyMsg": "click to copy the MMSID of the possible duplicate",
+		"duplicateHeader": "Possible duplicate",
 		"editionHeader": "Edition",
 		"holdingsHeader": "Holdings",
 		"mmsidHeader": "MMS ID",

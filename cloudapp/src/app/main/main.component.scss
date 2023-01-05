@@ -22,6 +22,10 @@
   }
 }
 
+.expand-view-info {
+  display: none;
+}
+
 .empty-list {
   height: 100%;
   width: 100%;
@@ -60,5 +64,14 @@
     border-radius: 3px;
     color: #ffffff;
     background-color: rgba($color: #000000, $alpha: 0.4);
+  }
+}
+
+
+@media screen and (max-width: 450px) {
+  .expand-view-info {
+    display: block;
+    text-align: right;
+    margin-top: 15px;
   }
 }
