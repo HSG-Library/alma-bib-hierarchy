@@ -44,6 +44,13 @@
 			<span *ngIf="!bibinfo.duplicates?.length">-</span>
 		</td>
 	</ng-container>
+	<ng-container matColumnDef="analytical">
+		<th mat-header-cell *matHeaderCellDef mat-sort-header>
+			{{ 'result.analyticalHeader' | translate }}
+		</th>
+		<td class="analytical" mat-cell *matCellDef="let bibinfo" [attr.data-label]="'result.analyticalHeader' | translate"> <mat-icon *ngIf="bibinfo.analytical">check_small</mat-icon><span *ngIf="!bibinfo.analytical">-</span>
+		</td>
+	</ng-container>
 	<ng-container matColumnDef="holdings">
 		<th mat-header-cell *matHeaderCellDef mat-sort-header>
 			{{ 'result.holdingsHeader' | translate }}
@@ -56,6 +63,7 @@
 									selected="{{ holding == instCode}}"
 									matTooltip="{{holding}}">{{ shortHolding(holding) }}</mat-chip>
 			</mat-chip-list>
+			<span *ngIf="!bibinfo.holdings?.length">-</span>
 		</td>
 	</ng-container>
 	<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

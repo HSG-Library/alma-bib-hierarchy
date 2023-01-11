@@ -26,18 +26,23 @@ export class BibInfo {
 	public get holdings(): string[] {
 		return this._holdings
 	}
+	private _analytical: boolean
+	public get analytical(): boolean {
+		return this._analytical
+	}
 	private _duplicates: string[]
 	public get duplicates(): string[] {
 		return this._duplicates
 	}
 
-	constructor(mmsId: string, order: string, title: string, year: number, edition: string, holdings: string[], duplicates?: string[]) {
+	constructor(mmsId: string, order: string, title: string, year: number, edition: string, holdings: string[], analytical: boolean, duplicates?: string[]) {
 		this._mmsId = mmsId
 		this._order = order
 		this._title = title
 		this._year = year
 		this._edition = edition
 		this._holdings = holdings
+		this._analytical = analytical
 		this._duplicates = duplicates
 	}
 }

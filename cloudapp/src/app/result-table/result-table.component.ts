@@ -10,7 +10,7 @@ import { BibInfo } from '../models/bib-info.model'
 	styleUrls: ['./result-table.component.scss']
 })
 export class ResultTableComponent {
-	displayedColumns: string[] = ['order', 'title', 'year', 'edition', 'mmsId', 'duplicate', 'holdings'];
+	displayedColumns: string[] = ['order', 'title', 'year', 'edition', 'mmsId', 'duplicate', 'analytical', 'holdings'];
 	instCode: string
 
 	@Input()

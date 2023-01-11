@@ -13,6 +13,7 @@
 		"showHierarchyButtonLabel": "Hierarchie anzeigen"
 	},
 	"result": {
+		"analyticalHeader": "Analytisch",
 		"clickToCopyMsg": "klicken zum kopieren der MMSID der möglichen Dublette",
 		"duplicateHeader": "Mögliche Dublette",
 		"editionHeader": "Auflage",

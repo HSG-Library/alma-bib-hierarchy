@@ -148,7 +148,7 @@ export class MainComponent implements OnInit, OnDestroy {
         return o1.localeCompare(o2)
       })
       const holdings: string[] = b.holdings
-      return new BibInfo(b.mmsId, b.order, b.title, b.year, b.edition, holdings, b.duplicates)
+      return new BibInfo(b.mmsId, b.order, b.title, b.year, b.edition, holdings, b.analytical, b.duplicates)
     })
   }
 
