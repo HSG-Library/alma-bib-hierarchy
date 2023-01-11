@@ -3,7 +3,7 @@ import { MatSort, MatSortable } from '@angular/material/sort'
 import { MatTableDataSource } from '@angular/material/table'
 import { AlertService, CloudAppEventsService, CloudAppRestService, Entity, EntityType, HttpMethod } from '@exlibris/exl-cloudapp-angular-lib'
 import { Observable, of } from 'rxjs'
-import { filter, shareReplay, switchMap, tap } from 'rxjs/operators'
+import { catchError, filter, shareReplay, switchMap, tap } from 'rxjs/operators'
 import { BibEntity } from '../models/bib-entity.model'
 import { BibInfo } from '../models/bib-info.model'
 import { ResultTableComponent } from '../result-table/result-table.component'
@@ -168,7 +168,12 @@ export class MainComponent implements OnInit, OnDestroy {
           const nzMmsId: string = response?.linked_record_id?.value
           this.log.info('nzMmsId', nzMmsId)
           return of(nzMmsId)
-        })
+        }),
+        catchError(error => {
+          this.log.error('Cannot get NZ MMSID from API. Assuming the MMSID is already from NZ.', error)
+          return of(bibEntity.entity.id)
+        }),
+        shareReplay(1)
       )
   }
 
