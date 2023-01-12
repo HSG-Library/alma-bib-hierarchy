@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { EMPTY, forkJoin, Observable, of } from 'rxjs'
-import { expand, map, reduce, switchMap, tap } from 'rxjs/operators'
+import { expand, map, reduce, shareReplay, switchMap, tap } from 'rxjs/operators'
 import { SruQuery } from '../sru/sru-query'
 import { ConfigurationService } from './configuration.service'
 import { LoadingIndicatorService } from './loading-indicator.service'
@@ -19,6 +19,7 @@ export class SruService {
 	private readonly MAX_RECORDS: number = 50
 
 	private params: HttpParams
+	private nzUrl: string
 
 	constructor(
 		private configService: ConfigurationService,
@@ -34,11 +35,22 @@ export class SruService {
 	}
 
 	private getNzUrl(): Observable<string> {
+		this.log.info("getting NZ SRU URL")
+		if (this.nzUrl) {
+			this.log.info("NZ URL cached:", this.nzUrl)
+			return of(this.nzUrl)
+		}
+		console.log("NZ URL not yet cached, requesting")
 		return forkJoin({
 			url: this.configService.getAlmaUrl(),
 			networkCode: this.configService.getNetworkCode()
 		}).pipe(
-			switchMap(data => of(this.buildPath(data.url, SruService.SRU_PATH, data.networkCode)))
+			switchMap(data => of(this.buildPath(data.url, SruService.SRU_PATH, data.networkCode))),
+			tap(url => {
+				console.log("Recieved NZ URL, adding to cache:", this.nzUrl)
+				this.nzUrl = url
+			}),
+			shareReplay(1)
 		)
 	}
 
@@ -60,7 +72,6 @@ export class SruService {
 	queryNZ(query: SruQuery): Observable<Element[]> {
 		return this.getNzUrl().pipe(
 			switchMap(url => this.call(url, query)),
-			tap(response => this.log.info('Number of records: ', this.parser.getNumberOfRecords(response))),
 			expand(response => {
 				const total: number = this.parser.getNumberOfRecords(response)
 				const next: number = this.parser.getNextRecordPosition(response)
@@ -84,6 +95,7 @@ export class SruService {
 	}
 
 	private call(url: string, query: SruQuery, startRecord: number = 1, maximumRecords: number = this.MAX_RECORDS): Observable<string> {
+		this.log.info('Executing SRU query:', query.name)
 		const params: HttpParams = this.getParams(query, startRecord, maximumRecords)
 		this.log.info('SRU Query URL: ', url + '?' + params.toString())
 		return this.httpClient.get(url, {

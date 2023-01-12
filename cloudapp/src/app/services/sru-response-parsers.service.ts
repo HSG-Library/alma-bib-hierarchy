@@ -124,10 +124,8 @@ export class SruResponseParserService {
 
 	private extractAnalytical(document: Document): boolean {
 		const leader: string[] = this.xpathQuery(document, this.XPATH_QUERY_LEADER_ANALYTICAL)
-		console.log('leader', leader)
 		if (leader.length == 1) {
 			const ldr7: string = leader[0].substring(7, 8)
-			console.log(ldr7)
 			return ldr7 == 'a'
 		}
 		return false

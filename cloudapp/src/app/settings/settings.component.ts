@@ -28,7 +28,6 @@ export class SettingsComponent implements OnInit {
 		this.saving = true
 		this.settingsService.get().subscribe(settings => {
 			this.form = FormGroupUtil.toFormGroup(Object.assign(new Settings(), settings))
-			console.log(settings)
 			this.saving = false
 		})
 		this.configurationService.getAlmaUrlFromConfig().subscribe(url => this.defaultUrl = url)

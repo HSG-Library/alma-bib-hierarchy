@@ -13,7 +13,12 @@
     <mat-card-content>
       <mat-list>
         <mat-list-item><span class="bold">{{ 'main.mmsIdNz' | translate }}:&nbsp;</span><span [ngClass]="{ 'loading' : !(bibEntity.nzMmsId | async )}">{{ (bibEntity.nzMmsId | async)}}</span></mat-list-item>
-        <mat-list-item><span class="bold">{{ 'main.relatedRecords' | translate }}:&nbsp;</span><span [ngClass]="{ 'loading' : !(bibEntity.relatedRecords | async | number: '1.0-0') }">{{ (bibEntity.relatedRecords | async | number: '1.0-0') }}</span></mat-list-item>
+        <mat-list-item>
+          <span class="bold">{{ 'main.relatedRecords' | translate }}:&nbsp;</span>
+          <button *ngIf="bibEntity.relatedRecords == null && !bibEntity.clicked" class="related-records-button" mat-flat-button color="secondary" (click)="getRelatedRecords(bibEntity); bibEntity.clicked = true">{{ 'main.calculateButtonLabel' | translate }}</button>
+          <span *ngIf="bibEntity.relatedRecords == null && bibEntity.clicked" class="loading"></span>
+          <span *ngIf="bibEntity.relatedRecords != null">{{bibEntity.relatedRecords}}</span>
+        </mat-list-item>
       </mat-list>
     </mat-card-content>
     <mat-card-actions class="bib-entity-actions" *ngIf="!selectedEntity">

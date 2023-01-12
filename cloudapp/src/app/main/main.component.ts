@@ -63,7 +63,7 @@ export class MainComponent implements OnInit, OnDestroy {
           entities.map(entity => {
             let bibEntity: BibEntity = new BibEntity(entity)
             bibEntity.nzMmsId = this.getNzMmsIdFromEntity(bibEntity)
-            bibEntity.relatedRecords = this.getRelatedRecords(bibEntity)
+            bibEntity.relatedRecords = null
             return bibEntity
           })
         ))
@@ -92,7 +92,6 @@ export class MainComponent implements OnInit, OnDestroy {
         switchMap(records => {
           const otherSystemNumbers: string[] = this.sruParser.getOtherSystemNumbers(records)
           this.status.set('Found ' + otherSystemNumbers.length + ' system numbers')
-          this.log.info('other system numbers: ', otherSystemNumbers)
           const otherSystemNumbersAndMmsId = [...otherSystemNumbers, currentNzMmsId]
           this.log.info('other system numbers + mmsid, used for query: ', otherSystemNumbersAndMmsId)
           const query: SruQuery = SruQuery.OTHER_SYSTEM_NUMBER(otherSystemNumbersAndMmsId)
@@ -163,7 +162,6 @@ export class MainComponent implements OnInit, OnDestroy {
       queryParams: { view: 'brief' }
     })
       .pipe(
-        tap(response => console.log(response)),
         switchMap(response => {
           const nzMmsId: string = response?.linked_record_id?.value
           this.log.info('nzMmsId', nzMmsId)
@@ -177,7 +175,7 @@ export class MainComponent implements OnInit, OnDestroy {
       )
   }
 
-  private getRelatedRecords(bibEntity: BibEntity): Observable<number> {
+  getRelatedRecords(bibEntity: BibEntity) {
     let currentNzMmsId: string
     return bibEntity.nzMmsId
       .pipe(
@@ -185,17 +183,24 @@ export class MainComponent implements OnInit, OnDestroy {
           currentNzMmsId = nzMmsId
           return of(SruQuery.MMS_ID(nzMmsId))
         }),
-        switchMap(query => this.sruService.queryNZ(query)),
+        switchMap(query => {
+          console.log('invoke query')
+          return this.sruService.queryNZ(query)
+        }),
         switchMap(records => {
           const otherSystemNumbers: string[] = this.sruParser.getOtherSystemNumbers(records)
+          console.log('otherSystemNumbers', otherSystemNumbers)
           if (otherSystemNumbers.length == 0) {
             return of(0)
           }
           const query: SruQuery = SruQuery.OTHER_SYSTEM_NUMBER([...otherSystemNumbers, currentNzMmsId])
           return this.sruService.querNZRecordCount(query)
-        }),
-        shareReplay(1)
+        })
       )
+      .subscribe(result => {
+        console.log('subscribe result', result)
+        bibEntity.relatedRecords = result
+      })
   }
 
   private tableSortFunction(): (items: BibInfo[], sort: MatSort) => BibInfo[] {
@@ -246,7 +251,6 @@ export class MainComponent implements OnInit, OnDestroy {
             comparatorResult = aHol0.localeCompare(bHol0)
             break
           default:
-            console.log('fallback for', sort.active)
             comparatorResult = 0
             break
         }

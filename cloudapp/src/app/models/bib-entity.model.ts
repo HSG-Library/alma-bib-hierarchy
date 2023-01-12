@@ -16,11 +16,11 @@ export class BibEntity {
 		this._nzMmsId = value
 	}
 
-	private _relatedRecords: Observable<number>
-	public get relatedRecords(): Observable<number> {
+	private _relatedRecords: number
+	public get relatedRecords(): number {
 		return this._relatedRecords
 	}
-	public set relatedRecords(value: Observable<number>) {
+	public set relatedRecords(value: number) {
 		this._relatedRecords = value
 	}
 

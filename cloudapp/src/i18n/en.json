@@ -1,5 +1,6 @@
 {
 	"main": {
+		"calculateButtonLabel": "calculate",
 		"closeWindowButtonLabel": "Close window",
 		"expandInfo": "To expand the view click the expand button in the toolbar",
 		"exportButtonLabel": "Export",

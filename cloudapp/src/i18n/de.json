@@ -1,5 +1,6 @@
 {
 	"main": {
+		"calculateButtonLabel": "berechnen",
 		"closeWindowButtonLabel": "Popup schliessen",
 		"expandInfo": "Zum erweitern den Erweitern Button in der Toolbar klicken",
 		"exportButtonLabel": "Exportieren",
