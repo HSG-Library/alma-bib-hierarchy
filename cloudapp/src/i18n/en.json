@@ -13,6 +13,9 @@
 		"resetSelectionButtonLabel": "Reset selection",
 		"showHierarchyButtonLabel": "Show hierarchy"
 	},
+	"popup": {
+		"windowIsOpen": "Content is displayed in a popup window. Click 'Close window' to display it here again."
+	},
 	"result": {
 		"analyticalHeader": "Analytical",
 		"clickToCopyMsg": "click to copy the MMSID of the possible duplicate",

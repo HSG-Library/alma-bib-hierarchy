@@ -26,7 +26,7 @@
     </mat-card-actions>
   </mat-card>
   <div class="result-actions">
-    <button mat-flat-button color="secondary" (click)="popup.toggle()" *ngIf="bibInfoResult && bibInfoResult.data.length > 0">{{ (popup.popupOpen | async) ? ('main.closeWindowButtonLabel' | translate) : ('main.popUpWindowButtonLabel' | translate) }}</button>
+    <button mat-flat-button color="secondary" (click)="popup.toggle(resultTable)" *ngIf="bibInfoResult && bibInfoResult.data.length > 0">{{ (popup.popupOpen | async) ? ('main.closeWindowButtonLabel' | translate) : ('main.popUpWindowButtonLabel' | translate) }}</button>
   </div>
   <p class="expand-view-info" *ngIf="bibInfoResult && bibInfoResult.data.length > 0">{{ 'main.expandInfo' | translate }}: <i class="icon-density ng-star-inserted uxf-icon uxf-resize-large" style="transform: rotate(45deg);"></i></p>
 
@@ -37,7 +37,7 @@
   </div>
 
   <popup #popup>
-    <app-result-table [hidden]="!bibInfoResult" [result]="bibInfoResult"></app-result-table>
+    <app-result-table [hidden]="!bibInfoResult" [result]="bibInfoResult" [selectedEntity]="selectedEntity"></app-result-table>
   </popup>
 
 </div>

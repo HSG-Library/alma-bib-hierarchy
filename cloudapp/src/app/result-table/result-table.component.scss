@@ -42,6 +42,11 @@ tr:nth-child(even) {
 	}
 }
 
+.bib-info {
+	display: block;
+	margin: 10px;
+}
+
 @media screen and (max-width: 450px) {
 	.title {
 		width: 100%;

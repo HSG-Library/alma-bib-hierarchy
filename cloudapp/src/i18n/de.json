@@ -13,6 +13,9 @@
 		"resetSelectionButtonLabel": "Auswahl Zurücksetzen",
 		"showHierarchyButtonLabel": "Hierarchie anzeigen"
 	},
+	"popup": {
+		"windowIsOpen": "Der Inhalt wird in einem Popup-Fenster dargestellt. Ein Klick auf 'Popup schliessen' zeigt den Inhalt wieder hier an."
+	},
 	"result": {
 		"analyticalHeader": "Analytisch",
 		"clickToCopyMsg": "klicken zum kopieren der MMSID der möglichen Dublette",
