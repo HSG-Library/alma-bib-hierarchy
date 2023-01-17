@@ -1,5 +1,6 @@
 import { Component, ElementRef, OnDestroy, Renderer2, ViewChild } from '@angular/core'
 import { Subject } from 'rxjs'
+import { ResultTableComponent } from '../result-table/result-table.component'
 
 @Component({
 	selector: 'popup',
@@ -8,8 +9,8 @@ import { Subject } from 'rxjs'
       <ng-content></ng-content>
 		</div>
 		<div *ngIf="popupOpen | async">
-			<p>
-				Content is displayed in a popup window. Click 'PopIn' to display it here again.
+			<p translate>
+				popup.windowIsOpen
 			</p>
 		</div>
 		`
@@ -23,32 +24,41 @@ export class PopupComponent implements OnDestroy {
 
 	constructor(
 		private renderer2: Renderer2,
-		private elementRef: ElementRef
+		private elementRef: ElementRef,
 	) {
 		this.popupOpen.next(false)
 	}
 
 	ngOnDestroy(): void {
-		this.close()
+		this.close(null)
 	}
 
-	public toggle(): void {
+	public toggle(resultTable: ResultTableComponent): void {
 		if (!this.popoutWindow || this.popoutWindow.closed) {
-			this.open()
+			this.open(resultTable)
 		} else {
-			this.close()
+			this.close(resultTable)
 		}
 	}
 
-	public open(): void {
+	public open(resultTable: ResultTableComponent): void {
 		if (!this.popoutWindow || this.popoutWindow.closed) {
-
+			resultTable.inPopup = true
 			this.popoutWindow = window.open(
 				'',
 				`popoutWindow${Date.now()}`,
-				`width=${window.screen.width - 20},
-        height=${window.innerHeight - 20}`
+				`
+				directories=no,titlebar=no,toolbar=no,location=no,status=no,menubar=no,
+				width=${window.screen.width - 20},
+        height=${window.innerHeight - 20}
+				`
 			)
+
+			this.popoutWindow.addEventListener('beforeunload', (e) => {
+				this.close(resultTable)
+				e.preventDefault()
+				e.returnValue = true
+			})
 
 			this.popoutWindow.document.title = window.document.title
 			this.popoutWindow.document.body.style.margin = '0'
@@ -63,25 +73,29 @@ export class PopupComponent implements OnDestroy {
 			})
 
 			Array.from(document.body.classList).forEach((className) => this.popoutWindow.document.body.classList.add(className))
+			this.popoutWindow.document.body.classList.add('popup')
 
 			this.popoutWindow.document.head.removeChild(this.popoutWindow.document.head.querySelector('title'))
-			this.popoutWindow.document.head.insertAdjacentHTML('afterbegin', '<title>Bib-Hierarchy - Popup</title>')
+			this.popoutWindow.document.head.insertAdjacentHTML('afterbegin', `<title>Bib-Hierarchy - Popup - ${resultTable.selectedEntity.entity.description}</title>`)
 
 			this.renderer2.appendChild(this.popoutWindow.document.body, this.innerWrapper.nativeElement)
 
-			this.popoutWindow.addEventListener('unload', () => this.close())
+			this.popoutWindow.addEventListener('unload', () => this.close(resultTable))
 			this.popupOpen.next(true)
 		} else {
 			this.popoutWindow.focus()
 		}
 	}
 
-	public close(): void {
+	public close(resultTable: ResultTableComponent): void {
 		if (this.popoutWindow) {
 			this.renderer2.appendChild(this.elementRef.nativeElement, this.innerWrapper.nativeElement)
 			this.popupOpen.next(false)
 			this.popoutWindow.close()
 			this.popoutWindow = null
+			if (resultTable) {
+				resultTable.inPopup = false
+			}
 		}
 	}
 }

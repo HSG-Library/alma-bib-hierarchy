@@ -1,7 +1,8 @@
 import { HttpClient, HttpParams } from '@angular/common/http'
 import { Injectable } from '@angular/core'
+import { CloudAppStoreService } from '@exlibris/exl-cloudapp-angular-lib'
 import { EMPTY, forkJoin, Observable, of } from 'rxjs'
-import { expand, map, reduce, switchMap, tap } from 'rxjs/operators'
+import { expand, map, reduce, shareReplay, switchMap, tap } from 'rxjs/operators'
 import { SruQuery } from '../sru/sru-query'
 import { ConfigurationService } from './configuration.service'
 import { LoadingIndicatorService } from './loading-indicator.service'
@@ -19,6 +20,7 @@ export class SruService {
 	private readonly MAX_RECORDS: number = 50
 
 	private params: HttpParams
+	private nzUrl: string
 
 	constructor(
 		private configService: ConfigurationService,
@@ -26,7 +28,9 @@ export class SruService {
 		private log: LogService,
 		private loader: LoadingIndicatorService,
 		private status: StatusMessageService,
-		private httpClient: HttpClient) {
+		private httpClient: HttpClient,
+		private storeService: CloudAppStoreService,
+	) {
 		this.params = new HttpParams()
 			.set('version', '1.2')
 			.set('operation', 'searchRetrieve')
@@ -34,12 +38,37 @@ export class SruService {
 	}
 
 	private getNzUrl(): Observable<string> {
-		return forkJoin({
-			url: this.configService.getAlmaUrl(),
-			networkCode: this.configService.getNetworkCode()
-		}).pipe(
-			switchMap(data => of(this.buildPath(data.url, SruService.SRU_PATH, data.networkCode)))
-		)
+		this.log.info("getting NZ SRU URL")
+		if (this.nzUrl) {
+			this.log.info("NZ URL in inMemory cache:", this.nzUrl)
+			return of(this.nzUrl)
+		}
+
+		return this.storeService.get(this.configService.NZ_URL_KEY)
+			.pipe(
+				switchMap(result => {
+					if (result) {
+						this.log.info('NZ URL in local storage:', result)
+						this.log.info('adding NZ URL to inMemory cache.')
+						this.nzUrl = result
+						return of(result)
+					} else {
+						return forkJoin({
+							url: this.configService.getAlmaUrl(),
+							networkCode: this.configService.getNetworkCode()
+						}).pipe(
+							switchMap(data => of(this.buildPath(data.url, SruService.SRU_PATH, data.networkCode))),
+							tap(url => {
+								this.log.info("Recieved NZ URL, adding to inMemory cache and local storage:", url)
+								this.storeService.set(this.configService.NZ_URL_KEY, url)
+									.subscribe(() => this.log.info('added NZ URL to local storage'))
+								this.nzUrl = url
+							}),
+							shareReplay(1)
+						)
+					}
+				})
+			)
 	}
 
 	private getParams(query: SruQuery, startRecord: number, maximumRecords: number): HttpParams {
@@ -60,7 +89,6 @@ export class SruService {
 	queryNZ(query: SruQuery): Observable<Element[]> {
 		return this.getNzUrl().pipe(
 			switchMap(url => this.call(url, query)),
-			tap(response => this.log.info('Number of records: ', this.parser.getNumberOfRecords(response))),
 			expand(response => {
 				const total: number = this.parser.getNumberOfRecords(response)
 				const next: number = this.parser.getNextRecordPosition(response)
@@ -84,6 +112,7 @@ export class SruService {
 	}
 
 	private call(url: string, query: SruQuery, startRecord: number = 1, maximumRecords: number = this.MAX_RECORDS): Observable<string> {
+		this.log.info('Executing SRU query:', query.name)
 		const params: HttpParams = this.getParams(query, startRecord, maximumRecords)
 		this.log.info('SRU Query URL: ', url + '?' + params.toString())
 		return this.httpClient.get(url, {

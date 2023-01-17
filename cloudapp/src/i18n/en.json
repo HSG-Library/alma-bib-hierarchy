@@ -1,5 +1,6 @@
 {
 	"main": {
+		"calculateButtonLabel": "calculate",
 		"closeWindowButtonLabel": "Close window",
 		"expandInfo": "To expand the view click the expand button in the toolbar",
 		"exportButtonLabel": "Export",
@@ -12,7 +13,11 @@
 		"resetSelectionButtonLabel": "Reset selection",
 		"showHierarchyButtonLabel": "Show hierarchy"
 	},
+	"popup": {
+		"windowIsOpen": "Content is displayed in a popup window. Click 'Close window' to display it here again."
+	},
 	"result": {
+		"analyticalHeader": "Analytical",
 		"clickToCopyMsg": "click to copy the MMSID of the possible duplicate",
 		"duplicateHeader": "Possible duplicate",
 		"editionHeader": "Edition",

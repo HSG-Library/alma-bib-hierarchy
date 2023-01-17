@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core'
-import { CloudAppConfigService, CloudAppRestService, CloudAppSettingsService, HttpMethod } from '@exlibris/exl-cloudapp-angular-lib'
+import { CloudAppConfigService, CloudAppRestService, CloudAppSettingsService, CloudAppStoreService, HttpMethod } from '@exlibris/exl-cloudapp-angular-lib'
 import { Observable, of } from 'rxjs'
 import { switchMap } from 'rxjs/operators'
 import { Settings } from '../models/settings.model'
+import { LogService } from './log.service'
 
 @Injectable({
 	providedIn: 'root'
@@ -11,11 +12,14 @@ export class ConfigurationService {
 
 	private readonly ALMA_CONFIG_GENERAL: string = '/almaws/v1/conf/general'
 	private readonly NETWORK: string = 'NETWORK'
+	readonly NZ_URL_KEY = 'NZURL'
 
 	constructor(
 		private restService: CloudAppRestService,
 		private settingsService: CloudAppSettingsService,
 		private configService: CloudAppConfigService,
+		private storeService: CloudAppStoreService,
+		private log: LogService,
 	) { }
 
 	getAlmaUrl(): Observable<string> {
@@ -99,4 +103,8 @@ export class ConfigurationService {
 		)
 	}
 
+	resetNZUrlCache(): void {
+		this.storeService.remove(this.NZ_URL_KEY)
+			.subscribe(() => this.log.info('removed NZ URL from locale storage'))
+	}
 }

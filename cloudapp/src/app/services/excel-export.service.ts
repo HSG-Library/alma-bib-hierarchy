@@ -19,13 +19,30 @@ export class ExcelExportService {
 		return data
 			.map(entry => {
 				return {
-					MMSID: entry.mmsId,
 					Order: entry.order,
 					Title: entry.title,
 					Year: entry.year,
 					Edition: entry.edition,
+					MMSID: entry.mmsId,
+					Analytical: entry.analytical,
 					Holdings: entry.holdings?.join(', '),
 					'Possible duplicates': entry.duplicates?.join(', ')
+				}
+			})
+			.sort((b1, b2) => {
+				if (b1.Order && b2.Order) {
+					const regex: RegExp = /\b\d+\b/
+					const matchA: RegExpMatchArray = b1.Order.match(regex)
+					const matchB: RegExpMatchArray = b2.Order.match(regex)
+					if (matchA && matchB) {
+						const aOrder: number = Number(matchA[0] || -1)
+						const bOrder: number = Number(matchB[0] || -1)
+						return aOrder - bOrder
+					} else {
+						return -1
+					}
+				} else {
+					return !b1.Order && !b2.Order ? 0 : b1.Order && !b2.Order ? 1 : !b1.Order && b2.Order ? -1 : 0
 				}
 			})
 	}

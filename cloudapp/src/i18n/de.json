@@ -1,5 +1,6 @@
 {
 	"main": {
+		"calculateButtonLabel": "berechnen",
 		"closeWindowButtonLabel": "Popup schliessen",
 		"expandInfo": "Zum erweitern den Erweitern Button in der Toolbar klicken",
 		"exportButtonLabel": "Exportieren",
@@ -12,7 +13,11 @@
 		"resetSelectionButtonLabel": "Auswahl Zurücksetzen",
 		"showHierarchyButtonLabel": "Hierarchie anzeigen"
 	},
+	"popup": {
+		"windowIsOpen": "Der Inhalt wird in einem Popup-Fenster dargestellt. Ein Klick auf 'Popup schliessen' zeigt den Inhalt wieder hier an."
+	},
 	"result": {
+		"analyticalHeader": "Analytisch",
 		"clickToCopyMsg": "klicken zum kopieren der MMSID der möglichen Dublette",
 		"duplicateHeader": "Mögliche Dublette",
 		"editionHeader": "Auflage",

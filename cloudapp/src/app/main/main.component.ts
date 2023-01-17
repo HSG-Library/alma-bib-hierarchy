@@ -3,7 +3,7 @@ import { MatSort, MatSortable } from '@angular/material/sort'
 import { MatTableDataSource } from '@angular/material/table'
 import { AlertService, CloudAppEventsService, CloudAppRestService, Entity, EntityType, HttpMethod } from '@exlibris/exl-cloudapp-angular-lib'
 import { Observable, of } from 'rxjs'
-import { filter, shareReplay, switchMap, tap } from 'rxjs/operators'
+import { catchError, filter, shareReplay, switchMap, tap } from 'rxjs/operators'
 import { BibEntity } from '../models/bib-entity.model'
 import { BibInfo } from '../models/bib-info.model'
 import { ResultTableComponent } from '../result-table/result-table.component'
@@ -63,7 +63,7 @@ export class MainComponent implements OnInit, OnDestroy {
           entities.map(entity => {
             let bibEntity: BibEntity = new BibEntity(entity)
             bibEntity.nzMmsId = this.getNzMmsIdFromEntity(bibEntity)
-            bibEntity.relatedRecords = this.getRelatedRecords(bibEntity)
+            bibEntity.relatedRecords = null
             return bibEntity
           })
         ))
@@ -92,7 +92,6 @@ export class MainComponent implements OnInit, OnDestroy {
         switchMap(records => {
           const otherSystemNumbers: string[] = this.sruParser.getOtherSystemNumbers(records)
           this.status.set('Found ' + otherSystemNumbers.length + ' system numbers')
-          this.log.info('other system numbers: ', otherSystemNumbers)
           const otherSystemNumbersAndMmsId = [...otherSystemNumbers, currentNzMmsId]
           this.log.info('other system numbers + mmsid, used for query: ', otherSystemNumbersAndMmsId)
           const query: SruQuery = SruQuery.OTHER_SYSTEM_NUMBER(otherSystemNumbersAndMmsId)
@@ -148,7 +147,7 @@ export class MainComponent implements OnInit, OnDestroy {
         return o1.localeCompare(o2)
       })
       const holdings: string[] = b.holdings
-      return new BibInfo(b.mmsId, b.order, b.title, b.year, b.edition, holdings, b.duplicates)
+      return new BibInfo(b.mmsId, b.order, b.title, b.year, b.edition, holdings, b.analytical, b.duplicates)
     })
   }
 
@@ -163,16 +162,20 @@ export class MainComponent implements OnInit, OnDestroy {
       queryParams: { view: 'brief' }
     })
       .pipe(
-        tap(response => console.log(response)),
         switchMap(response => {
           const nzMmsId: string = response?.linked_record_id?.value
           this.log.info('nzMmsId', nzMmsId)
           return of(nzMmsId)
-        })
+        }),
+        catchError(error => {
+          this.log.error('Cannot get NZ MMSID from API. Assuming the MMSID is already from NZ.', error)
+          return of(bibEntity.entity.id)
+        }),
+        shareReplay(1)
       )
   }
 
-  private getRelatedRecords(bibEntity: BibEntity): Observable<number> {
+  getRelatedRecords(bibEntity: BibEntity) {
     let currentNzMmsId: string
     return bibEntity.nzMmsId
       .pipe(
@@ -180,17 +183,24 @@ export class MainComponent implements OnInit, OnDestroy {
           currentNzMmsId = nzMmsId
           return of(SruQuery.MMS_ID(nzMmsId))
         }),
-        switchMap(query => this.sruService.queryNZ(query)),
+        switchMap(query => {
+          console.log('invoke query')
+          return this.sruService.queryNZ(query)
+        }),
         switchMap(records => {
           const otherSystemNumbers: string[] = this.sruParser.getOtherSystemNumbers(records)
+          console.log('otherSystemNumbers', otherSystemNumbers)
           if (otherSystemNumbers.length == 0) {
             return of(0)
           }
           const query: SruQuery = SruQuery.OTHER_SYSTEM_NUMBER([...otherSystemNumbers, currentNzMmsId])
           return this.sruService.querNZRecordCount(query)
-        }),
-        shareReplay(1)
+        })
       )
+      .subscribe(result => {
+        console.log('subscribe result', result)
+        bibEntity.relatedRecords = result
+      })
   }
 
   private tableSortFunction(): (items: BibInfo[], sort: MatSort) => BibInfo[] {
@@ -241,7 +251,6 @@ export class MainComponent implements OnInit, OnDestroy {
             comparatorResult = aHol0.localeCompare(bHol0)
             break
           default:
-            console.log('fallback for', sort.active)
             comparatorResult = 0
             break
         }

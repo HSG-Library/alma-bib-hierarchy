@@ -28,7 +28,6 @@ export class SettingsComponent implements OnInit {
 		this.saving = true
 		this.settingsService.get().subscribe(settings => {
 			this.form = FormGroupUtil.toFormGroup(Object.assign(new Settings(), settings))
-			console.log(settings)
 			this.saving = false
 		})
 		this.configurationService.getAlmaUrlFromConfig().subscribe(url => this.defaultUrl = url)
@@ -37,6 +36,7 @@ export class SettingsComponent implements OnInit {
 
 	save() {
 		this.saving = true
+		this.configurationService.resetNZUrlCache()
 		this.settingsService.set(this.form.value).subscribe(
 			response => {
 				this.alert.success('Settings successfully saved.')

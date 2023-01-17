@@ -11,7 +11,7 @@ An [ExLibris Alma CloudApp](https://developers.exlibrisgroup.com/cloudapps/), wh
 * Click 'Show hierarchy' on the entry you're intrested in
 * Wait(, wait a bit longer)
 * See all related records
-* Click 'Expand View' to see a nice table, or click export to download the result as Excel file
+* Click 'Expand' in the Cloud App toolbar, to see a nice table, or click export to download the result as Excel file
 
 ## Configuration
 To submit an SRU request, the app needs the Alma URL and the network code. The app tries to auto configure both values via the Alma API. In case the auto configured values are not correct, it is possible to set both values in the app config (wrench icon) for the IZ or the current user (cogwheel icon).
@@ -24,7 +24,7 @@ The result data is retrieved via SRU (see [SRU documentation](https://developers
 1. Find the NZ MMS ID via Alma API
 2. Get the record via SRU
 3. Parse out 'other system numbers' from field 035$a
-4. Query SRU for 'other_system_numbers' with the result from the previous step
+4. Query SRU for 'other_system_number' with the result from the previous step. 'other_system_number' is an index over fields `019a,z;035a,z;774w;773w;775w;777w;786w;800w;810w;811w` (see: [Alma Search Index documentation](https://knowledge.exlibrisgroup.com/Alma/Product_Documentation/010Alma_Online_Help_(English)/Metadata_Management/180Search_Indexes/050MARC_21_Search_Indexes#Search_Index_to_MARC_21_Bibliographic_Tag_Mapping))
 5. Parse the result and display as nice table
 
 ## Which fields are used
@@ -36,6 +36,7 @@ To display the result table, the following fields are used. If this does not wor
 * Edition: `250`
 * MMS ID: `001` (controllfield)
 * Duplicate: records with the same order and edition are marked as duplicates
+* Analytical: `LDR 7`(leader position 7)
 * Holding: `852$a`
 
 ## Development notes

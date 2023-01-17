@@ -1,3 +1,15 @@
+<mat-card class="bib-info" *ngIf="selectedEntity && inPopup">
+	<mat-card-title><span class="uxf-icon uxf-book-alt"></span> {{selectedEntity.entity.description}}</mat-card-title>
+	<mat-card-content>
+		<mat-list>
+			<mat-list-item><span class="bold">{{ 'main.mmsIdNz' | translate }}:&nbsp;</span><span [ngClass]="{ 'loading' : !(selectedEntity.nzMmsId | async )}">{{ (selectedEntity.nzMmsId | async)}}</span></mat-list-item>
+			<mat-list-item>
+				<span class="bold">{{ 'main.relatedRecords' | translate }}:&nbsp;</span><span>{{result.data.length}}</span>
+			</mat-list-item>
+		</mat-list>
+	</mat-card-content>
+</mat-card>
+
 <table class="result-table" mat-table matSort matSortActive="order" [dataSource]="result">
 	<ng-container matColumnDef="order">
 		<th mat-header-cell *matHeaderCellDef mat-sort-header>
@@ -35,13 +47,21 @@
 		</th>
 		<td class="duplicate" mat-cell *matCellDef="let bibinfo" [attr.data-label]="'result.duplicateHeader' | translate">
 			<button style="box-shadow: none"
-							*ngIf="bibinfo.duplicates?.length"
+							*ngIf="bibinfo.duplicates?.length && !inPopup"
 							mat-mini-fab color="warn"
 							[cdkCopyToClipboard]="bibinfo.duplicates?.join(', ')"
 							matTooltip="{{bibinfo.duplicates?.join(', ') || '-'}} - {{ 'result.clickToCopyMsg' | translate}}">
 				<mat-icon>priority_high</mat-icon>
 			</button>
+			<span *ngIf="bibinfo.duplicates?.length && inPopup">{{ bibinfo.duplicates?.join(', ') }}</span>
 			<span *ngIf="!bibinfo.duplicates?.length">-</span>
+		</td>
+	</ng-container>
+	<ng-container matColumnDef="analytical">
+		<th mat-header-cell *matHeaderCellDef mat-sort-header>
+			{{ 'result.analyticalHeader' | translate }}
+		</th>
+		<td class="analytical" mat-cell *matCellDef="let bibinfo" [attr.data-label]="'result.analyticalHeader' | translate"> <mat-icon *ngIf="bibinfo.analytical">check_small</mat-icon><span *ngIf="!bibinfo.analytical">-</span>
 		</td>
 	</ng-container>
 	<ng-container matColumnDef="holdings">
@@ -54,8 +74,9 @@
 									color="{{ holding == instCode ? 'accent' : '' }}"
 									disabled="{{ holding != instCode}}"
 									selected="{{ holding == instCode}}"
-									matTooltip="{{holding}}">{{ shortHolding(holding) }}</mat-chip>
+									matTooltip="{{inPopup ? ''  : holding}}">{{ shortHolding(holding) }}</mat-chip>
 			</mat-chip-list>
+			<span *ngIf="!bibinfo.holdings?.length">-</span>
 		</td>
 	</ng-container>
 	<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

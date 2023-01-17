@@ -20,6 +20,7 @@ export class SruResponseParserService {
 	private readonly XPATH_QUERY_008_YEAR: string = "//default:controlfield[@tag='008']"
 	private readonly XPATH_QUERY_250_EDITION: string = "//default:datafield[@tag='250']/default:subfield"
 	private readonly XPATH_QUERY_852_HOLDINGS: string = "//default:datafield[@tag='852']/default:subfield[@code='a']"
+	private readonly XPATH_QUERY_LEADER_ANALYTICAL: string = "//default:leader"
 
 	constructor(
 		private duplicateService: FindDuplicatesService
@@ -56,8 +57,9 @@ export class SruResponseParserService {
 			const year: number = this.extractYear(singleRecordDocument)
 			const edition: string = this.exctractEdtition(singleRecordDocument)
 			const holdings: string[] = this.extractHoldings(singleRecordDocument)
+			const analytical: boolean = this.extractAnalytical(singleRecordDocument)
 			return new BibInfo(
-				mmsId, order, title, year, edition, holdings)
+				mmsId, order, title, year, edition, holdings, analytical)
 		})
 		return this.duplicateService.findPossibleDublicates(bibInfos)
 	}
@@ -118,6 +120,15 @@ export class SruResponseParserService {
 
 	private extractHoldings(document: Document): string[] {
 		return this.xpathQuery(document, this.XPATH_QUERY_852_HOLDINGS)
+	}
+
+	private extractAnalytical(document: Document): boolean {
+		const leader: string[] = this.xpathQuery(document, this.XPATH_QUERY_LEADER_ANALYTICAL)
+		if (leader.length == 1) {
+			const ldr7: string = leader[0].substring(7, 8)
+			return ldr7 == 'a'
+		}
+		return false
 	}
 
 	getNumberOfRecords(xmlString: string): number {

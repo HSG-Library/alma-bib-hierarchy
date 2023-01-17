@@ -30,6 +30,23 @@ tr:nth-child(even) {
 	background: #f9f9f9;
 }
 
+.analytical {
+	text-align: center;
+}
+
+.duplicate {
+	text-align: center;
+
+	button {
+		scale: 70%;
+	}
+}
+
+.bib-info {
+	display: block;
+	margin: 10px;
+}
+
 @media screen and (max-width: 450px) {
 	.title {
 		width: 100%;
@@ -37,6 +54,14 @@ tr:nth-child(even) {
 
 	.holdings {
 		width: 100%;
+	}
+
+	.analytical {
+		text-align: left;
+	}
+
+	.duplicate {
+		text-align: left;
 	}
 
 	tr:nth-child(even) {
