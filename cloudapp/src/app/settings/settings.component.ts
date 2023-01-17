@@ -36,6 +36,7 @@ export class SettingsComponent implements OnInit {
 
 	save() {
 		this.saving = true
+		this.configurationService.resetNZUrlCache()
 		this.settingsService.set(this.form.value).subscribe(
 			response => {
 				this.alert.success('Settings successfully saved.')
