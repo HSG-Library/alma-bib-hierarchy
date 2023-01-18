@@ -1,7 +1,7 @@
 # Bib-Hierarchy Alma Cloud App
 <img align="right" src="./cloudapp/src/assets/app-icon.png" width="100" style="border-radius: 3px">
 
-An [ExLibris Alma CloudApp](https://developers.exlibrisgroup.com/cloudapps/), which allows to display bibliographic hierarchies in Alma. This App is heavily inspired by https://github.com/gabriele-h/bib-hierarchy.
+An [ExLibris Alma CloudApp](https://developers.exlibrisgroup.com/cloudapps/), which allows to display bibliographic hierarchies in Alma. This App is heavily inspired by https://github.com/gabriele-h/bib-hierarchy and https://github.com/schuach/bib-hierarchy.
 <br>
 <br>
 
