@@ -3,7 +3,7 @@ export class SruQuery {
 	static QUERY: string = 'query'
 
 	private static MMS_ID_DEF: QueryDefinition = { index: 'mms_id', operator: '=' }
-	private static OTHER_SYSTEM_NUMBER_DEF: QueryDefinition = { index: 'other_system_number', operator: '=' }
+	private static OTHER_SYSTEM_NUMBER_DEF: QueryDefinition = { index: 'other_system_number', operator: '==' }
 
 	private query: string[]
 	private _name: string
