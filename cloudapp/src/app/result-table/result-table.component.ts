@@ -12,6 +12,7 @@ import { BibInfo } from '../models/bib-info.model'
 })
 export class ResultTableComponent {
 	displayedColumns: string[] = ['order', 'title', 'year', 'edition', 'mmsId', 'duplicate', 'analytical', 'holdings'];
+	additionalColumns: string[] = []
 	instCode: string
 	inPopup: boolean
 	@Input()
@@ -33,5 +34,9 @@ export class ResultTableComponent {
 
 	shortHolding(holding: string): string {
 		return holding.replace(/^.+_/, '')
+	}
+
+	setAdditionalColumns(columns: string[]): void {
+		this.additionalColumns = columns;
 	}
 }

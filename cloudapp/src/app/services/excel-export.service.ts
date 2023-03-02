@@ -11,14 +11,14 @@ export class ExcelExportService {
 	private readonly filePrefix: string = 'BibHierarchy-'
 	private readonly fileExtention: string = '.xlsx'
 
-	export(data: BibInfo[], fileId: string): Observable<any> {
-		return this.createXslsFile(this.sanitizeForExport(data), fileId)
+	export(data: BibInfo[], displayedColumns:string[], fileId: string): Observable<any> {
+		return this.createXslsFile(this.sanitizeForExport(data, displayedColumns), fileId)
 	}
 
-	private sanitizeForExport(data: BibInfo[]): any {
+	private sanitizeForExport(data: BibInfo[], displayedColumns:string[]): any {
 		return data
 			.map(entry => {
-				return {
+				const row = {
 					Order: entry.order,
 					Title: entry.title,
 					Year: entry.year,
@@ -28,6 +28,12 @@ export class ExcelExportService {
 					Holdings: entry.holdings?.join(', '),
 					'Possible duplicates': entry.duplicates?.join(', ')
 				}
+				entry.additionalInfo.forEach((value, key) => {
+					if (displayedColumns.lastIndexOf(key) >= 0) {
+						row[key] = value
+					}
+				})
+				return row
 			})
 			.sort((b1, b2) => {
 				if (b1.Order && b2.Order) {

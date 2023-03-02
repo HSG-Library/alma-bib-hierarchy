@@ -11,6 +11,7 @@
 		"relatedRecords": "Verknüpfte Datensätze",
 		"resetButtonLabel": "Zurücksetzen",
 		"resetSelectionButtonLabel": "Auswahl Zurücksetzen",
+		"showAdditionalData": "Zusätzliche Daten anzeigen/verstecken",
 		"showHierarchyButtonLabel": "Hierarchie anzeigen"
 	},
 	"popup": {

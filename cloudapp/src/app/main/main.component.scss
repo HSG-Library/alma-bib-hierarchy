@@ -2,8 +2,13 @@
   display: none;
 }
 
-.mat-card {
+.mat-card, .mat-expansion-panel {
   margin-bottom: 20px;
+}
+
+.mat-slide-toggle {
+  margin-bottom: 10px;
+  margin-right: 20px;
 }
 
 .bib-entity-actions {

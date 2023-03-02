@@ -29,6 +29,7 @@ export class MainComponent implements OnInit, OnDestroy {
   almaUrl: string
 
   bibInfoResult: MatTableDataSource<BibInfo>
+  availableAdditionalColums: string[]
 
   @ViewChild(ResultTableComponent) resultTable: ResultTableComponent
 
@@ -102,6 +103,10 @@ export class MainComponent implements OnInit, OnDestroy {
         (records) => {
           const bibInfos: BibInfo[] = this.sruParser.getBibInfo(records)
           const bibInfosSorted: BibInfo[] = this.sortHoldings(bibInfos)
+          if (bibInfos.length > 0) {
+            this.availableAdditionalColums = Array.from(bibInfos[0].additionalInfo.keys())
+            this.resultTable.setAdditionalColumns(this.availableAdditionalColums)
+          }
           const datasource = new MatTableDataSource(bibInfosSorted)
           datasource.sortData = this.tableSortFunction()
           const matSort: MatSort = this.resultTable.getMatSort()
@@ -121,11 +126,12 @@ export class MainComponent implements OnInit, OnDestroy {
   reset(): void {
     this.selectedEntity = null
     this.bibInfoResult = null
+    this.availableAdditionalColums = []
   }
 
   export(): void {
     this.loader.show()
-    this.excelExportService.export(this.bibInfoResult.data, this.selectedEntity.entity.id)
+    this.excelExportService.export(this.bibInfoResult.data, this.resultTable.displayedColumns, this.selectedEntity.entity.id)
       .subscribe(
         (result) => {
           this.loader.hide()
@@ -138,6 +144,19 @@ export class MainComponent implements OnInit, OnDestroy {
       )
   }
 
+  getAvailableAdditionalColums(): string[] {
+    return this.availableAdditionalColums
+  }
+
+  toggleAdditionalColumn(column: string): void {
+    const index: number = this.resultTable.displayedColumns.lastIndexOf(column)
+    if (index >= 0) {
+      this.resultTable.displayedColumns.splice(index, 1)
+    } else {
+      this.resultTable.displayedColumns.push(column)
+    }
+  }
+
   private sortHoldings(bibInfos: BibInfo[]): BibInfo[] {
     return bibInfos.map(b => {
       b.holdings.sort((o1, o2) => {
@@ -147,7 +166,7 @@ export class MainComponent implements OnInit, OnDestroy {
         return o1.localeCompare(o2)
       })
       const holdings: string[] = b.holdings
-      return new BibInfo(b.mmsId, b.order, b.title, b.year, b.edition, holdings, b.analytical, b.duplicates)
+      return new BibInfo(b.mmsId, b.order, b.title, b.year, b.edition, holdings, b.analytical, b.additionalInfo, b.duplicates)
     })
   }
 
@@ -258,5 +277,4 @@ export class MainComponent implements OnInit, OnDestroy {
       })
     }
   }
-
 }

@@ -26,7 +26,7 @@ export class FindDuplicatesService {
 		return bibInfos.map(b => {
 			const duplicateInfo: LookupEntry = duplicates.find(entry => entry.mmsId == b.mmsId)
 			if (duplicateInfo && b.order) {
-				return new BibInfo(b.mmsId, b.order, b.title, b.year, b.edition, b.holdings, b.analytical, duplicateInfo.duplicates)
+				return new BibInfo(b.mmsId, b.order, b.title, b.year, b.edition, b.holdings, b.analytical, b.additionalInfo, duplicateInfo.duplicates)
 			}
 			return b
 		})

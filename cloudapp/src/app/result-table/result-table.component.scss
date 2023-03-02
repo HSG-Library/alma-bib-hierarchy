@@ -47,6 +47,11 @@ tr:nth-child(even) {
 	margin: 10px;
 }
 
+.additional {
+	font-family: monospace;
+	font-size: smaller;
+}
+
 @media screen and (max-width: 450px) {
 	.title {
 		width: 100%;

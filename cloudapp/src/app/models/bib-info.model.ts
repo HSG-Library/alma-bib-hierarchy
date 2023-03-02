@@ -34,8 +34,12 @@ export class BibInfo {
 	public get duplicates(): string[] {
 		return this._duplicates
 	}
+	private _additionalInfo: Map<string, string>
+	public get additionalInfo(): Map<string, string> {
+		return this._additionalInfo
+	}
 
-	constructor(mmsId: string, order: string, title: string, year: number, edition: string, holdings: string[], analytical: boolean, duplicates?: string[]) {
+	constructor(mmsId: string, order: string, title: string, year: number, edition: string, holdings: string[], analytical: boolean, additionalInfo: Map<string, string>, duplicates?: string[]) {
 		this._mmsId = mmsId
 		this._order = order
 		this._title = title
@@ -43,6 +47,7 @@ export class BibInfo {
 		this._edition = edition
 		this._holdings = holdings
 		this._analytical = analytical
+		this._additionalInfo = additionalInfo
 		this._duplicates = duplicates
 	}
 }

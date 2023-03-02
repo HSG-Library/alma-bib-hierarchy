@@ -11,6 +11,7 @@
 		"relatedRecords": "Related Records",
 		"resetButtonLabel": "Reset",
 		"resetSelectionButtonLabel": "Reset selection",
+		"showAdditionalData": "Show/Hide additional data",
 		"showHierarchyButtonLabel": "Show hierarchy"
 	},
 	"popup": {
