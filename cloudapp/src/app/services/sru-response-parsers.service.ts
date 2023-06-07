@@ -22,10 +22,22 @@ export class SruResponseParserService {
 	private readonly XPATH_QUERY_852_HOLDINGS: string = "//default:datafield[@tag='852']/default:subfield[@code='a']"
 	private readonly XPATH_QUERY_LEADER_ANALYTICAL: string = "//default:leader"
 	private readonly XPATH_QUERY_ADDITIONAL: Map<string, string> = new Map<string, string>([
+		["040$e", "//default:datafield[@tag='040']/default:subfield[@code='e']"],
+		["499$a", "//default:datafield[@tag='449']/default:subfield[@code='a']"],
 		["499$v", "//default:datafield[@tag='449']/default:subfield[@code='v']"],
 		["773$g", "//default:datafield[@tag='773']/default:subfield[@code='g']"],
+		["773$t", "//default:datafield[@tag='773']/default:subfield[@code='t']"],
+		["800$a", "//default:datafield[@tag='800']/default:subfield[@code='a']"],
+		["800$t", "//default:datafield[@tag='800']/default:subfield[@code='t']"],
 		["800$v", "//default:datafield[@tag='800']/default:subfield[@code='v']"],
-		["040$e", "//default:datafield[@tag='040']/default:subfield[@code='e']"],
+		["810$a", "//default:datafield[@tag='810']/default:subfield[@code='a']"],
+		["810$t", "//default:datafield[@tag='810']/default:subfield[@code='t']"],
+		["810$v", "//default:datafield[@tag='810']/default:subfield[@code='v']"],
+		["811$a", "//default:datafield[@tag='811']/default:subfield[@code='a']"],
+		["811$t", "//default:datafield[@tag='811']/default:subfield[@code='t']"],
+		["811$v", "//default:datafield[@tag='811']/default:subfield[@code='v']"],
+		["830$a", "//default:datafield[@tag='830']/default:subfield[@code='a']"],
+		["830$t", "//default:datafield[@tag='830']/default:subfield[@code='t']"],
 		["830$v", "//default:datafield[@tag='830']/default:subfield[@code='v']"],
 	])
 
@@ -140,7 +152,7 @@ export class SruResponseParserService {
 	}
 
 	private extractAdditional(document: Document): Map<string, string> {
-		const resultMap: Map<string, string> = new Map<string, string>();
+		const resultMap: Map<string, string> = new Map<string, string>()
 		this.XPATH_QUERY_ADDITIONAL.forEach((query, key) => {
 			const result: string[] = this.xpathQuery(document, query)
 			resultMap.set(key, result.join(", "))
