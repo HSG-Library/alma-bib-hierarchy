@@ -25,6 +25,18 @@
       <button mat-flat-button color="primary" (click)="showHierarchy(bibEntity)">{{ 'main.showHierarchyButtonLabel' | translate }}</button>
     </mat-card-actions>
   </mat-card>
+
+  <div *ngIf="getAvailableAdditionalColums().length > 0">
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          {{ 'main.showAdditionalData' | translate }}
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <mat-slide-toggle *ngFor="let column of getAvailableAdditionalColums()" (change)="toggleAdditionalColumn(column)">{{column}}</mat-slide-toggle>
+    </mat-expansion-panel>
+  </div>
+
   <div class="result-actions">
     <button mat-flat-button color="secondary" (click)="popup.toggle(resultTable)" *ngIf="bibInfoResult && bibInfoResult.data.length > 0">{{ (popup.popupOpen | async) ? ('main.closeWindowButtonLabel' | translate) : ('main.popUpWindowButtonLabel' | translate) }}</button>
   </div>

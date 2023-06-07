@@ -79,6 +79,12 @@
 			<span *ngIf="!bibinfo.holdings?.length">-</span>
 		</td>
 	</ng-container>
+
+	<ng-container [matColumnDef]="column" *ngFor="let column of additionalColumns">
+		<th class="additional" mat-header-cell *matHeaderCellDef>[{{column}}]</th>
+		<td class="additional" mat-cell *matCellDef="let bibinfo" [attr.data-label]="column"> {{bibinfo.additionalInfo.get(column)}} </td>
+	</ng-container>
+
 	<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
 	<tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
