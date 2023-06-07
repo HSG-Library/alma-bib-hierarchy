@@ -14,7 +14,7 @@ An [ExLibris Alma CloudApp](https://developers.exlibrisgroup.com/cloudapps/), wh
 * Click 'Expand' in the Cloud App toolbar, to see a nice table, or click export to download the result as Excel file
 
 ## Configuration
-To submit an SRU request, the app needs the Alma URL and the network code. The app tries to auto configure both values via the Alma API. In case the auto configured values are not correct, it is possible to set both values in the app config (wrench icon) for the IZ or the current user (cogwheel icon).
+To submit an SRU request, the app needs the Alma URL and the network code. The app tries to auto-configure both values via the Alma API. In case the auto-configured values are not correct, it is possible to set both values in the app config (wrench icon) for the IZ or the current user (cogwheel icon).
 * The Alma Url should look like `https://<region>.alma.exlibrisgroup.com` where region is something like `eu03` or `na02`
 * The network code should look like `<network-prefix>_NETWORK`, eg. `41SLSP_NETWORK`
 
@@ -24,7 +24,7 @@ The result data is retrieved via SRU (see [SRU documentation](https://developers
 1. Find the NZ MMS ID via Alma API
 2. Get the record via SRU
 3. Parse out 'other system numbers' from field 035$a
-4. Query SRU for 'other_system_number' with the result from the previous step. 'other_system_number' is an index over fields `019a,z;035a,z;774w;773w;775w;777w;786w;800w;810w;811w` (see: [Alma Search Index documentation](https://knowledge.exlibrisgroup.com/Alma/Product_Documentation/010Alma_Online_Help_(English)/Metadata_Management/180Search_Indexes/050MARC_21_Search_Indexes#Search_Index_to_MARC_21_Bibliographic_Tag_Mapping))
+4. Query SRU for 'other_system_number' and '001' with the result from the previous step. 'other_system_number' is an index over fields `019a,z;035a,z;774w;773w;775w;777w;786w;800w;810w;811w` (see: [Alma Search Index documentation](https://knowledge.exlibrisgroup.com/Alma/Product_Documentation/010Alma_Online_Help_(English)/Metadata_Management/180Search_Indexes/050MARC_21_Search_Indexes#Search_Index_to_MARC_21_Bibliographic_Tag_Mapping))
 5. Parse the result and display as nice table
 
 ## Which fields are used
@@ -38,6 +38,27 @@ To display the result table, the following fields are used. If this does not wor
 * Duplicate: records with the same order and edition are marked as duplicates
 * Analytical: `LDR 7`(leader position 7)
 * Holding: `852$a`
+
+### Additional data
+In addition to the fields mentionen above, there is the possibilty to display additional data. Currently it is possible to add the following fields to the table:
+* `040$e`
+* `499$a`
+* `499$v`
+* `773$g`
+* `773$t`
+* `800$a`
+* `800$t`
+* `800$v`
+* `810$a`
+* `810$t`
+* `810$v`
+* `811$a`
+* `811$t`
+* `811$v`
+* `830$a`
+* `830$t`
+* `830$v`
+The Excel export will contain all active additional fields.
 
 ## Development notes
 ### Example SRU queries
