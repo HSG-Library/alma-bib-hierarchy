@@ -23,8 +23,8 @@ export class SruResponseParserService {
 	private readonly XPATH_QUERY_LEADER_ANALYTICAL: string = "//default:leader"
 	private readonly XPATH_QUERY_ADDITIONAL: Map<string, string> = new Map<string, string>([
 		["040$e", "//default:datafield[@tag='040']/default:subfield[@code='e']"],
-		["499$a", "//default:datafield[@tag='449']/default:subfield[@code='a']"],
-		["499$v", "//default:datafield[@tag='449']/default:subfield[@code='v']"],
+		["490$a", "//default:datafield[@tag='490']/default:subfield[@code='a']"],
+		["490$v", "//default:datafield[@tag='490']/default:subfield[@code='v']"],
 		["773$g", "//default:datafield[@tag='773']/default:subfield[@code='g']"],
 		["773$t", "//default:datafield[@tag='773']/default:subfield[@code='t']"],
 		["800$a", "//default:datafield[@tag='800']/default:subfield[@code='a']"],

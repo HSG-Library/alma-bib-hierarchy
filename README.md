@@ -42,8 +42,8 @@ To display the result table, the following fields are used. If this does not wor
 ### Additional data
 In addition to the fields mentionen above, there is the possibilty to display additional data. Currently it is possible to add the following fields to the table:
 * `040$e`
-* `499$a`
-* `499$v`
+* `490$a`
+* `490$v`
 * `773$g`
 * `773$t`
 * `800$a`
@@ -58,6 +58,7 @@ In addition to the fields mentionen above, there is the possibilty to display ad
 * `830$a`
 * `830$t`
 * `830$v`
+
 The Excel export will contain all active additional fields.
 
 ## Development notes
