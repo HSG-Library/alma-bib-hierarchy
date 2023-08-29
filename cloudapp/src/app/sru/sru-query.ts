@@ -4,6 +4,7 @@ export class SruQuery {
 
 	private static MMS_ID_DEF: QueryDefinition = { index: 'mms_id', operator: '=' }
 	private static OTHER_SYSTEM_NUMBER_DEF: QueryDefinition = { index: 'other_system_number', operator: '==' }
+	private static OTHER_SYSTEM_NUMBER_ACTIVE_35a_DEF: QueryDefinition = { index: 'other_system_number_active_035', operator: '==' }
 
 	private query: string[]
 	private _name: string
@@ -51,6 +52,19 @@ export class SruQuery {
 			}
 		})
 		query.setName("query for 'other_system_number'")
+		return query
+	}
+
+	static OTHER_SYSTEM_NUMBER_ACTIVE_035(values: string[]): SruQuery {
+		const query: SruQuery = new SruQuery()
+		values.forEach((value, idx, arr) => {
+			query.addQuery(SruQuery.OTHER_SYSTEM_NUMBER_ACTIVE_35a_DEF, value)
+			// dont add OR to the last element
+			if (idx + 1 < arr.length) {
+				query.addBoolOp(BoolOp.OR)
+			}
+		})
+		query.setName("query for 'other_system_number_active_035'")
 		return query
 	}
 }

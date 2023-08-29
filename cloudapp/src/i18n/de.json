@@ -12,7 +12,7 @@
 		"resetButtonLabel": "Zurücksetzen",
 		"resetSelectionButtonLabel": "Auswahl Zurücksetzen",
 		"showAdditionalData": "Zusätzliche Daten anzeigen/verstecken",
-		"showHierarchyButtonLabel": "Hierarchie anzeigen"
+		"showHierarchyButtonLabel": "Hierarchie"
 	},
 	"popup": {
 		"windowIsOpen": "Der Inhalt wird in einem Popup-Fenster dargestellt. Ein Klick auf 'Popup schliessen' zeigt den Inhalt wieder hier an."

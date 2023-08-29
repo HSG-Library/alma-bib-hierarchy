@@ -22,7 +22,14 @@
       </mat-list>
     </mat-card-content>
     <mat-card-actions class="bib-entity-actions" *ngIf="!selectedEntity">
-      <button mat-flat-button color="primary" (click)="showHierarchy(bibEntity)">{{ 'main.showHierarchyButtonLabel' | translate }}</button>
+      <button mat-flat-button color="primary" (click)="showHierarchyUp(bibEntity)">
+        {{ 'main.showHierarchyButtonLabel' | translate }}
+        <mat-icon>arrow_upward</mat-icon>
+      </button>
+      <button mat-flat-button color="primary" (click)="showHierarchyDown(bibEntity)">
+        {{ 'main.showHierarchyButtonLabel' | translate }}
+        <mat-icon>arrow_downward</mat-icon>
+      </button>
     </mat-card-actions>
   </mat-card>
 
