@@ -8,7 +8,7 @@ An [ExLibris Alma CloudApp](https://developers.exlibrisgroup.com/cloudapps/), wh
 ## How to use
 * Search for any Bib-Record in Alma
 * Open the Bib-Hierarchy Cloud App
-* Click 'Show hierarchy' on the entry you're intrested in
+* Click 'Hierarchy ↓' (or 'Hierarchy ↑') on the entry you're intrested in
 * Wait(, wait a bit longer)
 * See all related records
 * Click 'Expand' in the Cloud App toolbar, to see a nice table, or click export to download the result as Excel file
@@ -21,43 +21,54 @@ To submit an SRU request, the app needs the Alma URL and the network code. The a
 ## How does it work
 The result data is retrieved via SRU (see [SRU documentation](https://developers.exlibrisgroup.com/alma/integrations/sru/)), this means SRU must be enabled, otherwise this app will not work ([how to enable SRU](https://knowledge.exlibrisgroup.com/Alma/Product_Documentation/010Alma_Online_Help_(English)/090Integrations_with_External_Systems/030Resource_Management/190SRU_SRW_Search#)).
 
+For the 'downward' hierarchy:
+
 1. Find the NZ MMS ID via Alma API
 2. Get the record via SRU
-3. Parse out 'other system numbers' from field 035$a
-4. Query SRU for 'other_system_number' and '001' with the result from the previous step. 'other_system_number' is an index over fields `019a,z;035a,z;774w;773w;775w;777w;786w;800w;810w;811w` (see: [Alma Search Index documentation](https://knowledge.exlibrisgroup.com/Alma/Product_Documentation/010Alma_Online_Help_(English)/Metadata_Management/180Search_Indexes/050MARC_21_Search_Indexes#Search_Index_to_MARC_21_Bibliographic_Tag_Mapping))
+3. Parse out `other system numbers` from field `035a`
+4. Query SRU for `other_system_number` and `001` with the result from the previous step. `other_system_number` is an index over fields `019a,z;035a,z;774w;773w;775w;777w;786w;800w;810w;811w` (see: [Alma Search Index documentation](https://knowledge.exlibrisgroup.com/Alma/Product_Documentation/010Alma_Online_Help_(English)/Metadata_Management/180Search_Indexes/050MARC_21_Search_Indexes#Search_Index_to_MARC_21_Bibliographic_Tag_Mapping))
+5. Parse the result and display as nice table
+
+<br>
+
+For the 'upward' hierarchy:
+1. Find the NZ MMS ID via Alma API
+2. Get the record via SRU
+3. Parse out the system numbers from fields: `773w`, `800w`, `810w`,  `811w`, `830w`
+4. Query SRU for `other_system_number_active_035` with the result from the previous step. `other_system_number_active_035` is an index over the field `035a` (see: [Alma Search Index documentation](https://knowledge.exlibrisgroup.com/Alma/Product_Documentation/010Alma_Online_Help_(English)/Metadata_Management/180Search_Indexes/050MARC_21_Search_Indexes#Search_Index_to_MARC_21_Bibliographic_Tag_Mapping))
 5. Parse the result and display as nice table
 
 ## Which fields are used
 To display the result table, the following fields are used. If this does not work for you, please open an [issue on Github](https://github.com/HSG-Library/alma-bib-hierarchy/issues).
 
-* Order: `800$v`, `810$v`, `830$v`, `773$q`
+* Order: `800v`, `810v`, `830v`, `773q`
 * Title: `245`
 * Year: `008` (substring 7,11)
 * Edition: `250`
 * MMS ID: `001` (controllfield)
 * Duplicate: records with the same order and edition are marked as duplicates
 * Analytical: `LDR 7`(leader position 7)
-* Holding: `852$a`
+* Holding: `852a`
 
 ### Additional data
 In addition to the fields mentionen above, there is the possibilty to display additional data. Currently it is possible to add the following fields to the table:
-* `040$e`
-* `490$a`
-* `490$v`
-* `773$g`
-* `773$t`
-* `800$a`
-* `800$t`
-* `800$v`
-* `810$a`
-* `810$t`
-* `810$v`
-* `811$a`
-* `811$t`
-* `811$v`
-* `830$a`
-* `830$t`
-* `830$v`
+* `040e`
+* `490a`
+* `490v`
+* `773g`
+* `773t`
+* `800a`
+* `800t`
+* `800v`
+* `810a`
+* `810t`
+* `810v`
+* `811a`
+* `811t`
+* `811v`
+* `830a`
+* `830t`
+* `830v`
 
 The Excel export will contain all active additional fields.
 
@@ -329,7 +340,7 @@ Example queries for 'Gesamtausgabe Martin Heidegger, Heidegger, Martin', MMS ID 
 ```
 </details>
 
-2. Get 'other system numbers' from field `035$a`.
+1. Get 'other system numbers' from field `035a`.
 <details>
 <summary>result</summary>
 
@@ -903,4 +914,3 @@ Example queries for 'Gesamtausgabe Martin Heidegger, Heidegger, Martin', MMS ID 
 - Running version of the code above https://bibdata.univie.ac.at/bib-hierarchy/
 - ExLibris Cloud App documentation: https://developers.exlibrisgroup.com/cloudapps/
 - ExLibris SRU documentation: https://developers.exlibrisgroup.com/alma/integrations/sru/
--
