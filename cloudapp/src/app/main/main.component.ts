@@ -140,9 +140,11 @@ export class MainComponent implements OnInit, OnDestroy {
         switchMap(records => {
           const upwardSystemNumbers: string[] = this.sruParser.getUpwardSystemNumbers(records)
           this.status.set('Found ' + upwardSystemNumbers.length + ' system numbers')
-          const query: SruQuery = SruQuery.OTHER_SYSTEM_NUMBER_ACTIVE_035(upwardSystemNumbers)
+          const query035a: SruQuery = SruQuery.OTHER_SYSTEM_NUMBER_ACTIVE_035(upwardSystemNumbers)
+          const queryMmsId: SruQuery = SruQuery.MMS_IDS(upwardSystemNumbers.filter(systemNumber => !isNaN(+systemNumber)))
+          const queryHierarchyUpward: SruQuery = query035a.or(queryMmsId)
           this.status.set('Querying SRU for related records')
-          return this.sruService.queryNZ(query)
+          return this.sruService.queryNZ(queryHierarchyUpward)
         })
       ).subscribe(
         (records) => {
