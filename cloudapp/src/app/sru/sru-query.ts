@@ -4,6 +4,7 @@ export class SruQuery {
 
 	private static MMS_ID_DEF: QueryDefinition = { index: 'mms_id', operator: '=' }
 	private static OTHER_SYSTEM_NUMBER_DEF: QueryDefinition = { index: 'other_system_number', operator: '==' }
+	private static OTHER_SYSTEM_NUMBER_ACTIVE_35a_DEF: QueryDefinition = { index: 'other_system_number_active_035', operator: '==' }
 
 	private query: string[]
 	private _name: string
@@ -17,6 +18,18 @@ export class SruQuery {
 
 	get(): string {
 		return this.query.join(' ')
+	}
+
+	or(query: SruQuery): SruQuery {
+		if (query.getQueryParts().length > 0) {
+			this.query.push(BoolOp.OR)
+			this.query = this.query.concat(query.getQueryParts())
+		}
+		return this
+	}
+
+	private getQueryParts(): string[] {
+		return this.query
 	}
 
 	private setName(name: string): SruQuery {
@@ -41,16 +54,28 @@ export class SruQuery {
 			.setName("query for mmsid")
 	}
 
+	static MMS_IDS(values: string[]): SruQuery {
+		return SruQuery.orListQuery(values, SruQuery.MMS_ID_DEF, "query for mmsid")
+	}
+
 	static OTHER_SYSTEM_NUMBER(values: string[]): SruQuery {
+		return SruQuery.orListQuery(values, SruQuery.OTHER_SYSTEM_NUMBER_DEF, "query for 'other_system_number'")
+	}
+
+	static OTHER_SYSTEM_NUMBER_ACTIVE_035(values: string[]): SruQuery {
+		return SruQuery.orListQuery(values, SruQuery.OTHER_SYSTEM_NUMBER_ACTIVE_35a_DEF, "query for 'other_system_number_active_035'")
+	}
+
+	private static orListQuery(values: string[], queryDef: QueryDefinition, name: string): SruQuery {
 		const query: SruQuery = new SruQuery()
 		values.forEach((value, idx, arr) => {
-			query.addQuery(SruQuery.OTHER_SYSTEM_NUMBER_DEF, value)
+			query.addQuery(queryDef, value)
 			// dont add OR to the last element
 			if (idx + 1 < arr.length) {
 				query.addBoolOp(BoolOp.OR)
 			}
 		})
-		query.setName("query for 'other_system_number'")
+		query.setName(name)
 		return query
 	}
 }

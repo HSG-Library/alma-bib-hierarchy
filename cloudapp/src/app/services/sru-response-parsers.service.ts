@@ -21,6 +21,13 @@ export class SruResponseParserService {
 	private readonly XPATH_QUERY_250_EDITION: string = "//default:datafield[@tag='250']/default:subfield"
 	private readonly XPATH_QUERY_852_HOLDINGS: string = "//default:datafield[@tag='852']/default:subfield[@code='a']"
 	private readonly XPATH_QUERY_LEADER_ANALYTICAL: string = "//default:leader"
+	// query for upward hierarchy
+	private readonly XPATH_QUERY_773w: string = "//default:datafield[@tag='773']/default:subfield[@code='w']"
+	private readonly XPATH_QUERY_800w: string = "//default:datafield[@tag='800']/default:subfield[@code='w']"
+	private readonly XPATH_QUERY_810w: string = "//default:datafield[@tag='810']/default:subfield[@code='w']"
+	private readonly XPATH_QUERY_811w: string = "//default:datafield[@tag='811']/default:subfield[@code='w']"
+	private readonly XPATH_QUERY_830w: string = "//default:datafield[@tag='830']/default:subfield[@code='w']"
+
 	private readonly XPATH_QUERY_ADDITIONAL: Map<string, string> = new Map<string, string>([
 		["040$e", "//default:datafield[@tag='040']/default:subfield[@code='e']"],
 		["490$a", "//default:datafield[@tag='490']/default:subfield[@code='a']"],
@@ -59,6 +66,23 @@ export class SruResponseParserService {
 			const tempDoc: Document = new Document()
 			tempDoc.append(record)
 			return this.xpathQuery(tempDoc, this.XPATH_QUERY_035a)
+		}).reduce((acc, curr) => acc.concat(curr))
+	}
+
+	getUpwardSystemNumbers(records: Element[]): string[] {
+		if (!records || records?.length == 0) {
+			console.warn('No records - cannot query for upward system numbers')
+			return []
+		}
+		return records.map(record => {
+			const tempDoc: Document = new Document()
+			tempDoc.append(record)
+			const field773w = this.xpathQuery(tempDoc, this.XPATH_QUERY_773w)
+			const field800w = this.xpathQuery(tempDoc, this.XPATH_QUERY_800w)
+			const field810w = this.xpathQuery(tempDoc, this.XPATH_QUERY_810w)
+			const field811w = this.xpathQuery(tempDoc, this.XPATH_QUERY_811w)
+			const field830w = this.xpathQuery(tempDoc, this.XPATH_QUERY_830w)
+			return field773w.concat(field800w, field810w, field811w, field830w)
 		}).reduce((acc, curr) => acc.concat(curr))
 	}
 

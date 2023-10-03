@@ -76,7 +76,7 @@ export class MainComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
   }
 
-  showHierarchy(bibEntity: BibEntity): void {
+  showHierarchyDown(bibEntity: BibEntity): void {
     this.selectedEntity = bibEntity
 
     this.loader.show()
@@ -117,7 +117,54 @@ export class MainComponent implements OnInit, OnDestroy {
         },
         (error) => {
           this.alert.error(`Could not show hierarchy, please check the Alma URL '${this.almaUrl}'`, { autoClose: false })
-          console.error('Error in showHierarchy()', error)
+          console.error('Error in showHierarchyDown()', error)
+          this.reset()
+          this.loader.hide()
+        })
+  }
+
+  showHierarchyUp(bibEntity: BibEntity): void {
+    this.selectedEntity = bibEntity
+
+    this.loader.show()
+    this.status.set('Collecting infos for ' + bibEntity.entity.description)
+    let currentNzMmsId: string
+    bibEntity.nzMmsId
+      .pipe(
+        switchMap(nzMmsId => {
+          currentNzMmsId = nzMmsId
+          return of(SruQuery.MMS_ID(nzMmsId))
+        }),
+        tap(() => this.status.set('Collecting other system numbers')),
+        switchMap(query => this.sruService.queryNZ(query)),
+        switchMap(records => {
+          const upwardSystemNumbers: string[] = this.sruParser.getUpwardSystemNumbers(records)
+          this.status.set('Found ' + upwardSystemNumbers.length + ' system numbers')
+          const query035a: SruQuery = SruQuery.OTHER_SYSTEM_NUMBER_ACTIVE_035(upwardSystemNumbers)
+          const queryMmsId: SruQuery = SruQuery.MMS_IDS(upwardSystemNumbers.filter(systemNumber => !isNaN(+systemNumber)))
+          const queryHierarchyUpward: SruQuery = query035a.or(queryMmsId)
+          this.status.set('Querying SRU for related records')
+          return this.sruService.queryNZ(queryHierarchyUpward)
+        })
+      ).subscribe(
+        (records) => {
+          const bibInfos: BibInfo[] = this.sruParser.getBibInfo(records)
+          const bibInfosSorted: BibInfo[] = this.sortHoldings(bibInfos)
+          if (bibInfos.length > 0) {
+            this.availableAdditionalColums = Array.from(bibInfos[0].additionalInfo.keys())
+            this.resultTable.setAdditionalColumns(this.availableAdditionalColums)
+          }
+          const datasource = new MatTableDataSource(bibInfosSorted)
+          datasource.sortData = this.tableSortFunction()
+          const matSort: MatSort = this.resultTable.getMatSort()
+          matSort.sort(({ id: 'order', start: 'asc' }) as MatSortable)
+          datasource.sort = matSort
+          this.bibInfoResult = datasource
+          this.loader.hide()
+        },
+        (error) => {
+          this.alert.error(`Could not show hierarchy, please check the Alma URL '${this.almaUrl}'`, { autoClose: false })
+          console.error('Error in showHierarchyDown()', error)
           this.reset()
           this.loader.hide()
         })
