@@ -120,7 +120,7 @@ export class SruResponseParserService {
       const order: string = this.extractOrder(singleRecordDocument);
       const title: string = this.extractTitle(singleRecordDocument);
       const year: number = this.extractYear(singleRecordDocument);
-      const edition: string = this.exctractEdtition(singleRecordDocument);
+      const edition: string = this.extractEdition(singleRecordDocument);
       const holdings: string[] = this.extractHoldings(singleRecordDocument);
       const analytical: boolean = this.extractAnalytical(singleRecordDocument);
       const additional: Map<string, string> =
@@ -175,14 +175,16 @@ export class SruResponseParserService {
       );
       order = field773g
         .filter((e) => e.startsWith('no:'))
-        .map((e) => e?.match(/\d+/)[0])
-        .find((entry) => entry);
+        .map((e) => e.match(/\d+/))
+        .filter((match) => match !== null)
+        .map((match) => match[0])[0];
       if (!order) {
         order = field773g
           .filter((e) => e?.match(/\d+/))
           .filter((e) => e.indexOf('year:') == -1)
-          .map((e) => e?.match(/\d+/)[0])
-          .find((entry) => entry);
+          .map((e) => e?.match(/\d+/))
+          .filter((match) => match !== null)
+          .map((match) => match[0])[0];
       }
     }
     if (!order) {
@@ -192,8 +194,9 @@ export class SruResponseParserService {
       );
       order = field773q
         .filter((e) => e?.match(/\d+/))
-        .map((e) => e?.match(/\d+/)[0])
-        .find((entry) => entry);
+        .map((e) => e?.match(/\d+/))
+        .filter((match) => match !== null)
+        .map((match) => match[0])[0];
     }
     return order;
   }
@@ -211,7 +214,7 @@ export class SruResponseParserService {
     return Number(year[0].substring(7, 11));
   }
 
-  private exctractEdtition(document: Document): string {
+  private extractEdition(document: Document): string {
     const edition: string[] = this.xpathQuery(
       document,
       this.XPATH_QUERY_250_EDITION
