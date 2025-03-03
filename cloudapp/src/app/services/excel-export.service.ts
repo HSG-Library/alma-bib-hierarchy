@@ -34,7 +34,7 @@ export class ExcelExportService {
           Holdings: entry.holdings?.join(', '),
           'Possible duplicates': entry.duplicates?.join(', '),
         };
-        entry.additionalInfo.forEach((value, key) => {
+        entry.additionalInfo?.forEach((value, key) => {
           if (displayedColumns.lastIndexOf(key) >= 0) {
             row[key] = value;
           }

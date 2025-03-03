@@ -76,7 +76,7 @@ export class SruResponseParserService {
   }
 
   getOtherSystemNumbers(records: Element[]): string[] {
-    if (!records || records?.length == 0) {
+    if (!records || records.length === 0) {
       console.warn('No records - cannot query for other system numbers');
       return [];
     }
@@ -86,11 +86,11 @@ export class SruResponseParserService {
         tempDoc.append(record);
         return this.xpathQuery(tempDoc, this.XPATH_QUERY_035a);
       })
-      .reduce((acc, curr) => acc.concat(curr));
+      .reduce((acc, curr) => acc.concat(curr), []);
   }
 
   getUpwardSystemNumbers(records: Element[]): string[] {
-    if (!records || records?.length == 0) {
+    if (!records || records.length === 0) {
       console.warn('No records - cannot query for upward system numbers');
       return [];
     }
@@ -105,11 +105,11 @@ export class SruResponseParserService {
         const field830w = this.xpathQuery(tempDoc, this.XPATH_QUERY_830w);
         return field773w.concat(field800w, field810w, field811w, field830w);
       })
-      .reduce((acc, curr) => acc.concat(curr));
+      .reduce((acc, curr) => acc.concat(curr), []);
   }
 
   getBibInfo(records: Element[]): BibInfo[] {
-    if (!records || records?.length == 0) {
+    if (!records || records.length === 0) {
       console.warn('No records - cannot query for bib info');
       return [];
     }
@@ -198,7 +198,7 @@ export class SruResponseParserService {
         .filter((match) => match !== null)
         .map((match) => match[0])[0];
     }
-    return order;
+    return order || '';
   }
 
   private extractTitle(document: Document): string {
@@ -211,7 +211,7 @@ export class SruResponseParserService {
 
   private extractYear(document: Document): number {
     const year: string[] = this.xpathQuery(document, this.XPATH_QUERY_008_YEAR);
-    return Number(year[0].substring(7, 11));
+    return year[0] ? Number(year[0].substring(7, 11)) : 0;
   }
 
   private extractEdition(document: Document): string {

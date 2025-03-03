@@ -18,12 +18,16 @@ export class LoadingIndicatorService {
   }
 
   hasProgress(hasProgress: boolean): void {
-    hasProgress
-      ? this.mode.next('determinate')
-      : this.mode.next('indeterminate');
+    if (hasProgress !== null && hasProgress !== undefined) {
+      hasProgress
+        ? this.mode.next('determinate')
+        : this.mode.next('indeterminate');
+    }
   }
 
   setProgress(currentProgress: number): void {
-    this.progress.next(currentProgress);
+    if (currentProgress !== null && currentProgress !== undefined) {
+      this.progress.next(currentProgress);
+    }
   }
 }

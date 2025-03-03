@@ -15,7 +15,7 @@ import { ConfigurationService } from './configuration.service';
 import { LoadingIndicatorService } from './loading-indicator.service';
 import { LogService } from './log.service';
 import { SruResponseParserService } from './sru-response-parsers.service';
-import { StatusMessageService } from './status-message.service.ts';
+import { StatusMessageService } from './status-message.service';
 
 @Injectable({
   providedIn: 'root',
@@ -68,7 +68,7 @@ export class SruService {
             ),
             tap((url) => {
               this.log.info(
-                'Recieved NZ URL, adding to inMemory cache and local storage:',
+                'Received NZ URL, adding to inMemory cache and local storage:',
                 url
               );
               this.storeService

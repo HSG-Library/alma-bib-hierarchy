@@ -7,7 +7,7 @@ import {
   HttpMethod,
 } from '@exlibris/exl-cloudapp-angular-lib';
 import { Observable, of } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import { switchMap, catchError } from 'rxjs/operators';
 import { Settings } from '../models/settings.model';
 import { LogService } from './log.service';
 
@@ -31,11 +31,15 @@ export class ConfigurationService {
     return this.settingsService.get().pipe(
       switchMap((result) => {
         const settings: Settings = result as Settings;
-        if (settings.almaSruUrl) {
+        if (settings && settings.almaSruUrl) {
           return of(settings.almaSruUrl);
         } else {
           return this.getAlmaUrlFromConfig();
         }
+      }),
+      catchError((error) => {
+        this.log.error('Error getting Alma URL from settings', error);
+        return of('');
       })
     );
   }
@@ -44,11 +48,15 @@ export class ConfigurationService {
     return this.configService.get().pipe(
       switchMap((result) => {
         const settings: Settings = result as Settings;
-        if (settings.almaSruUrl) {
+        if (settings && settings.almaSruUrl) {
           return of(settings.almaSruUrl);
         } else {
           return this.getAlmaUrlFromApi();
         }
+      }),
+      catchError((error) => {
+        this.log.error('Error getting Alma URL from config', error);
+        return of('');
       })
     );
   }
@@ -61,8 +69,17 @@ export class ConfigurationService {
       })
       .pipe(
         switchMap((response) => {
-          const almaUrl: string = response.alma_url;
-          return of(almaUrl);
+          const almaUrl: string = response?.alma_url;
+          if (almaUrl) {
+            return of(almaUrl);
+          } else {
+            this.log.error('Alma URL not found in API response');
+            return of('');
+          }
+        }),
+        catchError((error) => {
+          this.log.error('Error getting Alma URL from API', error);
+          return of('');
         })
       );
   }
@@ -71,11 +88,15 @@ export class ConfigurationService {
     return this.settingsService.get().pipe(
       switchMap((result) => {
         const settings: Settings = result as Settings;
-        if (settings.networkCode) {
+        if (settings && settings.networkCode) {
           return of(settings.networkCode);
         } else {
           return this.getNetworkCodeFromConfig();
         }
+      }),
+      catchError((error) => {
+        this.log.error('Error getting Network Code from settings', error);
+        return of('');
       })
     );
   }
@@ -84,11 +105,15 @@ export class ConfigurationService {
     return this.configService.get().pipe(
       switchMap((result) => {
         const settings: Settings = result as Settings;
-        if (settings.networkCode) {
+        if (settings && settings.networkCode) {
           return of(settings.networkCode);
         } else {
           return this.getNetworkCodeFromApi();
         }
+      }),
+      catchError((error) => {
+        this.log.error('Error getting Network Code from config', error);
+        return of('');
       })
     );
   }
@@ -101,19 +126,30 @@ export class ConfigurationService {
       })
       .pipe(
         switchMap((response) => {
-          const institutionCode: string = response.institution.value;
-          const networkCode: string = institutionCode.replace(
-            /_.+/,
-            `_${this.NETWORK}`
-          );
-          return of(networkCode);
+          const institutionCode: string = response?.institution?.value;
+          if (institutionCode) {
+            const networkCode: string = institutionCode.replace(
+              /_.+/,
+              `_${this.NETWORK}`
+            );
+            return of(networkCode);
+          } else {
+            this.log.error('Institution code not found in API response');
+            return of('');
+          }
+        }),
+        catchError((error) => {
+          this.log.error('Error getting Network Code from API', error);
+          return of('');
         })
       );
   }
 
   resetNZUrlCache(): void {
-    this.storeService
-      .remove(this.NZ_URL_KEY)
-      .subscribe(() => this.log.info('removed NZ URL from locale storage'));
+    this.storeService.remove(this.NZ_URL_KEY).subscribe(
+      () => this.log.info('Removed NZ URL from local storage'),
+      (error) =>
+        this.log.error('Error removing NZ URL from local storage', error)
+    );
   }
 }

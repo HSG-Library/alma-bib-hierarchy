@@ -5,9 +5,13 @@ import { Injectable } from '@angular/core';
 })
 export class LogService {
   info(...args: any[]): void {
-    console.info('[Bib-Hierarchy]', ...args);
+    if (args && args.length > 0) {
+      console.info('[Bib-Hierarchy]', ...args);
+    }
   }
   error(...args: any[]): void {
-    console.error('[Bib-Hierarchy][ERR]', ...args);
+    if (args && args.length > 0) {
+      console.error('[Bib-Hierarchy][ERR]', ...args);
+    }
   }
 }

@@ -4,6 +4,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { CloudAppEventsService } from '@exlibris/exl-cloudapp-angular-lib';
 import { BibEntity } from '../models/bib-entity.model';
 import { BibInfo } from '../models/bib-info.model';
+import { catchError } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-result-table',
@@ -34,6 +36,12 @@ export class ResultTableComponent {
   constructor(private events: CloudAppEventsService) {
     this.events
       .getInitData()
+      .pipe(
+        catchError((error) => {
+          console.error('Error getting init data', error);
+          return of({ instCode: '' });
+        })
+      )
       .subscribe((data) => (this.instCode = data.instCode));
   }
 
@@ -42,10 +50,10 @@ export class ResultTableComponent {
   }
 
   shortHolding(holding: string): string {
-    return holding.replace(/^.+_/, '');
+    return holding?.replace(/^.+_/, '') ?? '';
   }
 
   setAdditionalColumns(columns: string[]): void {
-    this.additionalColumns = columns;
+    this.additionalColumns = columns ?? [];
   }
 }

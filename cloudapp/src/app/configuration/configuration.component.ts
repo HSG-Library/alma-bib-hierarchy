@@ -7,6 +7,8 @@ import {
 } from '@exlibris/exl-cloudapp-angular-lib';
 import { Settings } from '../models/settings.model';
 import { ConfigurationService } from '../services/configuration.service';
+import { catchError } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-config',
@@ -28,17 +30,38 @@ export class ConfigurationComponent implements OnInit {
   ngOnInit() {
     this.form = FormGroupUtil.toFormGroup(new Settings());
     this.saving = true;
-    this.settingsService.get().subscribe((settings) => {
-      this.form = FormGroupUtil.toFormGroup(
-        Object.assign(new Settings(), settings)
-      );
-      this.saving = false;
-    });
+    this.settingsService
+      .get()
+      .pipe(
+        catchError((error) => {
+          console.error('Error getting settings', error);
+          this.alert.error('Error getting settings');
+          return of({});
+        })
+      )
+      .subscribe((settings) => {
+        this.form = FormGroupUtil.toFormGroup(
+          Object.assign(new Settings(), settings)
+        );
+        this.saving = false;
+      });
     this.configurationService
       .getAlmaUrlFromApi()
+      .pipe(
+        catchError((error) => {
+          console.error('Error getting Alma URL', error);
+          return of('');
+        })
+      )
       .subscribe((url) => (this.defaultUrl = url));
     this.configurationService
       .getNetworkCodeFromApi()
+      .pipe(
+        catchError((error) => {
+          console.error('Error getting network code', error);
+          return of('');
+        })
+      )
       .subscribe((networkCode) => (this.defaultNetworkCode = networkCode));
   }
 
@@ -49,7 +72,10 @@ export class ConfigurationComponent implements OnInit {
         this.alert.success('Settings successfully saved.');
         this.form.markAsPristine();
       },
-      (err) => this.alert.error(err.message),
+      (err) => {
+        this.alert.error(err.message);
+        console.error('Error saving settings', err);
+      },
       () => (this.saving = false)
     );
   }

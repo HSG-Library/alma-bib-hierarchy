@@ -26,7 +26,7 @@ import { LoadingIndicatorService } from '../services/loading-indicator.service';
 import { LogService } from '../services/log.service';
 import { SruResponseParserService } from '../services/sru-response-parsers.service';
 import { SruService } from '../services/sru.service';
-import { StatusMessageService } from '../services/status-message.service.ts';
+import { StatusMessageService } from '../services/status-message.service';
 import { SruQuery } from '../sru/sru-query';
 
 @Component({
@@ -215,7 +215,7 @@ export class MainComponent implements OnInit, OnDestroy {
             `Could not show hierarchy, please check the Alma URL '${this.almaUrl}'`,
             { autoClose: false }
           );
-          console.error('Error in showHierarchyDown()', error);
+          console.error('Error in showHierarchyUp()', error);
           this.reset();
           this.loader.hide();
         }
@@ -232,9 +232,9 @@ export class MainComponent implements OnInit, OnDestroy {
     this.loader.show();
     this.excelExportService
       .export(
-        this.bibInfoResult.data,
-        this.resultTable.displayedColumns,
-        this.selectedEntity.entity.id
+        this.bibInfoResult?.data || [],
+        this.resultTable?.displayedColumns || [],
+        this.selectedEntity?.entity?.id || ''
       )
       .subscribe(
         (result) => {
@@ -249,7 +249,7 @@ export class MainComponent implements OnInit, OnDestroy {
   }
 
   getAvailableAdditionalColumns(): string[] {
-    return this.availableAdditionalColumns;
+    return this.availableAdditionalColumns || [];
   }
 
   toggleAdditionalColumn(column: string): void {

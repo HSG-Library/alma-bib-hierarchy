@@ -6,50 +6,72 @@ import { BibInfo } from '../models/bib-info.model';
 })
 export class FindDuplicatesService {
   findPossibleDuplicates(bibInfos: BibInfo[]): BibInfo[] {
+    if (!bibInfos || !Array.isArray(bibInfos)) {
+      return [];
+    }
+
     const lookup: Lookup = {};
 
-    bibInfos.forEach((b) => {
-      const id: string = this.getDeduplicatedId(b);
+    bibInfos.forEach((bibInfo) => {
+      if (!bibInfo) {
+        return;
+      }
+
+      const id: string = this.getDeduplicatedId(bibInfo);
       if (lookup.hasOwnProperty(id)) {
         const entry: LookupEntry = lookup[id];
-        entry.duplicates.push(b.mmsId);
+        entry.duplicates.push(bibInfo.mmsId);
         lookup[id] = entry;
       } else {
-        const entry: LookupEntry = { mmsId: b.mmsId, duplicates: [b.mmsId] };
+        const entry: LookupEntry = {
+          mmsId: bibInfo.mmsId,
+          duplicates: [bibInfo.mmsId],
+        };
         lookup[id] = entry;
       }
     });
 
     const duplicates: LookupEntry[] = this.cleanupLookupTable(lookup);
 
-    return bibInfos.map((b) => {
+    return bibInfos.map((bibInfo) => {
+      if (!bibInfo) {
+        return bibInfo;
+      }
+
       const duplicateInfo: LookupEntry = duplicates.find(
-        (entry) => entry.mmsId == b.mmsId
+        (entry) => entry.mmsId == bibInfo.mmsId
       );
-      if (duplicateInfo && b.order) {
+      if (duplicateInfo && bibInfo.order) {
         return new BibInfo(
-          b.mmsId,
-          b.order,
-          b.title,
-          b.year,
-          b.edition,
-          b.holdings,
-          b.analytical,
-          b.additionalInfo,
+          bibInfo.mmsId,
+          bibInfo.order,
+          bibInfo.title,
+          bibInfo.year,
+          bibInfo.edition,
+          bibInfo.holdings,
+          bibInfo.analytical,
+          bibInfo.additionalInfo,
           duplicateInfo.duplicates
         );
       }
-      return b;
+      return bibInfo;
     });
   }
 
   private getDeduplicatedId(bibInfo: BibInfo): string {
-    return bibInfo?.order + bibInfo?.edition;
+    if (!bibInfo) {
+      return '';
+    }
+    return (bibInfo.order || '') + (bibInfo.edition || '');
   }
 
   private cleanupLookupTable(lookup: Lookup): LookupEntry[] {
     let duplicates: LookupEntry[] = [];
     for (let key in lookup) {
+      if (!lookup.hasOwnProperty(key)) {
+        continue;
+      }
+
       const lookUpEntry: LookupEntry = lookup[key];
       if (lookUpEntry.duplicates.length > 1) {
         const expandedDuplicates: LookupEntry[] = lookUpEntry.duplicates.map(
