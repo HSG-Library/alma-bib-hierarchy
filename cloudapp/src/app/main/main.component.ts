@@ -41,14 +41,14 @@ export class MainComponent implements OnInit, OnDestroy {
   almaUrl: string;
 
   bibInfoResult: MatTableDataSource<BibInfo>;
-  availableAdditionalColums: string[];
+  availableAdditionalColumns: string[];
 
   @ViewChild(ResultTableComponent) resultTable: ResultTableComponent;
 
   entities$: Observable<Entity[]> = this.eventsService.entities$.pipe(
     tap(() => this.reset()),
-    filter((entites) =>
-      entites.every((entity) => entity.type === EntityType.BIB_MMS)
+    filter((entities) =>
+      entities.every((entity) => entity.type === EntityType.BIB_MMS)
     )
   );
 
@@ -86,8 +86,8 @@ export class MainComponent implements OnInit, OnDestroy {
           )
         )
       )
-      .subscribe((entites) => {
-        this.bibEntities = entites;
+      .subscribe((entities) => {
+        this.bibEntities = entities;
       });
   }
 
@@ -133,11 +133,11 @@ export class MainComponent implements OnInit, OnDestroy {
           const bibInfos: BibInfo[] = this.sruParser.getBibInfo(records);
           const bibInfosSorted: BibInfo[] = this.sortHoldings(bibInfos);
           if (bibInfos.length > 0) {
-            this.availableAdditionalColums = Array.from(
+            this.availableAdditionalColumns = Array.from(
               bibInfos[0].additionalInfo.keys()
             );
             this.resultTable.setAdditionalColumns(
-              this.availableAdditionalColums
+              this.availableAdditionalColumns
             );
           }
           const datasource = new MatTableDataSource(bibInfosSorted);
@@ -195,11 +195,11 @@ export class MainComponent implements OnInit, OnDestroy {
           const bibInfos: BibInfo[] = this.sruParser.getBibInfo(records);
           const bibInfosSorted: BibInfo[] = this.sortHoldings(bibInfos);
           if (bibInfos.length > 0) {
-            this.availableAdditionalColums = Array.from(
+            this.availableAdditionalColumns = Array.from(
               bibInfos[0].additionalInfo.keys()
             );
             this.resultTable.setAdditionalColumns(
-              this.availableAdditionalColums
+              this.availableAdditionalColumns
             );
           }
           const datasource = new MatTableDataSource(bibInfosSorted);
@@ -225,7 +225,7 @@ export class MainComponent implements OnInit, OnDestroy {
   reset(): void {
     this.selectedEntity = null;
     this.bibInfoResult = null;
-    this.availableAdditionalColums = [];
+    this.availableAdditionalColumns = [];
   }
 
   export(): void {
@@ -248,8 +248,8 @@ export class MainComponent implements OnInit, OnDestroy {
       );
   }
 
-  getAvailableAdditionalColums(): string[] {
-    return this.availableAdditionalColums;
+  getAvailableAdditionalColumns(): string[] {
+    return this.availableAdditionalColumns;
   }
 
   toggleAdditionalColumn(column: string): void {
@@ -335,7 +335,7 @@ export class MainComponent implements OnInit, OnDestroy {
             ...otherSystemNumbers,
             currentNzMmsId,
           ]);
-          return this.sruService.querNZRecordCount(query);
+          return this.sruService.queryNZRecordCount(query);
         })
       )
       .subscribe((result) => {

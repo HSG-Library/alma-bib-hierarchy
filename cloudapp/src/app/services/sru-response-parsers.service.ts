@@ -136,7 +136,7 @@ export class SruResponseParserService {
         additional
       );
     });
-    return this.duplicateService.findPossibleDublicates(bibInfos);
+    return this.duplicateService.findPossibleDuplicates(bibInfos);
   }
 
   private extractMmsId(document: Document): string {

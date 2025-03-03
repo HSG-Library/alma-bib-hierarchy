@@ -5,11 +5,11 @@ import { BibInfo } from '../models/bib-info.model';
   providedIn: 'root',
 })
 export class FindDuplicatesService {
-  findPossibleDublicates(bibInfos: BibInfo[]): BibInfo[] {
+  findPossibleDuplicates(bibInfos: BibInfo[]): BibInfo[] {
     const lookup: Lookup = {};
 
     bibInfos.forEach((b) => {
-      const id: string = this.getDedupId(b);
+      const id: string = this.getDeduplicatedId(b);
       if (lookup.hasOwnProperty(id)) {
         const entry: LookupEntry = lookup[id];
         entry.duplicates.push(b.mmsId);
@@ -43,7 +43,7 @@ export class FindDuplicatesService {
     });
   }
 
-  private getDedupId(bibInfo: BibInfo): string {
+  private getDeduplicatedId(bibInfo: BibInfo): string {
     return bibInfo?.order + bibInfo?.edition;
   }
 
@@ -52,7 +52,7 @@ export class FindDuplicatesService {
     for (let key in lookup) {
       const lookUpEntry: LookupEntry = lookup[key];
       if (lookUpEntry.duplicates.length > 1) {
-        const expandedDulicates: LookupEntry[] = lookUpEntry.duplicates.map(
+        const expandedDuplicates: LookupEntry[] = lookUpEntry.duplicates.map(
           (dup) => {
             const filteredDuplicates: string[] = lookUpEntry.duplicates.filter(
               (d) => d != dup
@@ -60,7 +60,7 @@ export class FindDuplicatesService {
             return { mmsId: dup, duplicates: filteredDuplicates };
           }
         );
-        duplicates = duplicates.concat(expandedDulicates);
+        duplicates = duplicates.concat(expandedDuplicates);
       }
     }
     return duplicates;

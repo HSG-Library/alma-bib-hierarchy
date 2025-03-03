@@ -8,14 +8,14 @@ import { BibInfo } from '../models/bib-info.model';
 })
 export class ExcelExportService {
   private readonly filePrefix: string = 'BibHierarchy-';
-  private readonly fileExtention: string = '.xlsx';
+  private readonly fileExtension: string = '.xlsx';
 
   export(
     data: BibInfo[],
     displayedColumns: string[],
     fileId: string
   ): Observable<any> {
-    return this.createXslsFile(
+    return this.createXlsxFile(
       this.sanitizeForExport(data, displayedColumns),
       fileId
     );
@@ -65,7 +65,7 @@ export class ExcelExportService {
       });
   }
 
-  private createXslsFile(data: any, fileId: string): Observable<any> {
+  private createXlsxFile(data: any, fileId: string): Observable<any> {
     const ws = XLSXutils.json_to_sheet(data);
     const wb: WorkBook = XLSXutils.book_new();
     XLSXutils.book_append_sheet(wb, ws, 'Sheet1');
@@ -74,7 +74,7 @@ export class ExcelExportService {
 
   private createFileName(fileId: string): string {
     return (
-      this.filePrefix + fileId + '-' + this.currentDate() + this.fileExtention
+      this.filePrefix + fileId + '-' + this.currentDate() + this.fileExtension
     );
   }
 

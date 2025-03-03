@@ -83,7 +83,7 @@
     </mat-card-actions>
   </mat-card>
 
-  <div *ngIf="getAvailableAdditionalColums().length > 0">
+  <div *ngIf="getAvailableAdditionalColumns().length > 0">
     <mat-expansion-panel>
       <mat-expansion-panel-header>
         <mat-panel-title>
@@ -91,7 +91,7 @@
         </mat-panel-title>
       </mat-expansion-panel-header>
       <mat-slide-toggle
-        *ngFor="let column of getAvailableAdditionalColums()"
+        *ngFor="let column of getAvailableAdditionalColumns()"
         (change)="toggleAdditionalColumn(column)"
         >{{ column }}</mat-slide-toggle
       >

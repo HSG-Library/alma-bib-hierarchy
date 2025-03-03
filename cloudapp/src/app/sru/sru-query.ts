@@ -90,7 +90,7 @@ export class SruQuery {
     const query: SruQuery = new SruQuery();
     values.forEach((value, idx, arr) => {
       query.addQuery(queryDef, value);
-      // dont add OR to the last element
+      // don't add OR to the last element
       if (idx + 1 < arr.length) {
         query.addBoolOp(BoolOp.OR);
       }

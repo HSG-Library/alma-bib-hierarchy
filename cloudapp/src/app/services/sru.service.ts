@@ -96,7 +96,7 @@ export class SruService {
       .set('maximumRecords', String(maximumRecords));
   }
 
-  querNZRecordCount(query: SruQuery): Observable<number> {
+  queryNZRecordCount(query: SruQuery): Observable<number> {
     return this.getNzUrl().pipe(
       switchMap((url) => this.call(url, query, 1, 0)),
       switchMap((response) => of(this.parser.getNumberOfRecords(response)))

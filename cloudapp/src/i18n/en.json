@@ -30,7 +30,7 @@
   },
   "settings": {
     "almaSruUrlLabel": "Alma SRU URL",
-    "leaveEmtpyForPreset": "Leave empty for preset value: ",
+    "leaveEmptyForPreset": "Leave empty for preset value: ",
     "loading": "...loading...",
     "networkCodeLabel": "Network code"
   }
