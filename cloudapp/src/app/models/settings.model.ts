@@ -1,4 +1,4 @@
 export class Settings {
-	almaSruUrl: string = ''
-	networkCode: string = ''
+  almaSruUrl: string = '';
+  networkCode: string = '';
 }

@@ -1,25 +1,48 @@
 <div class="eca-actions">
-	<button mat-flat-button type="button" color="secondary" [routerLink]="['/']">
-		<mat-icon>arrow_back</mat-icon>
-	</button>
-	<button mat-flat-button type="button" color="primary" (click)="save()" [disabled]="!(form?.dirty)">
-		<mat-icon>save</mat-icon>
-	</button>
+  <button mat-flat-button type="button" color="secondary" [routerLink]="['/']">
+    <mat-icon>arrow_back</mat-icon>
+  </button>
+  <button
+    mat-flat-button
+    type="button"
+    color="primary"
+    (click)="save()"
+    [disabled]="!form?.dirty"
+  >
+    <mat-icon>save</mat-icon>
+  </button>
 </div>
 <div class="loading-shade" *ngIf="saving">
-	<mat-progress-spinner mode="indeterminate" diameter="50"></mat-progress-spinner>
+  <mat-progress-spinner
+    mode="indeterminate"
+    diameter="50"
+  ></mat-progress-spinner>
 </div>
 <div *ngIf="form">
-	<form [formGroup]="form">
-		<section class="settings-section">
-			<mat-form-field appearance="fill" class="full-width" hintLabel="{{ 'settings.leaveEmtpyForPreset' | translate }} '{{defaultUrl ? defaultUrl : ('settings.loading' | translate)}}'">
-				<mat-label translate>settings.almaSruUrlLabel</mat-label>
-				<input matInput formControlName="almaSruUrl" [value] />
-			</mat-form-field>
-			<mat-form-field appearance="fill" class="full-width" hintLabel="{{ 'settings.leaveEmtpyForPreset' | translate }} '{{defaultNetworkCode ? defaultNetworkCode : ('settings.loading' | translate)}}'">
-				<mat-label translate>settings.networkCodeLabel</mat-label>
-				<input matInput formControlName="networkCode" [value] />
-			</mat-form-field>
-		</section>
-	</form>
+  <form [formGroup]="form">
+    <section class="settings-section">
+      <mat-form-field
+        appearance="fill"
+        class="full-width"
+        hintLabel="{{ 'settings.leaveEmtpyForPreset' | translate }} '{{
+          defaultUrl ? defaultUrl : ('settings.loading' | translate)
+        }}'"
+      >
+        <mat-label translate>settings.almaSruUrlLabel</mat-label>
+        <input matInput formControlName="almaSruUrl" [value] />
+      </mat-form-field>
+      <mat-form-field
+        appearance="fill"
+        class="full-width"
+        hintLabel="{{ 'settings.leaveEmtpyForPreset' | translate }} '{{
+          defaultNetworkCode
+            ? defaultNetworkCode
+            : ('settings.loading' | translate)
+        }}'"
+      >
+        <mat-label translate>settings.networkCodeLabel</mat-label>
+        <input matInput formControlName="networkCode" [value] />
+      </mat-form-field>
+    </section>
+  </form>
 </div>

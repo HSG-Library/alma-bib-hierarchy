@@ -1,6 +1,20 @@
 <div class="eca-actions">
-  <button mat-flat-button color="secondary" (click)="reset()" [disabled]="!selectedEntity || (loader.isLoading | async)">{{ 'main.resetButtonLabel' | translate }}</button>
-  <button mat-flat-button color="primary" (click)="export()" [disabled]="!bibInfoResult || bibInfoResult.data.length < 0">{{ 'main.exportButtonLabel' | translate }}</button>
+  <button
+    mat-flat-button
+    color="secondary"
+    (click)="reset()"
+    [disabled]="!selectedEntity || (loader.isLoading | async)"
+  >
+    {{ 'main.resetButtonLabel' | translate }}
+  </button>
+  <button
+    mat-flat-button
+    color="primary"
+    (click)="export()"
+    [disabled]="!bibInfoResult || bibInfoResult.data.length < 0"
+  >
+    {{ 'main.exportButtonLabel' | translate }}
+  </button>
 </div>
 
 <div *ngIf="bibEntities.length == 0">
@@ -8,25 +22,61 @@
 </div>
 
 <div *ngIf="bibEntities.length > 0">
-  <mat-card *ngFor="let bibEntity of bibEntities" [ngClass]="{'hidden' : selectedEntity && (bibEntity.entity.id != selectedEntity.entity.id) }">
-    <mat-card-title><span class="uxf-icon uxf-book-alt"></span> {{bibEntity.entity.description}}</mat-card-title>
+  <mat-card
+    *ngFor="let bibEntity of bibEntities"
+    [ngClass]="{
+      hidden: selectedEntity && bibEntity.entity.id != selectedEntity.entity.id
+    }"
+  >
+    <mat-card-title
+      ><span class="uxf-icon uxf-book-alt"></span>
+      {{ bibEntity.entity.description }}</mat-card-title
+    >
     <mat-card-content>
       <mat-list>
-        <mat-list-item><span class="bold">{{ 'main.mmsIdNz' | translate }}:&nbsp;</span><span [ngClass]="{ 'loading' : !(bibEntity.nzMmsId | async )}">{{ (bibEntity.nzMmsId | async)}}</span></mat-list-item>
+        <mat-list-item
+          ><span class="bold">{{ 'main.mmsIdNz' | translate }}:&nbsp;</span
+          ><span [ngClass]="{ loading: !(bibEntity.nzMmsId | async) }">{{
+            bibEntity.nzMmsId | async
+          }}</span></mat-list-item
+        >
         <mat-list-item>
-          <span class="bold">{{ 'main.relatedRecords' | translate }}:&nbsp;</span>
-          <button *ngIf="bibEntity.relatedRecords == null && !bibEntity.clicked" class="related-records-button" mat-flat-button color="secondary" (click)="getRelatedRecords(bibEntity); bibEntity.clicked = true">{{ 'main.calculateButtonLabel' | translate }}</button>
-          <span *ngIf="bibEntity.relatedRecords == null && bibEntity.clicked" class="loading"></span>
-          <span *ngIf="bibEntity.relatedRecords != null">{{bibEntity.relatedRecords}}</span>
+          <span class="bold"
+            >{{ 'main.relatedRecords' | translate }}:&nbsp;</span
+          >
+          <button
+            *ngIf="bibEntity.relatedRecords == null && !bibEntity.clicked"
+            class="related-records-button"
+            mat-flat-button
+            color="secondary"
+            (click)="getRelatedRecords(bibEntity); bibEntity.clicked = true"
+          >
+            {{ 'main.calculateButtonLabel' | translate }}
+          </button>
+          <span
+            *ngIf="bibEntity.relatedRecords == null && bibEntity.clicked"
+            class="loading"
+          ></span>
+          <span *ngIf="bibEntity.relatedRecords != null">{{
+            bibEntity.relatedRecords
+          }}</span>
         </mat-list-item>
       </mat-list>
     </mat-card-content>
     <mat-card-actions class="bib-entity-actions" *ngIf="!selectedEntity">
-      <button mat-flat-button color="primary" (click)="showHierarchyUp(bibEntity)">
+      <button
+        mat-flat-button
+        color="primary"
+        (click)="showHierarchyUp(bibEntity)"
+      >
         {{ 'main.showHierarchyButtonLabel' | translate }}
         <mat-icon>arrow_upward</mat-icon>
       </button>
-      <button mat-flat-button color="primary" (click)="showHierarchyDown(bibEntity)">
+      <button
+        mat-flat-button
+        color="primary"
+        (click)="showHierarchyDown(bibEntity)"
+      >
         {{ 'main.showHierarchyButtonLabel' | translate }}
         <mat-icon>arrow_downward</mat-icon>
       </button>
@@ -40,28 +90,66 @@
           {{ 'main.showAdditionalData' | translate }}
         </mat-panel-title>
       </mat-expansion-panel-header>
-      <mat-slide-toggle *ngFor="let column of getAvailableAdditionalColums()" (change)="toggleAdditionalColumn(column)">{{column}}</mat-slide-toggle>
+      <mat-slide-toggle
+        *ngFor="let column of getAvailableAdditionalColums()"
+        (change)="toggleAdditionalColumn(column)"
+        >{{ column }}</mat-slide-toggle
+      >
     </mat-expansion-panel>
   </div>
 
   <div class="result-actions">
-    <button mat-flat-button color="secondary" (click)="popup.toggle(resultTable)" *ngIf="bibInfoResult && bibInfoResult.data.length > 0">{{ (popup.popupOpen | async) ? ('main.closeWindowButtonLabel' | translate) : ('main.popUpWindowButtonLabel' | translate) }}</button>
+    <button
+      mat-flat-button
+      color="secondary"
+      (click)="popup.toggle(resultTable)"
+      *ngIf="bibInfoResult && bibInfoResult.data.length > 0"
+    >
+      {{
+        (popup.popupOpen | async)
+          ? ('main.closeWindowButtonLabel' | translate)
+          : ('main.popUpWindowButtonLabel' | translate)
+      }}
+    </button>
   </div>
-  <p class="expand-view-info" *ngIf="bibInfoResult && bibInfoResult.data.length > 0">{{ 'main.expandInfo' | translate }}: <i class="icon-density ng-star-inserted uxf-icon uxf-resize-large" style="transform: rotate(45deg);"></i></p>
+  <p
+    class="expand-view-info"
+    *ngIf="bibInfoResult && bibInfoResult.data.length > 0"
+  >
+    {{ 'main.expandInfo' | translate }}:
+    <i
+      class="icon-density ng-star-inserted uxf-icon uxf-resize-large"
+      style="transform: rotate(45deg)"
+    ></i>
+  </p>
 
   <div *ngIf="bibInfoResult && !bibInfoResult.data.length" class="empty-list">
     <p translate>main.noRelatedRecordsFoundMsg</p>
-    <span class="uxf-icon uxf-list" style="font-size: 3em;"></span>
-    <button mat-flat-button color="primary" (click)="reset()" [disabled]="!selectedEntity">{{ 'main.resetSelectionButtonLabel' | translate }}</button>
+    <span class="uxf-icon uxf-list" style="font-size: 3em"></span>
+    <button
+      mat-flat-button
+      color="primary"
+      (click)="reset()"
+      [disabled]="!selectedEntity"
+    >
+      {{ 'main.resetSelectionButtonLabel' | translate }}
+    </button>
   </div>
 
   <popup #popup>
-    <app-result-table [hidden]="!bibInfoResult" [result]="bibInfoResult" [selectedEntity]="selectedEntity"></app-result-table>
+    <app-result-table
+      [hidden]="!bibInfoResult"
+      [result]="bibInfoResult"
+      [selectedEntity]="selectedEntity"
+    ></app-result-table>
   </popup>
-
 </div>
 
 <div class="loading-shade" *ngIf="loader.isLoading | async">
-  <mat-spinner diameter="50" [mode]="loader.mode | async" [value]="loader.progress | async"></mat-spinner>
+  <mat-spinner
+    diameter="50"
+    [mode]="loader.mode | async"
+    [value]="loader.progress | async"
+  ></mat-spinner>
   <p class="loading-info">{{ status.message | async }}</p>
 </div>

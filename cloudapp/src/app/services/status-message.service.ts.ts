@@ -1,18 +1,17 @@
-import { Injectable } from '@angular/core'
-import { BehaviorSubject, Observable, Subject } from 'rxjs'
+import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 
 @Injectable({
-	providedIn: 'root'
+  providedIn: 'root',
 })
 export class StatusMessageService {
-	message = new BehaviorSubject<string>("loading")
+  message = new BehaviorSubject<string>('loading');
 
+  set(msg: string): void {
+    this.message.next(msg);
+  }
 
-	set(msg: string): void {
-		this.message.next(msg)
-	}
-
-	get(): Observable<string> {
-		return this.message.asObservable()
-	}
+  get(): Observable<string> {
+    return this.message.asObservable();
+  }
 }

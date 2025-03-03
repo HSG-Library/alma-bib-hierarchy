@@ -1,18 +1,17 @@
 @import './app/main/main.component.theme';
 
 @mixin themed-styles($theme, $typography) {
-    /* Include themed component mixins or theme dependent styles here */
-    @include main-component-theme($theme, $typography);
+  /* Include themed component mixins or theme dependent styles here */
+  @include main-component-theme($theme, $typography);
 }
 
 @mixin global-styles {
+  /* Add global styles here */
+  .bold {
+    font-weight: 400;
+  }
 
-    /* Add global styles here */
-    .bold {
-        font-weight: 400;
-    }
-
-    .hidden {
-        display: none;
-    }
+  .hidden {
+    display: none;
+  }
 }

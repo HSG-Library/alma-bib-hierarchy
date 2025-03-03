@@ -1,37 +1,37 @@
 {
-	"main": {
-		"calculateButtonLabel": "berechnen",
-		"closeWindowButtonLabel": "Popup schliessen",
-		"expandInfo": "Zum erweitern den Erweitern Button in der Toolbar klicken",
-		"exportButtonLabel": "Exportieren",
-		"mmsIdNz": "MMS ID (NZ)",
-		"noMmsIdMsg": "Keine Titel gefunden, bitte nach MMS ID suchen",
-		"noRelatedRecordsFoundMsg": "Keine vernküpften Datensätze gefunden",
-		"popUpWindowButtonLabel": "Popup öffnen",
-		"relatedRecords": "Verknüpfte Datensätze",
-		"resetButtonLabel": "Zurücksetzen",
-		"resetSelectionButtonLabel": "Auswahl Zurücksetzen",
-		"showAdditionalData": "Zusätzliche Daten anzeigen/verstecken",
-		"showHierarchyButtonLabel": "Hierarchie"
-	},
-	"popup": {
-		"windowIsOpen": "Der Inhalt wird in einem Popup-Fenster dargestellt. Ein Klick auf 'Popup schliessen' zeigt den Inhalt wieder hier an."
-	},
-	"result": {
-		"analyticalHeader": "Analytisch",
-		"clickToCopyMsg": "klicken zum kopieren der MMSID der möglichen Dublette",
-		"duplicateHeader": "Mögliche Dublette",
-		"editionHeader": "Auflage",
-		"holdingsHeader": "Bestand",
-		"mmsidHeader": "MMS ID",
-		"orderHeader": "Band",
-		"titleHeader": "Titel",
-		"yearHeader": "Jahr"
-	},
-	"settings": {
-		"almaSruUrlLabel": "Alma SRU URL",
-		"leaveEmtpyForPreset": "Leer lassen für Standard: ",
-		"loading": "...lade...",
-		"networkCodeLabel": "Netzwerk Code"
-	}
+  "main": {
+    "calculateButtonLabel": "berechnen",
+    "closeWindowButtonLabel": "Popup schliessen",
+    "expandInfo": "Zum erweitern den Erweitern Button in der Toolbar klicken",
+    "exportButtonLabel": "Exportieren",
+    "mmsIdNz": "MMS ID (NZ)",
+    "noMmsIdMsg": "Keine Titel gefunden, bitte nach MMS ID suchen",
+    "noRelatedRecordsFoundMsg": "Keine vernküpften Datensätze gefunden",
+    "popUpWindowButtonLabel": "Popup öffnen",
+    "relatedRecords": "Verknüpfte Datensätze",
+    "resetButtonLabel": "Zurücksetzen",
+    "resetSelectionButtonLabel": "Auswahl Zurücksetzen",
+    "showAdditionalData": "Zusätzliche Daten anzeigen/verstecken",
+    "showHierarchyButtonLabel": "Hierarchie"
+  },
+  "popup": {
+    "windowIsOpen": "Der Inhalt wird in einem Popup-Fenster dargestellt. Ein Klick auf 'Popup schliessen' zeigt den Inhalt wieder hier an."
+  },
+  "result": {
+    "analyticalHeader": "Analytisch",
+    "clickToCopyMsg": "klicken zum kopieren der MMSID der möglichen Dublette",
+    "duplicateHeader": "Mögliche Dublette",
+    "editionHeader": "Auflage",
+    "holdingsHeader": "Bestand",
+    "mmsidHeader": "MMS ID",
+    "orderHeader": "Band",
+    "titleHeader": "Titel",
+    "yearHeader": "Jahr"
+  },
+  "settings": {
+    "almaSruUrlLabel": "Alma SRU URL",
+    "leaveEmtpyForPreset": "Leer lassen für Standard: ",
+    "loading": "...lade...",
+    "networkCodeLabel": "Netzwerk Code"
+  }
 }
