@@ -73,7 +73,7 @@ export class MainComponent implements OnInit {
     private restService: CloudAppRestService,
     private eventsService: CloudAppEventsService,
     private alert: AlertService,
-    private status: StatusMessageService,
+    public status: StatusMessageService,
     public loader: LoadingIndicatorService
   ) {}
 
