@@ -155,4 +155,176 @@ describe('SruResponseParserService', () => {
       expect(holdings).toEqual(['Holding A2']);
     });
   });
+
+  describe('extract order', () => {
+    it('should choose the matching $w of two 800 fields', () => {
+      const xmlString = `
+        <records xmlns="http://www.loc.gov/MARC21/slim">
+          <record>
+            <datafield ind1="1" ind2=" " tag="800">
+              <subfield code="a">Heidegger, Martin</subfield>
+              <subfield code="d">1889-1976</subfield>
+              <subfield code="t">Werke</subfield>
+              <subfield code="v">50</subfield>
+              <subfield code="w">(IDSLU)000189797ILU01-NOMATCH</subfield>
+            </datafield>
+            <datafield ind1="1" ind2=" " tag="800">
+              <subfield code="a">Heidegger, Martin</subfield>
+              <subfield code="d">1889-1976</subfield>
+              <subfield code="t">Werke</subfield>
+              <subfield code="v">100</subfield>
+              <subfield code="w">(IDSLU)000189797ILU01-MATCH</subfield>
+            </datafield>
+          </record>
+        </records>
+      `;
+      const records = service.getRecords(xmlString);
+      const bibInfo = service.getBibInfo(records, [
+        '(ANY)00123456',
+        '(IDSLU)000189797ILU01-MATCH',
+      ]);
+      expect(bibInfo).toBeTruthy();
+      const order = bibInfo[0].order;
+      expect(order).toEqual('100');
+    });
+    it('should choose the matching $w of 800/810 fields', () => {
+      const xmlString = `
+        <records xmlns="http://www.loc.gov/MARC21/slim">
+          <record>
+            <datafield ind1="1" ind2=" " tag="800">
+              <subfield code="a">Heidegger, Martin</subfield>
+              <subfield code="d">1889-1976</subfield>
+              <subfield code="t">Werke</subfield>
+              <subfield code="v">50</subfield>
+              <subfield code="w">(IDSLU)000189797ILU01-NOMATCH</subfield>
+            </datafield>
+            <datafield ind1="1" ind2=" " tag="800">
+              <subfield code="a">Heidegger, Martin</subfield>
+              <subfield code="d">1889-1976</subfield>
+              <subfield code="t">Werke</subfield>
+              <subfield code="v">100</subfield>
+              <subfield code="w">(IDSLU)000189797ILU01-NOMATCH</subfield>
+            </datafield>
+            <datafield ind1="1" ind2=" " tag="810">
+              <subfield code="a">Heidegger, Martin</subfield>
+              <subfield code="d">1889-1976</subfield>
+              <subfield code="t">Werke</subfield>
+              <subfield code="v">150</subfield>
+              <subfield code="w">(IDSLU)000189797ILU01-NOMATCH</subfield>
+            </datafield>
+            <datafield ind1="1" ind2=" " tag="810">
+              <subfield code="a">Heidegger, Martin</subfield>
+              <subfield code="d">1889-1976</subfield>
+              <subfield code="t">Werke</subfield>
+              <subfield code="v">200</subfield>
+              <subfield code="w">(IDSLU)000189797ILU01-MATCH</subfield>
+            </datafield>
+          </record>
+        </records>
+      `;
+      const records = service.getRecords(xmlString);
+      const bibInfo = service.getBibInfo(records, [
+        '(ANY)00123456',
+        '(IDSLU)000189797ILU01-MATCH',
+      ]);
+      expect(bibInfo).toBeTruthy();
+      const order = bibInfo[0].order;
+      expect(order).toEqual('200');
+    });
+    it('should choose the matching $w of 800/810/830 fields', () => {
+      const xmlString = `
+        <records xmlns="http://www.loc.gov/MARC21/slim">
+          <record>
+            <datafield ind1="1" ind2=" " tag="800">
+              <subfield code="a">Heidegger, Martin</subfield>
+              <subfield code="d">1889-1976</subfield>
+              <subfield code="t">Werke</subfield>
+              <subfield code="v">50</subfield>
+              <subfield code="w">(IDSLU)000189797ILU01-NOMATCH</subfield>
+            </datafield>
+            <datafield ind1="1" ind2=" " tag="800">
+              <subfield code="a">Heidegger, Martin</subfield>
+              <subfield code="d">1889-1976</subfield>
+              <subfield code="t">Werke</subfield>
+              <subfield code="v">100</subfield>
+              <subfield code="w">(IDSLU)000189797ILU01-NOMATCH</subfield>
+            </datafield>
+            <datafield ind1="1" ind2=" " tag="810">
+              <subfield code="a">Heidegger, Martin</subfield>
+              <subfield code="d">1889-1976</subfield>
+              <subfield code="t">Werke</subfield>
+              <subfield code="v">150</subfield>
+              <subfield code="w">(IDSLU)000189797ILU01-NOMATCH</subfield>
+            </datafield>
+            <datafield ind1="1" ind2=" " tag="810">
+              <subfield code="a">Heidegger, Martin</subfield>
+              <subfield code="d">1889-1976</subfield>
+              <subfield code="t">Werke</subfield>
+              <subfield code="v">200</subfield>
+              <subfield code="w">(IDSLU)000189797ILU01-NOMATCH</subfield>
+            </datafield>
+            <datafield ind1="1" ind2=" " tag="830">
+              <subfield code="a">Heidegger, Martin</subfield>
+              <subfield code="d">1889-1976</subfield>
+              <subfield code="t">Werke</subfield>
+              <subfield code="v">250</subfield>
+              <subfield code="w">(IDSLU)000189797ILU01-MATCH</subfield>
+            </datafield>
+            <datafield ind1="1" ind2=" " tag="830">
+              <subfield code="a">Heidegger, Martin</subfield>
+              <subfield code="d">1889-1976</subfield>
+              <subfield code="t">Werke</subfield>
+              <subfield code="v">300</subfield>
+              <subfield code="w">(IDSLU)000189797ILU01-NOMATCH</subfield>
+            </datafield>
+          </record>
+        </records>
+      `;
+      const records = service.getRecords(xmlString);
+      const bibInfo = service.getBibInfo(records, [
+        '(ANY)00123456',
+        '(IDSLU)000189797ILU01-MATCH',
+      ]);
+      expect(bibInfo).toBeTruthy();
+      const order = bibInfo[0].order;
+      expect(order).toEqual('250');
+    });
+    it('should choose the matching $w of 800/773 fields', () => {
+      const xmlString = `
+        <records xmlns="http://www.loc.gov/MARC21/slim">
+          <record>
+            <datafield ind1="1" ind2=" " tag="800">
+              <subfield code="a">Heidegger, Martin</subfield>
+              <subfield code="d">1889-1976</subfield>
+              <subfield code="t">Werke</subfield>
+              <subfield code="v">50</subfield>
+              <subfield code="w">(IDSLU)000189797ILU01-NOMATCH</subfield>
+            </datafield>
+            <datafield ind1="1" ind2=" " tag="800">
+              <subfield code="a">Heidegger, Martin</subfield>
+              <subfield code="d">1889-1976</subfield>
+              <subfield code="t">Werke</subfield>
+              <subfield code="v">100</subfield>
+              <subfield code="w">(IDSLU)000189797ILU01-NOMATCH</subfield>
+            </datafield>
+            <datafield ind1="0" ind2=" " tag="773">
+              <subfield code="t">NZZ Geschichte</subfield>
+              <subfield code="g">2022, Nummer 40, Seite 86-99</subfield>
+              <subfield code="g">yr:2022</subfield>
+              <subfield code="g">no:40</subfield>
+              <subfield code="w">(IDSLU)000189797ILU01-MATCH</subfield>
+            </datafield>
+          </record>
+        </records>
+      `;
+      const records = service.getRecords(xmlString);
+      const bibInfo = service.getBibInfo(records, [
+        '(ANY)00123456',
+        '(IDSLU)000189797ILU01-MATCH',
+      ]);
+      expect(bibInfo).toBeTruthy();
+      const order = bibInfo[0].order;
+      expect(order).toEqual('40');
+    });
+  });
 });

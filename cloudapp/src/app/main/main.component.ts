@@ -1,18 +1,18 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatSort, MatSortable } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import {
   AlertService,
   CloudAppEventsService,
   CloudAppRestService,
-  Entity,
   EntityType,
   HttpMethod,
 } from '@exlibris/exl-cloudapp-angular-lib';
-import { Observable, of } from 'rxjs';
+import { EMPTY, Observable, of } from 'rxjs';
 import {
   catchError,
   filter,
+  map,
   shareReplay,
   switchMap,
   tap,
@@ -34,25 +34,37 @@ import { SruQuery } from '../sru/sru-query';
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.scss'],
 })
-export class MainComponent implements OnInit, OnDestroy {
-  instCode: string;
-  bibEntities: BibEntity[];
-  selectedEntity: BibEntity;
-  almaUrl: string;
+export class MainComponent implements OnInit {
+  @ViewChild(ResultTableComponent)
+  public resultTable: ResultTableComponent;
 
-  bibInfoResult: MatTableDataSource<BibInfo>;
-  availableAdditionalColumns: string[];
+  public bibEntities: BibEntity[];
+  public selectedEntity: BibEntity;
+  public bibInfoResult: MatTableDataSource<BibInfo>;
 
-  @ViewChild(ResultTableComponent) resultTable: ResultTableComponent;
+  private instCode: string;
+  private almaUrl: string;
+  private availableAdditionalColumns: string[];
+  private entities$: Observable<BibEntity[]> =
+    this.eventsService.entities$.pipe(
+      tap(() => this.reset()),
+      filter((entities) =>
+        entities.every((entity) => entity.type === EntityType.BIB_MMS)
+      ),
+      map((entities) =>
+        entities.map((entity) => {
+          let bibEntity: BibEntity = new BibEntity(entity);
+          bibEntity.nzMmsId = this.getNzMmsIdFromEntity(bibEntity);
+          bibEntity.relatedRecords = null;
+          return bibEntity;
+        })
+      ),
+      tap((entities) => {
+        this.bibEntities = entities;
+      })
+    );
 
-  entities$: Observable<Entity[]> = this.eventsService.entities$.pipe(
-    tap(() => this.reset()),
-    filter((entities) =>
-      entities.every((entity) => entity.type === EntityType.BIB_MMS)
-    )
-  );
-
-  constructor(
+  public constructor(
     private sruService: SruService,
     private sruParser: SruResponseParserService,
     private excelExportService: ExcelExportService,
@@ -61,39 +73,25 @@ export class MainComponent implements OnInit, OnDestroy {
     private restService: CloudAppRestService,
     private eventsService: CloudAppEventsService,
     private alert: AlertService,
-    public status: StatusMessageService,
+    private status: StatusMessageService,
     public loader: LoadingIndicatorService
   ) {}
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.loader.show();
     this.status.set('loading');
     this.eventsService
       .getInitData()
-      .subscribe((data) => (this.instCode = data.instCode));
-    this.configService.getAlmaUrl().subscribe((url) => (this.almaUrl = url));
-
-    this.entities$
-      .pipe(
-        switchMap((entities) =>
-          of(
-            entities.map((entity) => {
-              let bibEntity: BibEntity = new BibEntity(entity);
-              bibEntity.nzMmsId = this.getNzMmsIdFromEntity(bibEntity);
-              bibEntity.relatedRecords = null;
-              return bibEntity;
-            })
-          )
-        )
-      )
-      .subscribe((entities) => {
-        this.bibEntities = entities;
-      });
+      .pipe(tap((data) => (this.instCode = data.instCode)))
+      .subscribe();
+    this.configService
+      .getAlmaUrl()
+      .pipe(tap((url) => (this.almaUrl = url)))
+      .subscribe();
+    this.entities$.subscribe();
   }
 
-  ngOnDestroy(): void {}
-
-  showHierarchyDown(bibEntity: BibEntity): void {
+  public showHierarchyDown(bibEntity: BibEntity): void {
     this.selectedEntity = bibEntity;
 
     this.loader.show();
@@ -125,12 +123,18 @@ export class MainComponent implements OnInit, OnDestroy {
             otherSystemNumbersAndMmsId
           );
           this.status.set('Querying SRU for related records');
-          return this.sruService.queryNZ(query);
-        })
-      )
-      .subscribe(
-        (records) => {
-          const bibInfos: BibInfo[] = this.sruParser.getBibInfo(records);
+          return this.sruService.queryNZ(query).pipe(
+            map((records) => ({
+              records,
+              otherSystemNumbersAndMmsId,
+            }))
+          );
+        }),
+        tap(({ records, otherSystemNumbersAndMmsId }) => {
+          const bibInfos: BibInfo[] = this.sruParser.getBibInfo(
+            records,
+            otherSystemNumbersAndMmsId
+          );
           const bibInfosSorted: BibInfo[] = this.sortHoldings(bibInfos);
           if (bibInfos.length > 0) {
             this.availableAdditionalColumns = Array.from(
@@ -147,20 +151,22 @@ export class MainComponent implements OnInit, OnDestroy {
           datasource.sort = matSort;
           this.bibInfoResult = datasource;
           this.loader.hide();
-        },
-        (error) => {
+        }),
+        catchError((error) => {
           this.alert.error(
             `Could not show hierarchy, please check the Alma URL '${this.almaUrl}'`,
             { autoClose: false }
           );
-          console.error('Error in showHierarchyDown()', error);
+          this.log.error('Error in showHierarchyDown()', error);
           this.reset();
           this.loader.hide();
-        }
-      );
+          return EMPTY;
+        })
+      )
+      .subscribe();
   }
 
-  showHierarchyUp(bibEntity: BibEntity): void {
+  public showHierarchyUp(bibEntity: BibEntity): void {
     this.selectedEntity = bibEntity;
 
     this.loader.show();
@@ -187,12 +193,18 @@ export class MainComponent implements OnInit, OnDestroy {
           );
           const queryHierarchyUpward: SruQuery = query035a.or(queryMmsId);
           this.status.set('Querying SRU for related records');
-          return this.sruService.queryNZ(queryHierarchyUpward);
-        })
-      )
-      .subscribe(
-        (records) => {
-          const bibInfos: BibInfo[] = this.sruParser.getBibInfo(records);
+          return this.sruService.queryNZ(queryHierarchyUpward).pipe(
+            map((records) => ({
+              records,
+              upwardSystemNumbers,
+            }))
+          );
+        }),
+        tap(({ records, upwardSystemNumbers }) => {
+          const bibInfos: BibInfo[] = this.sruParser.getBibInfo(
+            records,
+            upwardSystemNumbers
+          );
           const bibInfosSorted: BibInfo[] = this.sortHoldings(bibInfos);
           if (bibInfos.length > 0) {
             this.availableAdditionalColumns = Array.from(
@@ -209,8 +221,8 @@ export class MainComponent implements OnInit, OnDestroy {
           datasource.sort = matSort;
           this.bibInfoResult = datasource;
           this.loader.hide();
-        },
-        (error) => {
+        }),
+        catchError((error) => {
           this.alert.error(
             `Could not show hierarchy, please check the Alma URL '${this.almaUrl}'`,
             { autoClose: false }
@@ -218,17 +230,19 @@ export class MainComponent implements OnInit, OnDestroy {
           console.error('Error in showHierarchyUp()', error);
           this.reset();
           this.loader.hide();
-        }
-      );
+          return EMPTY;
+        })
+      )
+      .subscribe();
   }
 
-  reset(): void {
+  public reset(): void {
     this.selectedEntity = null;
     this.bibInfoResult = null;
     this.availableAdditionalColumns = [];
   }
 
-  export(): void {
+  public export(): void {
     this.loader.show();
     this.excelExportService
       .export(
@@ -248,11 +262,11 @@ export class MainComponent implements OnInit, OnDestroy {
       );
   }
 
-  getAvailableAdditionalColumns(): string[] {
+  public getAvailableAdditionalColumns(): string[] {
     return this.availableAdditionalColumns || [];
   }
 
-  toggleAdditionalColumn(column: string): void {
+  public toggleAdditionalColumn(column: string): void {
     const index: number = this.resultTable.displayedColumns.lastIndexOf(column);
     if (index >= 0) {
       this.resultTable.displayedColumns.splice(index, 1);
@@ -262,24 +276,24 @@ export class MainComponent implements OnInit, OnDestroy {
   }
 
   private sortHoldings(bibInfos: BibInfo[]): BibInfo[] {
-    return bibInfos.map((b) => {
-      b.holdings.sort((o1, o2) => {
+    return bibInfos.map((bibInfo) => {
+      bibInfo.holdings.sort((o1, o2) => {
         if (o1 == this.instCode) {
           return -1;
         }
         return o1.localeCompare(o2);
       });
-      const holdings: string[] = b.holdings;
+      const holdings: string[] = bibInfo.holdings;
       return new BibInfo(
-        b.mmsId,
-        b.order,
-        b.title,
-        b.year,
-        b.edition,
+        bibInfo.mmsId,
+        bibInfo.order,
+        bibInfo.title,
+        bibInfo.year,
+        bibInfo.edition,
         holdings,
-        b.analytical,
-        b.additionalInfo,
-        b.duplicates
+        bibInfo.analytical,
+        bibInfo.additionalInfo,
+        bibInfo.duplicates
       );
     });
   }
@@ -302,7 +316,7 @@ export class MainComponent implements OnInit, OnDestroy {
           return of(nzMmsId);
         }),
         catchError((error) => {
-          this.log.error(
+          this.log.info(
             'Cannot get NZ MMSID from API. Assuming the MMSID is already from NZ.',
             error
           );
@@ -312,7 +326,7 @@ export class MainComponent implements OnInit, OnDestroy {
       );
   }
 
-  getRelatedRecords(bibEntity: BibEntity) {
+  public getRelatedRecords(bibEntity: BibEntity) {
     let currentNzMmsId: string;
     return bibEntity.nzMmsId
       .pipe(

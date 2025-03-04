@@ -70,6 +70,25 @@ export class SruResponseParserService {
     ['830$v', "//default:datafield[@tag='830']/default:subfield[@code='v']"],
   ]);
 
+  // dynamic queries
+  private getXPathQueryCodeIfOtherCodeEquals(
+    fieldNumber: string,
+    getCode: string,
+    predicateCode: string,
+    systemNumbers: string[]
+  ): string {
+    const conditions = systemNumbers
+      .map(
+        (systemNumber) =>
+          `default:subfield[@code='${predicateCode}' and text()='${systemNumber}']`
+      )
+      .join(' or ');
+    return `
+    //default:datafield[@tag='${fieldNumber}' and (${conditions || '"-"'})]
+    /default:subfield[@code='${getCode}']
+  `;
+  }
+
   constructor(private duplicateService: FindDuplicatesService) {}
 
   getRecords(xmlString: string): Element[] {
@@ -110,7 +129,7 @@ export class SruResponseParserService {
       .reduce((acc, curr) => acc.concat(curr), []);
   }
 
-  getBibInfo(records: Element[]): BibInfo[] {
+  getBibInfo(records: Element[], systemNumbers: string[]): BibInfo[] {
     if (!records || records.length === 0) {
       console.warn('No records - cannot query for bib info');
       return [];
@@ -119,7 +138,10 @@ export class SruResponseParserService {
       const singleRecordDocument: Document = new Document();
       singleRecordDocument.append(record);
       const mmsId: string = this.extractMmsId(singleRecordDocument);
-      const order: string = this.extractOrder(singleRecordDocument);
+      const order: string = this.extractOrder(
+        singleRecordDocument,
+        systemNumbers
+      );
       const title: string = this.extractTitle(singleRecordDocument);
       const year: number = this.extractYear(singleRecordDocument);
       const edition: string = this.extractEdition(singleRecordDocument);
@@ -149,37 +171,38 @@ export class SruResponseParserService {
     return field001[0] || '';
   }
 
-  private extractOrder(document: Document): string {
-    const field800v: string[] = this.xpathQuery(
-      document,
-      this.XPATH_QUERY_800v_ORDER
-    );
-    const field810v: string[] = this.xpathQuery(
-      document,
-      this.XPATH_QUERY_810v_ORDER
-    );
-    const field830v: string[] = this.xpathQuery(
-      document,
-      this.XPATH_QUERY_830v_ORDER
-    );
-    // take first number from one of the fields 800v/810v/830v
-    let order: string = field800v
-      .concat(field810v)
-      .concat(field830v)
-      .filter((e) => e?.match(/\d+/))
-      .find((entry) => entry);
+  private extractOrder(document: Document, systemNumbers: string[]): string {
+    const fields = ['800', '810', '830'];
+    let order: string = '';
 
-    // if no number was found: try to extract from 773g
-    if (!order) {
-      const field773g: string[] = this.xpathQuery(
-        document,
-        this.XPATH_QUERY_773g_ORDER
+    for (const field of fields) {
+      const query = this.getXPathQueryCodeIfOtherCodeEquals(
+        field,
+        'v',
+        'w',
+        systemNumbers
       );
+      const result: string[] = this.xpathQuery(document, query);
+      if (result.length > 0) {
+        order = result.find((entry) => entry);
+        if (order) break;
+      }
+    }
+
+    if (!order) {
+      const query773g: string = this.getXPathQueryCodeIfOtherCodeEquals(
+        '773',
+        'g',
+        'w',
+        systemNumbers
+      );
+      const field773g: string[] = this.xpathQuery(document, query773g);
       order = field773g
         .filter((e) => e.startsWith('no:'))
         .map((e) => e.match(/\d+/))
         .filter((match) => match !== null)
         .map((match) => match[0])[0];
+
       if (!order) {
         order = field773g
           .filter((e) => e?.match(/\d+/))
@@ -188,19 +211,24 @@ export class SruResponseParserService {
           .filter((match) => match !== null)
           .map((match) => match[0])[0];
       }
+
+      if (!order) {
+        const query773q: string = this.getXPathQueryCodeIfOtherCodeEquals(
+          '773',
+          'q',
+          'w',
+          systemNumbers
+        );
+        const field773q: string[] = this.xpathQuery(document, query773q);
+        order = field773q
+          .filter((e) => e?.match(/\d+/))
+          .map((e) => e?.match(/\d+/))
+          .filter((match) => match !== null)
+          .map((match) => match[0])[0];
+      }
     }
-    if (!order) {
-      const field773q: string[] = this.xpathQuery(
-        document,
-        this.XPATH_QUERY_773q_ORDER
-      );
-      order = field773q
-        .filter((e) => e?.match(/\d+/))
-        .map((e) => e?.match(/\d+/))
-        .filter((match) => match !== null)
-        .map((match) => match[0])[0];
-    }
-    return order || '';
+
+    return order;
   }
 
   private extractTitle(document: Document): string {
@@ -208,7 +236,7 @@ export class SruResponseParserService {
       document,
       this.XPATH_QUERY_245_TITLE
     );
-    return field245.join();
+    return field245.join(' ');
   }
 
   private extractYear(document: Document): number {
@@ -332,8 +360,7 @@ export class SruResponseParserService {
       query,
       xmlDocument,
       SruResponseParserService.NS_RESOLVER,
-      XPathResult.ANY_TYPE,
-      null
+      XPathResult.ANY_TYPE
     );
   }
 }

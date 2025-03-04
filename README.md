@@ -10,7 +10,7 @@ An [ExLibris Alma CloudApp](https://developers.exlibrisgroup.com/cloudapps/), wh
 
 - Search for any Bib-Record in Alma
 - Open the Bib-Hierarchy Cloud App
-- Click 'Hierarchy ↓' (or 'Hierarchy ↑') on the entry you're intrested in
+- Click 'Hierarchy ↓' (or 'Hierarchy ↑') on the entry you're interested in
 - Wait(, wait a bit longer)
 - See all related records
 - Click 'Expand' in the Cloud App toolbar, to see a nice table, or click export to download the result as Excel file
@@ -48,7 +48,7 @@ For the 'upward' hierarchy:
 
 To display the result table, the following fields are used. If this does not work for you, please open an [issue on Github](https://github.com/HSG-Library/alma-bib-hierarchy/issues).
 
-- Order: `800v`, `810v`, `830v`, `773q`
+- Order: `800v`, `810v`, `830v`, `773g`, `773q` (use the one where subfield $w matches with a given system number)
 - Title: `245`
 - Year: `008` (substring 7,11)
 - Edition: `250`
