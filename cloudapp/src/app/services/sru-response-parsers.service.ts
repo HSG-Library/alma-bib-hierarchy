@@ -30,8 +30,10 @@ export class SruResponseParserService {
     "//default:controlfield[@tag='008']";
   private readonly XPATH_QUERY_250_EDITION: string =
     "//default:datafield[@tag='250']/default:subfield";
-  private readonly XPATH_QUERY_852_HOLDINGS: string =
+  private readonly XPATH_QUERY_852_HOLDINGS_A: string =
     "//default:datafield[@tag='852']/default:subfield[@code='a']";
+  private readonly XPATH_QUERY_852_HOLDINGS_B: string =
+    "//default:datafield[@tag='852']/default:subfield[@code='b']";
   private readonly XPATH_QUERY_LEADER_ANALYTICAL: string = '//default:leader';
   // query for upward hierarchy
   private readonly XPATH_QUERY_773w: string =
@@ -223,7 +225,24 @@ export class SruResponseParserService {
   }
 
   private extractHoldings(document: Document): string[] {
-    return this.xpathQuery(document, this.XPATH_QUERY_852_HOLDINGS);
+    const holdingsA: string[] = this.xpathQuery(
+      document,
+      this.XPATH_QUERY_852_HOLDINGS_A
+    );
+    const holdingsB: string[] = this.xpathQuery(
+      document,
+      this.XPATH_QUERY_852_HOLDINGS_B
+    );
+    // if 852$a is not empty, take 852$a
+    if (holdingsA.length > 0 && holdingsB.length === 0) {
+      return holdingsA;
+    }
+    // if 852$a is empty, take 852$b
+    if (holdingsA.length === 0 && holdingsB.length > 0) {
+      return holdingsB;
+    }
+    // if 852$a and 852$b are not empty, take 852$a
+    return holdingsA;
   }
 
   private extractAnalytical(document: Document): boolean {

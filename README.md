@@ -55,7 +55,7 @@ To display the result table, the following fields are used. If this does not wor
 - MMS ID: `001` (controlfield)
 - Duplicate: records with the same order and edition are marked as duplicates
 - Analytical: `LDR 7`(leader position 7)
-- Holding: `852a`
+- Holding: `852a` or `852b` (use the subfield that is present; if both are present, use subfield $a)
 
 ### Additional data
 
