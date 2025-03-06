@@ -1,32 +1,28 @@
 {
-   "id": "bib-hierarchy",
-   "title": "Bib-Hierarchy",
-   "subtitle": "Display bibliographic hierarchies in Alma",
-   "author": "Jonas Furrer, University St.Gallen",
-   "description": "Collect bibliographic hierarchies on NZ level.",
-   "license": "https://github.com/HSG-Library/alma-bib-hierarchy/blob/main/LICENSE",
-   "icon": {
-      "type": "url",
-      "value": "/assets/app-icon.png"
-   },
-   "contentSecurity": {
-      "connectSrc": [
-         "https://*.alma.exlibrisgroup.com"
-      ],
-      "sandbox": {
-         "popups": true,
-         "downloads": true
-      }
-   },
-   "pages": {
-      "config": "/#/config",
-      "settings": "/#/settings"
-   },
-   "entities": [
-      "BIB_MMS"
-   ],
-   "fullscreen": {
-      "allow": true,
-      "open": false
-   }
+  "id": "bib-hierarchy",
+  "title": "Bib-Hierarchy",
+  "subtitle": "Display bibliographic hierarchies in Alma",
+  "author": "Jonas Furrer, University St.Gallen",
+  "description": "Collect bibliographic hierarchies on NZ level.",
+  "license": "https://github.com/HSG-Library/alma-bib-hierarchy/blob/main/LICENSE",
+  "icon": {
+    "type": "url",
+    "value": "/assets/app-icon.png"
+  },
+  "contentSecurity": {
+    "connectSrc": ["https://*.alma.exlibrisgroup.com"],
+    "sandbox": {
+      "popups": true,
+      "downloads": true
+    }
+  },
+  "pages": {
+    "config": "/#/config",
+    "settings": "/#/settings"
+  },
+  "entities": ["BIB_MMS"],
+  "fullscreen": {
+    "allow": true,
+    "open": false
+  }
 }

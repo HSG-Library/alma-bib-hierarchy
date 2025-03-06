@@ -1,13 +1,17 @@
-import { Injectable } from '@angular/core'
+import { Injectable } from '@angular/core';
 
 @Injectable({
-	providedIn: 'root'
+  providedIn: 'root',
 })
 export class LogService {
-	info(...args: any[]): void {
-		console.info('[Bib-Hierarchy]', ...args)
-	}
-	error(...args: any[]): void {
-		console.error('[Bib-Hierarchy][ERR]', ...args)
-	}
+  public info(...args: any[]): void {
+    if (args && args.length > 0) {
+      console.info('[Bib-Hierarchy]', ...args);
+    }
+  }
+  public error(...args: any[]): void {
+    if (args && args.length > 0) {
+      console.error('[Bib-Hierarchy][ERR]', ...args);
+    }
+  }
 }

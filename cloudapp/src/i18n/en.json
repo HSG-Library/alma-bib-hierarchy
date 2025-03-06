@@ -1,37 +1,43 @@
 {
-	"main": {
-		"calculateButtonLabel": "calculate",
-		"closeWindowButtonLabel": "Close window",
-		"expandInfo": "To expand the view click the expand button in the toolbar",
-		"exportButtonLabel": "Export",
-		"mmsIdNz": "MMS ID (NZ)",
-		"noMmsIdMsg": "No Bibliographic Entities found, search for MMSID",
-		"noRelatedRecordsFoundMsg": "No related records found",
-		"popUpWindowButtonLabel": "Popup window",
-		"relatedRecords": "Related Records",
-		"resetButtonLabel": "Reset",
-		"resetSelectionButtonLabel": "Reset selection",
-		"showAdditionalData": "Show/Hide additional data",
-		"showHierarchyButtonLabel": "Hierarchy"
-	},
-	"popup": {
-		"windowIsOpen": "Content is displayed in a popup window. Click 'Close window' to display it here again."
-	},
-	"result": {
-		"analyticalHeader": "Analytical",
-		"clickToCopyMsg": "click to copy the MMSID of the possible duplicate",
-		"duplicateHeader": "Possible duplicate",
-		"editionHeader": "Edition",
-		"holdingsHeader": "Holdings",
-		"mmsidHeader": "MMS ID",
-		"orderHeader": "Order",
-		"titleHeader": "Title",
-		"yearHeader": "Year"
-	},
-	"settings": {
-		"almaSruUrlLabel": "Alma SRU URL",
-		"leaveEmtpyForPreset": "Leave empty for preset value: ",
-		"loading": "...loading...",
-		"networkCodeLabel": "Network code"
-	}
+  "configuration": {
+    "title": "Configuration",
+    "subtitle": "Institution-wide"
+  },
+  "main": {
+    "calculateButtonLabel": "calculate",
+    "closeWindowButtonLabel": "Close window",
+    "expandInfo": "To expand the view click the expand button in the toolbar",
+    "exportButtonLabel": "Export",
+    "mmsIdNz": "MMS ID (NZ)",
+    "noMmsIdMsg": "No Bibliographic Entities found, search for MMSID",
+    "noRelatedRecordsFoundMsg": "No related records found",
+    "popUpWindowButtonLabel": "Popup window",
+    "relatedRecords": "Related Records",
+    "resetButtonLabel": "Reset",
+    "resetSelectionButtonLabel": "Reset selection",
+    "showAdditionalData": "Show/Hide additional data",
+    "showHierarchyButtonLabel": "Hierarchy"
+  },
+  "popup": {
+    "windowIsOpen": "Content is displayed in a popup window. Click 'Close window' to display it here again."
+  },
+  "result": {
+    "analyticalHeader": "Analytical",
+    "clickToCopyMsg": "click to copy the MMSID of the possible duplicate",
+    "duplicateHeader": "Possible duplicate",
+    "editionHeader": "Edition",
+    "holdingsHeader": "Holdings",
+    "mmsidHeader": "MMS ID",
+    "orderHeader": "Order",
+    "titleHeader": "Title",
+    "yearHeader": "Year"
+  },
+  "settings": {
+    "title": "Settings",
+    "subtitle": "Per user",
+    "almaSruUrlLabel": "Alma SRU URL",
+    "leaveEmptyForPreset": "Leave empty for preset value: ",
+    "loading": "...loading...",
+    "networkCodeLabel": "Network code"
+  }
 }

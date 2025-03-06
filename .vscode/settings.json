@@ -1,0 +1,34 @@
+{
+  "files.exclude": {
+    "**/.ng": true,
+    "**/.vscode": true,
+    "**/.gitkeep": true,
+    "**/node_modules": true,
+    "**/src/assets/manifest*.json": true,
+    "**/build": true
+  },
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "json.schemas": [
+    {
+      "fileMatch": ["/manifest.json"],
+      "url": "/node_modules/@exlibris/exl-cloudapp-base/manifest.schema.json"
+    }
+  ],
+  "cmake.configureOnOpen": false,
+  "editor.acceptSuggestionOnEnter": "on",
+  "cSpell.words": [
+    "almaws",
+    "bibinfo",
+    "cloudapp",
+    "controlfield",
+    "exlibris",
+    "Furrer",
+    "Gallen",
+    "marcxml",
+    "MMSID",
+    "NZURL",
+    "popout",
+    "SLSP",
+    "titlebar"
+  ]
+}

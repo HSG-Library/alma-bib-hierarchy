@@ -1,42 +1,66 @@
-import { Component, Input, ViewChild } from '@angular/core'
-import { MatSort } from '@angular/material/sort'
-import { MatTableDataSource } from '@angular/material/table'
-import { CloudAppEventsService } from '@exlibris/exl-cloudapp-angular-lib'
-import { BibEntity } from '../models/bib-entity.model'
-import { BibInfo } from '../models/bib-info.model'
+import { Component, DestroyRef, Input, ViewChild } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
+import { CloudAppEventsService } from '@exlibris/exl-cloudapp-angular-lib';
+import { of } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
+import { BibEntity } from '../models/bib-entity.model';
+import { BibInfo } from '../models/bib-info.model';
 
 @Component({
-	selector: 'app-result-table',
-	templateUrl: './result-table.component.html',
-	styleUrls: ['./result-table.component.scss'],
+  selector: 'app-result-table',
+  templateUrl: './result-table.component.html',
+  styleUrls: ['./result-table.component.scss'],
 })
 export class ResultTableComponent {
-	displayedColumns: string[] = ['order', 'title', 'year', 'edition', 'mmsId', 'duplicate', 'analytical', 'holdings'];
-	additionalColumns: string[] = []
-	instCode: string
-	inPopup: boolean
-	@Input()
-	result: MatTableDataSource<BibInfo>
-	@Input()
-	selectedEntity: BibEntity
+  @ViewChild(MatSort)
+  public sort!: MatSort;
+  @Input()
+  public result: MatTableDataSource<BibInfo> | null = null;
+  @Input()
+  public selectedEntity: BibEntity | null = null;
 
-	@ViewChild(MatSort) sort: MatSort
+  public displayedColumns: string[] = [
+    'order',
+    'title',
+    'year',
+    'edition',
+    'mmsId',
+    'duplicate',
+    'analytical',
+    'holdings',
+  ];
+  public additionalColumns: string[] = [];
+  public instCode: string = '';
+  public inPopup: boolean = false;
 
-	constructor(
-		private events: CloudAppEventsService,
-	) {
-		this.events.getInitData().subscribe(data => this.instCode = data.instCode)
-	}
+  public constructor(
+    private events: CloudAppEventsService,
+    private destroyRef: DestroyRef
+  ) {
+    this.events
+      .getInitData()
+      .pipe(
+        takeUntilDestroyed(this.destroyRef),
+        catchError((error) => {
+          console.error('Error getting init data', error);
+          return of({ instCode: '' });
+        }),
+        tap((data) => (this.instCode = data.instCode))
+      )
+      .subscribe();
+  }
 
-	getMatSort(): MatSort {
-		return this.sort
-	}
+  public getMatSort(): MatSort {
+    return this.sort;
+  }
 
-	shortHolding(holding: string): string {
-		return holding.replace(/^.+_/, '')
-	}
+  public shortHolding(holding: string): string {
+    return holding?.replace(/^.+_/, '') ?? '';
+  }
 
-	setAdditionalColumns(columns: string[]): void {
-		this.additionalColumns = columns;
-	}
+  public setAdditionalColumns(columns: string[]): void {
+    this.additionalColumns = columns ?? [];
+  }
 }

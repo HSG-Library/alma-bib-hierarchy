@@ -1,60 +1,96 @@
-import { Injectable } from '@angular/core'
-import { BibInfo } from '../models/bib-info.model'
+import { Injectable } from '@angular/core';
+import { BibInfo } from '../models/bib-info.model';
 
 @Injectable({
-	providedIn: 'root'
+  providedIn: 'root',
 })
 export class FindDuplicatesService {
+  public findPossibleDuplicates(bibInfos: BibInfo[]): BibInfo[] {
+    if (!bibInfos || !Array.isArray(bibInfos)) {
+      return [];
+    }
 
-	findPossibleDublicates(bibInfos: BibInfo[]): BibInfo[] {
-		const lookup: Lookup = {}
+    const lookup: Lookup = {};
 
-		bibInfos.forEach(b => {
-			const id: string = this.getDedupId(b)
-			if (lookup.hasOwnProperty(id)) {
-				const entry: LookupEntry = lookup[id]
-				entry.duplicates.push(b.mmsId)
-				lookup[id] = entry
-			} else {
-				const entry: LookupEntry = { mmsId: b.mmsId, duplicates: [b.mmsId] }
-				lookup[id] = entry
-			}
-		})
+    bibInfos.forEach((bibInfo) => {
+      if (!bibInfo) {
+        return;
+      }
+      const id: string = this.getDeduplicatedId(bibInfo);
+      if (lookup.hasOwnProperty(id)) {
+        const entry: LookupEntry = lookup[id];
+        entry.duplicates.push(bibInfo.mmsId);
+        lookup[id] = entry;
+      } else {
+        const entry: LookupEntry = {
+          mmsId: bibInfo.mmsId,
+          duplicates: [bibInfo.mmsId],
+        };
+        lookup[id] = entry;
+      }
+    });
 
-		const duplicates: LookupEntry[] = this.cleanupLookupTable(lookup)
+    const duplicates: LookupEntry[] = this.cleanupLookupTable(lookup);
 
-		return bibInfos.map(b => {
-			const duplicateInfo: LookupEntry = duplicates.find(entry => entry.mmsId == b.mmsId)
-			if (duplicateInfo && b.order) {
-				return new BibInfo(b.mmsId, b.order, b.title, b.year, b.edition, b.holdings, b.analytical, b.additionalInfo, duplicateInfo.duplicates)
-			}
-			return b
-		})
-	}
+    return bibInfos.map((bibInfo) => {
+      if (!bibInfo) {
+        return bibInfo;
+      }
 
-	private getDedupId(bibInfo: BibInfo): string {
-		return bibInfo?.order + bibInfo?.edition
-	}
+      const duplicateInfo: LookupEntry | undefined = duplicates.find(
+        (entry) => entry.mmsId == bibInfo.mmsId
+      );
+      if (duplicateInfo && bibInfo.order) {
+        return new BibInfo(
+          bibInfo.mmsId,
+          bibInfo.order,
+          bibInfo.title,
+          bibInfo.year,
+          bibInfo.edition,
+          bibInfo.holdings,
+          bibInfo.analytical,
+          bibInfo.additionalInfo,
+          duplicateInfo.duplicates
+        );
+      }
+      return bibInfo;
+    });
+  }
 
-	private cleanupLookupTable(lookup: Lookup): LookupEntry[] {
-		let duplicates: LookupEntry[] = []
-		for (let key in lookup) {
-			const lookUpEntry: LookupEntry = lookup[key]
-			if (lookUpEntry.duplicates.length > 1) {
-				const expandedDulicates: LookupEntry[] = lookUpEntry.duplicates.map(dup => {
-					const filteredDuplicates: string[] = lookUpEntry.duplicates.filter(d => d != dup)
-					return { mmsId: dup, duplicates: filteredDuplicates }
-				})
-				duplicates = duplicates.concat(expandedDulicates)
-			}
-		}
-		return duplicates
-	}
+  private getDeduplicatedId(bibInfo: BibInfo): string {
+    if (!bibInfo) {
+      return '';
+    }
+    return (bibInfo.order || '') + (bibInfo.edition || '');
+  }
+
+  private cleanupLookupTable(lookup: Lookup): LookupEntry[] {
+    let duplicates: LookupEntry[] = [];
+    for (let key in lookup) {
+      if (!lookup.hasOwnProperty(key)) {
+        continue;
+      }
+
+      const lookUpEntry: LookupEntry = lookup[key];
+      if (lookUpEntry.duplicates.length > 1) {
+        const expandedDuplicates: LookupEntry[] = lookUpEntry.duplicates.map(
+          (dup) => {
+            const filteredDuplicates: string[] = lookUpEntry.duplicates.filter(
+              (d) => d != dup
+            );
+            return { mmsId: dup, duplicates: filteredDuplicates };
+          }
+        );
+        duplicates = duplicates.concat(expandedDuplicates);
+      }
+    }
+    return duplicates;
+  }
 }
 
-type Lookup = { [k: string]: { mmsId: string, duplicates: string[] } }
+type Lookup = { [k: string]: { mmsId: string; duplicates: string[] } };
 
 type LookupEntry = {
-	mmsId: string
-	duplicates: string[]
-}
+  mmsId: string;
+  duplicates: string[];
+};

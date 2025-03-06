@@ -1,110 +1,169 @@
-import { Injectable } from '@angular/core'
-import { CloudAppConfigService, CloudAppRestService, CloudAppSettingsService, CloudAppStoreService, HttpMethod } from '@exlibris/exl-cloudapp-angular-lib'
-import { Observable, of } from 'rxjs'
-import { switchMap } from 'rxjs/operators'
-import { Settings } from '../models/settings.model'
-import { LogService } from './log.service'
+import { DestroyRef, Injectable } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import {
+  CloudAppConfigService,
+  CloudAppRestService,
+  CloudAppSettingsService,
+  CloudAppStoreService,
+  HttpMethod,
+} from '@exlibris/exl-cloudapp-angular-lib';
+import { EMPTY, Observable, of } from 'rxjs';
+import { catchError, switchMap, tap } from 'rxjs/operators';
+import { Settings } from '../models/settings.model';
+import { LogService } from './log.service';
 
 @Injectable({
-	providedIn: 'root'
+  providedIn: 'root',
 })
 export class ConfigurationService {
+  public readonly NZ_URL_KEY = 'NZURL';
 
-	private readonly ALMA_CONFIG_GENERAL: string = '/almaws/v1/conf/general'
-	private readonly NETWORK: string = 'NETWORK'
-	readonly NZ_URL_KEY = 'NZURL'
+  private readonly ALMA_CONFIG_GENERAL: string = '/almaws/v1/conf/general';
+  private readonly NETWORK: string = 'NETWORK';
 
-	constructor(
-		private restService: CloudAppRestService,
-		private settingsService: CloudAppSettingsService,
-		private configService: CloudAppConfigService,
-		private storeService: CloudAppStoreService,
-		private log: LogService,
-	) { }
+  public constructor(
+    private restService: CloudAppRestService,
+    private settingsService: CloudAppSettingsService,
+    private configService: CloudAppConfigService,
+    private storeService: CloudAppStoreService,
+    private log: LogService,
+    private destroyRef: DestroyRef
+  ) {}
 
-	getAlmaUrl(): Observable<string> {
-		return this.settingsService.get()
-			.pipe(
-				switchMap(result => {
-					const settings: Settings = result as Settings
-					if (settings.almaSruUrl) {
-						return of(settings.almaSruUrl)
-					} else {
-						return this.getAlmaUrlFromConfig()
-					}
-				})
-			)
-	}
+  public getAlmaUrl(): Observable<string> {
+    return this.settingsService.get().pipe(
+      takeUntilDestroyed(this.destroyRef),
+      switchMap((result) => {
+        const settings: Settings = result as Settings;
+        if (settings && settings.almaSruUrl) {
+          return of(settings.almaSruUrl);
+        } else {
+          return this.getAlmaUrlFromConfig();
+        }
+      }),
+      catchError((error) => {
+        this.log.error('Error getting Alma URL from settings', error);
+        return of('');
+      })
+    );
+  }
 
-	getAlmaUrlFromConfig(): Observable<string> {
-		return this.configService.get()
-			.pipe(
-				switchMap(result => {
-					const settings: Settings = result as Settings
-					if (settings.almaSruUrl) {
-						return of(settings.almaSruUrl)
-					} else {
-						return this.getAlmaUrlFromApi()
-					}
-				})
-			)
-	}
+  public getAlmaUrlFromConfig(): Observable<string> {
+    return this.configService.get().pipe(
+      takeUntilDestroyed(this.destroyRef),
+      switchMap((result) => {
+        const settings: Settings = result as Settings;
+        if (settings && settings.almaSruUrl) {
+          return of(settings.almaSruUrl);
+        } else {
+          return this.getAlmaUrlFromApi();
+        }
+      }),
+      catchError((error) => {
+        this.log.error('Error getting Alma URL from config', error);
+        return of('');
+      })
+    );
+  }
 
-	getAlmaUrlFromApi(): Observable<string> {
-		return this.restService.call({
-			method: HttpMethod.GET,
-			url: this.ALMA_CONFIG_GENERAL,
-		}).pipe(
-			switchMap(response => {
-				const almaUrl: string = response.alma_url
-				return of(almaUrl)
-			})
-		)
-	}
+  public getAlmaUrlFromApi(): Observable<string> {
+    return this.restService
+      .call({
+        method: HttpMethod.GET,
+        url: this.ALMA_CONFIG_GENERAL,
+      })
+      .pipe(
+        takeUntilDestroyed(this.destroyRef),
+        switchMap((response) => {
+          const almaUrl: string = response?.alma_url;
+          if (almaUrl) {
+            return of(almaUrl);
+          } else {
+            this.log.error('Alma URL not found in API response');
+            return of('');
+          }
+        }),
+        catchError((error) => {
+          this.log.error('Error getting Alma URL from API', error);
+          return of('');
+        })
+      );
+  }
 
-	getNetworkCode(): Observable<string> {
-		return this.settingsService.get()
-			.pipe(
-				switchMap(result => {
-					const settings: Settings = result as Settings
-					if (settings.networkCode) {
-						return of(settings.networkCode)
-					} else {
-						return this.getNetworkCodeFromConfig()
-					}
-				})
-			)
-	}
+  public getNetworkCode(): Observable<string> {
+    return this.settingsService.get().pipe(
+      takeUntilDestroyed(this.destroyRef),
+      switchMap((result) => {
+        const settings: Settings = result as Settings;
+        if (settings && settings.networkCode) {
+          return of(settings.networkCode);
+        } else {
+          return this.getNetworkCodeFromConfig();
+        }
+      }),
+      catchError((error) => {
+        this.log.error('Error getting Network Code from settings', error);
+        return of('');
+      })
+    );
+  }
 
-	getNetworkCodeFromConfig(): Observable<string> {
-		return this.configService.get()
-			.pipe(
-				switchMap(result => {
-					const settings: Settings = result as Settings
-					if (settings.networkCode) {
-						return of(settings.networkCode)
-					} else {
-						return this.getNetworkCodeFromApi()
-					}
-				})
-			)
-	}
+  public getNetworkCodeFromConfig(): Observable<string> {
+    return this.configService.get().pipe(
+      takeUntilDestroyed(this.destroyRef),
+      switchMap((result) => {
+        const settings: Settings = result as Settings;
+        if (settings && settings.networkCode) {
+          return of(settings.networkCode);
+        } else {
+          return this.getNetworkCodeFromApi();
+        }
+      }),
+      catchError((error) => {
+        this.log.error('Error getting Network Code from config', error);
+        return of('');
+      })
+    );
+  }
 
-	getNetworkCodeFromApi(): Observable<string> {
-		return this.restService.call({
-			method: HttpMethod.GET,
-			url: this.ALMA_CONFIG_GENERAL,
-		}).pipe(
-			switchMap(response => {
-				const institutionCode: string = response.institution.value
-				const networkCode: string = institutionCode.replace(/_.+/, `_${this.NETWORK}`)
-				return of(networkCode)
-			})
-		)
-	}
+  public getNetworkCodeFromApi(): Observable<string> {
+    return this.restService
+      .call({
+        method: HttpMethod.GET,
+        url: this.ALMA_CONFIG_GENERAL,
+      })
+      .pipe(
+        takeUntilDestroyed(this.destroyRef),
+        switchMap((response) => {
+          const institutionCode: string = response?.institution?.value;
+          if (institutionCode) {
+            const networkCode: string = institutionCode.replace(
+              /_.+/,
+              `_${this.NETWORK}`
+            );
+            return of(networkCode);
+          } else {
+            this.log.error('Institution code not found in API response');
+            return of('');
+          }
+        }),
+        catchError((error) => {
+          this.log.error('Error getting Network Code from API', error);
+          return EMPTY;
+        })
+      );
+  }
 
-	resetNZUrlCache(): void {
-		this.storeService.remove(this.NZ_URL_KEY)
-			.subscribe(() => this.log.info('removed NZ URL from locale storage'))
-	}
+  public resetNZUrlCache(): void {
+    this.storeService
+      .remove(this.NZ_URL_KEY)
+      .pipe(
+        tap(() => this.log.info('Removed NZ URL from local storage')),
+        catchError((error) => {
+          this.log.error('Error removing NZ URL from local storage', error);
+          return EMPTY;
+        })
+      )
+      .subscribe();
+  }
 }
