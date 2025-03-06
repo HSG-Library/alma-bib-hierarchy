@@ -72,7 +72,7 @@ export class SruQuery {
   }
 
   private addQuery(def: QueryDefinition, value: string): SruQuery {
-    const part: string = def.index + def.operator + value;
+    const part: string = def.index + def.operator + '"' + value + '"';
     this.query.push(part);
     return this;
   }
