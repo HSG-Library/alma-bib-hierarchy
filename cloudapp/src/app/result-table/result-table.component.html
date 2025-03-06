@@ -1,9 +1,10 @@
-<mat-card class="bib-info" *ngIf="selectedEntity && inPopup">
-  <mat-card-title
-    ><span class="uxf-icon uxf-book-alt"></span>
-    {{ selectedEntity.entity.description }}</mat-card-title
-  >
-  <mat-card-content>
+<div class="bib-info" *ngIf="selectedEntity && inPopup">
+  <h1>
+    <span class="uxf-icon uxf-book-alt"></span>
+    {{ selectedEntity.entity.description }}
+  </h1>
+
+  <div>
     <mat-list>
       <mat-list-item
         ><span class="bold">{{ 'main.mmsIdNz' | translate }}:&nbsp;</span
@@ -13,18 +14,18 @@
       >
       <mat-list-item>
         <span class="bold">{{ 'main.relatedRecords' | translate }}:&nbsp;</span
-        ><span>{{ result.data.length }}</span>
+        ><span>{{ result?.data?.length }}</span>
       </mat-list-item>
     </mat-list>
-  </mat-card-content>
-</mat-card>
+  </div>
+</div>
 
 <table
   class="result-table"
   mat-table
   matSort
   matSortActive="order"
-  [dataSource]="result"
+  [dataSource]="result ?? []"
 >
   <ng-container matColumnDef="order">
     <th mat-header-cell *matHeaderCellDef mat-sort-header>
@@ -102,16 +103,16 @@
       [attr.data-label]="'result.duplicateHeader' | translate"
     >
       <button
+        class="duplicate-icon-button"
         style="box-shadow: none"
         *ngIf="bibinfo.duplicates?.length && !inPopup"
         mat-mini-fab
-        color="warn"
         [cdkCopyToClipboard]="bibinfo.duplicates?.join(', ')"
         matTooltip="{{ bibinfo.duplicates?.join(', ') || '-' }} - {{
           'result.clickToCopyMsg' | translate
         }}"
       >
-        <mat-icon>priority_high</mat-icon>
+        <mat-icon>error</mat-icon>
       </button>
       <span *ngIf="bibinfo.duplicates?.length && inPopup">{{
         bibinfo.duplicates?.join(', ')
@@ -143,16 +144,16 @@
       *matCellDef="let bibinfo"
       [attr.data-label]="'result.holdingsHeader' | translate"
     >
-      <mat-chip-list selectable="false">
+      <mat-chip-set selectable="false">
         <mat-chip
           *ngFor="let holding of bibinfo.holdings"
           color="{{ holding == instCode ? 'accent' : '' }}"
           disabled="{{ holding != instCode }}"
-          selected="{{ holding == instCode }}"
+          highlighted="{{ holding == instCode }}"
           matTooltip="{{ inPopup ? '' : holding }}"
           >{{ shortHolding(holding) }}</mat-chip
         >
-      </mat-chip-list>
+      </mat-chip-set>
       <span *ngIf="!bibinfo.holdings?.length">-</span>
     </td>
   </ng-container>

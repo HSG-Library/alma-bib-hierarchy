@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, DestroyRef, OnInit } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormGroup } from '@angular/forms';
 import {
   AlertService,
   CloudAppSettingsService,
   FormGroupUtil,
 } from '@exlibris/exl-cloudapp-angular-lib';
+import { catchError, EMPTY, finalize, tap } from 'rxjs';
 import { Settings } from '../models/settings.model';
 import { ConfigurationService } from '../services/configuration.service';
 
@@ -14,18 +16,21 @@ import { ConfigurationService } from '../services/configuration.service';
   styleUrls: ['./settings.component.scss'],
 })
 export class SettingsComponent implements OnInit {
-  form: FormGroup;
-  saving: boolean = false;
-  defaultUrl: string;
-  defaultNetworkCode: string;
+  public form!: FormGroup;
+  public saving: boolean = false;
+  public defaultUrl!: string;
+  public defaultNetworkCode!: string;
+  public titleTranslationKey = 'settings.title';
+  public subtitleTranslationKey = 'settings.subtitle';
 
-  constructor(
+  public constructor(
     private configurationService: ConfigurationService,
     private settingsService: CloudAppSettingsService,
-    private alert: AlertService
+    private alert: AlertService,
+    private destroyRef: DestroyRef
   ) {}
 
-  ngOnInit() {
+  public ngOnInit() {
     this.form = FormGroupUtil.toFormGroup(new Settings());
 
     this.saving = true;
@@ -37,22 +42,37 @@ export class SettingsComponent implements OnInit {
     });
     this.configurationService
       .getAlmaUrlFromConfig()
-      .subscribe((url) => (this.defaultUrl = url));
+      .pipe(
+        takeUntilDestroyed(this.destroyRef),
+        tap((url) => (this.defaultUrl = url))
+      )
+      .subscribe();
     this.configurationService
       .getNetworkCodeFromConfig()
-      .subscribe((networkCode) => (this.defaultNetworkCode = networkCode));
+      .pipe(
+        takeUntilDestroyed(this.destroyRef),
+        tap((networkCode) => (this.defaultNetworkCode = networkCode))
+      )
+      .subscribe();
   }
 
-  save() {
+  public save() {
     this.saving = true;
     this.configurationService.resetNZUrlCache();
-    this.settingsService.set(this.form.value).subscribe(
-      (response) => {
-        this.alert.success('Settings successfully saved.');
-        this.form.markAsPristine();
-      },
-      (err) => this.alert.error(err.message),
-      () => (this.saving = false)
-    );
+    this.settingsService
+      .set(this.form.value)
+      .pipe(
+        takeUntilDestroyed(this.destroyRef),
+        tap(() => {
+          this.alert.success('Settings successfully saved.');
+          this.form.markAsPristine();
+        }),
+        catchError((err) => {
+          this.alert.error(err.message);
+          return EMPTY;
+        }),
+        finalize(() => (this.saving = false))
+      )
+      .subscribe();
   }
 }

@@ -1,11 +1,12 @@
-import { Component, Input, ViewChild } from '@angular/core';
+import { Component, DestroyRef, Input, ViewChild } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { CloudAppEventsService } from '@exlibris/exl-cloudapp-angular-lib';
+import { of } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
 import { BibEntity } from '../models/bib-entity.model';
 import { BibInfo } from '../models/bib-info.model';
-import { catchError } from 'rxjs/operators';
-import { of } from 'rxjs';
 
 @Component({
   selector: 'app-result-table',
@@ -13,7 +14,14 @@ import { of } from 'rxjs';
   styleUrls: ['./result-table.component.scss'],
 })
 export class ResultTableComponent {
-  displayedColumns: string[] = [
+  @ViewChild(MatSort)
+  public sort!: MatSort;
+  @Input()
+  public result: MatTableDataSource<BibInfo> | null = null;
+  @Input()
+  public selectedEntity: BibEntity | null = null;
+
+  public displayedColumns: string[] = [
     'order',
     'title',
     'year',
@@ -23,37 +31,36 @@ export class ResultTableComponent {
     'analytical',
     'holdings',
   ];
-  additionalColumns: string[] = [];
-  instCode: string;
-  inPopup: boolean;
-  @Input()
-  result: MatTableDataSource<BibInfo>;
-  @Input()
-  selectedEntity: BibEntity;
+  public additionalColumns: string[] = [];
+  public instCode: string = '';
+  public inPopup: boolean = false;
 
-  @ViewChild(MatSort) sort: MatSort;
-
-  constructor(private events: CloudAppEventsService) {
+  public constructor(
+    private events: CloudAppEventsService,
+    private destroyRef: DestroyRef
+  ) {
     this.events
       .getInitData()
       .pipe(
+        takeUntilDestroyed(this.destroyRef),
         catchError((error) => {
           console.error('Error getting init data', error);
           return of({ instCode: '' });
-        })
+        }),
+        tap((data) => (this.instCode = data.instCode))
       )
-      .subscribe((data) => (this.instCode = data.instCode));
+      .subscribe();
   }
 
-  getMatSort(): MatSort {
+  public getMatSort(): MatSort {
     return this.sort;
   }
 
-  shortHolding(holding: string): string {
+  public shortHolding(holding: string): string {
     return holding?.replace(/^.+_/, '') ?? '';
   }
 
-  setAdditionalColumns(columns: string[]): void {
+  public setAdditionalColumns(columns: string[]): void {
     this.additionalColumns = columns ?? [];
   }
 }

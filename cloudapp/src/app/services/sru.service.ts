@@ -1,5 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { DestroyRef, Injectable } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { CloudAppStoreService } from '@exlibris/exl-cloudapp-angular-lib';
 import { EMPTY, forkJoin, Observable, of } from 'rxjs';
 import {
@@ -25,21 +26,65 @@ export class SruService {
   private readonly MAX_RECORDS: number = 50;
 
   private params: HttpParams;
-  private nzUrl: string;
+  private nzUrl: string | undefined;
 
-  constructor(
+  public constructor(
     private configService: ConfigurationService,
     private parser: SruResponseParserService,
     private log: LogService,
     private loader: LoadingIndicatorService,
     private status: StatusMessageService,
     private httpClient: HttpClient,
-    private storeService: CloudAppStoreService
+    private storeService: CloudAppStoreService,
+    private destroyRef: DestroyRef
   ) {
     this.params = new HttpParams()
       .set('version', '1.2')
       .set('operation', 'searchRetrieve')
       .set('recordSchema', 'marcxml');
+  }
+
+  public queryNZRecordCount(query: SruQuery): Observable<number> {
+    return this.getNzUrl().pipe(
+      takeUntilDestroyed(this.destroyRef),
+      switchMap((url) => this.call(url, query, 1, 0)),
+      switchMap((response) => of(this.parser.getNumberOfRecords(response)))
+    );
+  }
+
+  public queryNZ(query: SruQuery): Observable<Element[]> {
+    return this.getNzUrl().pipe(
+      takeUntilDestroyed(this.destroyRef),
+      switchMap((url) => this.call(url, query)),
+      expand((response) => {
+        const total: number = this.parser.getNumberOfRecords(response);
+        const next: number = this.parser.getNextRecordPosition(response);
+        if (total > 1) {
+          this.loader.hasProgress(true);
+          this.loader.setProgress(Math.round((next / total) * 100) + 1);
+          this.status.set(
+            'Calling SRU for records ' +
+              next +
+              ' to ' +
+              (next + this.MAX_RECORDS - 1) +
+              ' of ' +
+              total
+          );
+        }
+        if (next > 0) {
+          return this.getNzUrl().pipe(
+            switchMap((url) => this.call(url, query, next))
+          );
+        }
+        return EMPTY;
+      }),
+      map((response) => {
+        const result: Element[] = this.parser.getRecords(response);
+        return result;
+      }),
+      tap(() => this.loader.hasProgress(false)),
+      reduce((accData: Element[], data: Element[]) => accData.concat(data), [])
+    );
   }
 
   private getNzUrl(): Observable<string> {
@@ -50,6 +95,7 @@ export class SruService {
     }
 
     return this.storeService.get(this.configService.NZ_URL_KEY).pipe(
+      takeUntilDestroyed(this.destroyRef),
       switchMap((result) => {
         if (result) {
           this.log.info('NZ URL in local storage:', result);
@@ -96,47 +142,6 @@ export class SruService {
       .set('maximumRecords', String(maximumRecords));
   }
 
-  queryNZRecordCount(query: SruQuery): Observable<number> {
-    return this.getNzUrl().pipe(
-      switchMap((url) => this.call(url, query, 1, 0)),
-      switchMap((response) => of(this.parser.getNumberOfRecords(response)))
-    );
-  }
-
-  queryNZ(query: SruQuery): Observable<Element[]> {
-    return this.getNzUrl().pipe(
-      switchMap((url) => this.call(url, query)),
-      expand((response) => {
-        const total: number = this.parser.getNumberOfRecords(response);
-        const next: number = this.parser.getNextRecordPosition(response);
-        if (total > 1) {
-          this.loader.hasProgress(true);
-          this.loader.setProgress(Math.round((next / total) * 100) + 1);
-          this.status.set(
-            'Calling SRU for records ' +
-              next +
-              ' to ' +
-              (next + this.MAX_RECORDS - 1) +
-              ' of ' +
-              total
-          );
-        }
-        if (next > 0) {
-          return this.getNzUrl().pipe(
-            switchMap((url) => this.call(url, query, next))
-          );
-        }
-        return EMPTY;
-      }),
-      map((response) => {
-        const result: Element[] = this.parser.getRecords(response);
-        return result;
-      }),
-      tap(() => this.loader.hasProgress(false)),
-      reduce((accData, data) => accData.concat(data), [])
-    );
-  }
-
   private call(
     url: string,
     query: SruQuery,
@@ -150,10 +155,12 @@ export class SruService {
       maximumRecords
     );
     this.log.info('SRU Query URL: ', url + '?' + params.toString());
-    return this.httpClient.get(url, {
-      responseType: 'text',
-      params: params,
-    });
+    return this.httpClient
+      .get(url, {
+        responseType: 'text',
+        params: params,
+      })
+      .pipe(takeUntilDestroyed(this.destroyRef));
   }
 
   private buildPath(...args: string[]) {

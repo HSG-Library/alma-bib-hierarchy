@@ -1,23 +1,24 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { ProgressSpinnerMode } from '@angular/material/progress-spinner';
+import { BehaviorSubject, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LoadingIndicatorService {
-  isLoading = new Subject<boolean>();
-  progress = new Subject<number>();
-  mode = new Subject<string>();
+  public isLoading = new Subject<boolean>();
+  public progress = new Subject<number>();
+  public mode = new BehaviorSubject<ProgressSpinnerMode>('indeterminate');
 
-  show(): void {
+  public show(): void {
     this.isLoading.next(true);
   }
 
-  hide(): void {
+  public hide(): void {
     this.isLoading.next(false);
   }
 
-  hasProgress(hasProgress: boolean): void {
+  public hasProgress(hasProgress: boolean): void {
     if (hasProgress !== null && hasProgress !== undefined) {
       hasProgress
         ? this.mode.next('determinate')
@@ -25,7 +26,7 @@ export class LoadingIndicatorService {
     }
   }
 
-  setProgress(currentProgress: number): void {
+  public setProgress(currentProgress: number): void {
     if (currentProgress !== null && currentProgress !== undefined) {
       this.progress.next(currentProgress);
     }

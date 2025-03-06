@@ -1,4 +1,8 @@
 {
+  "configuration": {
+    "title": "Konfiguration",
+    "subtitle": "Institutionsweit"
+  },
   "main": {
     "calculateButtonLabel": "berechnen",
     "closeWindowButtonLabel": "Popup schliessen",
@@ -29,6 +33,8 @@
     "yearHeader": "Jahr"
   },
   "settings": {
+    "title": "Einstellungen",
+    "subtitle": "Pro Benutzer",
     "almaSruUrlLabel": "Alma SRU URL",
     "leaveEmptyForPreset": "Leer lassen für Standard: ",
     "loading": "...lade...",

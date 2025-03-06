@@ -1,4 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, DestroyRef, OnInit, ViewChild } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatSort, MatSortable } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import {
@@ -12,6 +13,7 @@ import { EMPTY, Observable, of } from 'rxjs';
 import {
   catchError,
   filter,
+  finalize,
   map,
   shareReplay,
   switchMap,
@@ -36,35 +38,20 @@ import { SruQuery } from '../sru/sru-query';
 })
 export class MainComponent implements OnInit {
   @ViewChild(ResultTableComponent)
-  public resultTable: ResultTableComponent;
+  public resultTable!: ResultTableComponent;
 
-  public bibEntities: BibEntity[];
-  public selectedEntity: BibEntity;
-  public bibInfoResult: MatTableDataSource<BibInfo>;
+  public bibEntities: BibEntity[] = [];
+  public selectedEntity: BibEntity | null = null;
+  public bibInfoResult: MatTableDataSource<BibInfo> | null = null;
 
-  private instCode: string;
-  private almaUrl: string;
-  private availableAdditionalColumns: string[];
-  private entities$: Observable<BibEntity[]> =
-    this.eventsService.entities$.pipe(
-      tap(() => this.reset()),
-      filter((entities) =>
-        entities.every((entity) => entity.type === EntityType.BIB_MMS)
-      ),
-      map((entities) =>
-        entities.map((entity) => {
-          let bibEntity: BibEntity = new BibEntity(entity);
-          bibEntity.nzMmsId = this.getNzMmsIdFromEntity(bibEntity);
-          bibEntity.relatedRecords = null;
-          return bibEntity;
-        })
-      ),
-      tap((entities) => {
-        this.bibEntities = entities;
-      })
-    );
+  private instCode: string = '';
+  private almaUrl: string = '';
+  private availableAdditionalColumns: string[] = [];
+  private entities$: Observable<BibEntity[]>;
 
   public constructor(
+    public status: StatusMessageService,
+    public loader: LoadingIndicatorService,
     private sruService: SruService,
     private sruParser: SruResponseParserService,
     private excelExportService: ExcelExportService,
@@ -73,20 +60,43 @@ export class MainComponent implements OnInit {
     private restService: CloudAppRestService,
     private eventsService: CloudAppEventsService,
     private alert: AlertService,
-    public status: StatusMessageService,
-    public loader: LoadingIndicatorService
-  ) {}
+    private destroyRef: DestroyRef
+  ) {
+    this.entities$ = this.eventsService.entities$.pipe(
+      takeUntilDestroyed(this.destroyRef),
+      tap(() => this.reset()),
+      filter((entities) =>
+        entities.every((entity) => entity.type === EntityType.BIB_MMS)
+      ),
+      map((entities) =>
+        entities.map((entity) => {
+          let bibEntity: BibEntity = new BibEntity(entity);
+          bibEntity.nzMmsId = this.getNzMmsIdFromEntity(bibEntity);
+          return bibEntity;
+        })
+      ),
+      tap((entities) => {
+        this.bibEntities = entities;
+      })
+    );
+  }
 
   public ngOnInit(): void {
     this.loader.show();
     this.status.set('loading');
     this.eventsService
       .getInitData()
-      .pipe(tap((data) => (this.instCode = data.instCode)))
+      .pipe(
+        takeUntilDestroyed(this.destroyRef),
+        tap((data) => (this.instCode = data.instCode))
+      )
       .subscribe();
     this.configService
       .getAlmaUrl()
-      .pipe(tap((url) => (this.almaUrl = url)))
+      .pipe(
+        takeUntilDestroyed(this.destroyRef),
+        tap((url) => (this.almaUrl = url))
+      )
       .subscribe();
     this.entities$.subscribe();
   }
@@ -99,6 +109,7 @@ export class MainComponent implements OnInit {
     let currentNzMmsId: string;
     bibEntity.nzMmsId
       .pipe(
+        takeUntilDestroyed(this.destroyRef),
         switchMap((nzMmsId) => {
           currentNzMmsId = nzMmsId;
           return of(SruQuery.MMS_ID(nzMmsId));
@@ -168,14 +179,12 @@ export class MainComponent implements OnInit {
 
   public showHierarchyUp(bibEntity: BibEntity): void {
     this.selectedEntity = bibEntity;
-
     this.loader.show();
     this.status.set('Collecting infos for ' + bibEntity.entity.description);
-    let currentNzMmsId: string;
     bibEntity.nzMmsId
       .pipe(
+        takeUntilDestroyed(this.destroyRef),
         switchMap((nzMmsId) => {
-          currentNzMmsId = nzMmsId;
           return of(SruQuery.MMS_ID(nzMmsId));
         }),
         tap(() => this.status.set('Collecting other system numbers')),
@@ -250,16 +259,18 @@ export class MainComponent implements OnInit {
         this.resultTable?.displayedColumns || [],
         this.selectedEntity?.entity?.id || ''
       )
-      .subscribe(
-        (result) => {
-          this.loader.hide();
-        },
-        (error) => {
+      .pipe(
+        takeUntilDestroyed(this.destroyRef),
+        catchError((error) => {
           this.alert.error(`Error during Excel export'`, { autoClose: false });
           this.log.error('Error in export()', error);
+          return EMPTY;
+        }),
+        finalize(() => {
           this.loader.hide();
-        }
-      );
+        })
+      )
+      .subscribe();
   }
 
   public getAvailableAdditionalColumns(): string[] {
@@ -310,6 +321,7 @@ export class MainComponent implements OnInit {
         queryParams: { view: 'brief' },
       })
       .pipe(
+        takeUntilDestroyed(this.destroyRef),
         switchMap((response) => {
           const nzMmsId: string = response?.linked_record_id?.value;
           this.log.info('nzMmsId', nzMmsId);
@@ -330,6 +342,7 @@ export class MainComponent implements OnInit {
     let currentNzMmsId: string;
     return bibEntity.nzMmsId
       .pipe(
+        takeUntilDestroyed(this.destroyRef),
         switchMap((nzMmsId) => {
           currentNzMmsId = nzMmsId;
           return of(SruQuery.MMS_ID(nzMmsId));
@@ -350,12 +363,13 @@ export class MainComponent implements OnInit {
             currentNzMmsId,
           ]);
           return this.sruService.queryNZRecordCount(query);
+        }),
+        tap((result) => {
+          console.log('subscribe result', result);
+          bibEntity.relatedRecords = result;
         })
       )
-      .subscribe((result) => {
-        console.log('subscribe result', result);
-        bibEntity.relatedRecords = result;
-      });
+      .subscribe();
   }
 
   private tableSortFunction(): (items: BibInfo[], sort: MatSort) => BibInfo[] {
@@ -366,8 +380,8 @@ export class MainComponent implements OnInit {
           case 'order':
             if (a.order && b.order) {
               const regex: RegExp = /\b\d+\b/;
-              const matchA: RegExpMatchArray = a.order.match(regex);
-              const matchB: RegExpMatchArray = b.order.match(regex);
+              const matchA: RegExpMatchArray | null = a.order.match(regex);
+              const matchB: RegExpMatchArray | null = b.order.match(regex);
               if (matchA && matchB) {
                 const aOrder: number = Number(matchA[0] || -1);
                 const bOrder: number = Number(matchB[0] || -1);

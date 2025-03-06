@@ -89,14 +89,14 @@ export class SruResponseParserService {
   `;
   }
 
-  constructor(private duplicateService: FindDuplicatesService) {}
+  public constructor(private duplicateService: FindDuplicatesService) {}
 
-  getRecords(xmlString: string): Element[] {
+  public getRecords(xmlString: string): Element[] {
     const recordDocument: Document = this.extractRecords(xmlString);
     return Array.from(recordDocument.getElementsByTagName('record'));
   }
 
-  getOtherSystemNumbers(records: Element[]): string[] {
+  public getOtherSystemNumbers(records: Element[]): string[] {
     if (!records || records.length === 0) {
       console.warn('No records - cannot query for other system numbers');
       return [];
@@ -110,7 +110,7 @@ export class SruResponseParserService {
       .reduce((acc, curr) => acc.concat(curr), []);
   }
 
-  getUpwardSystemNumbers(records: Element[]): string[] {
+  public getUpwardSystemNumbers(records: Element[]): string[] {
     if (!records || records.length === 0) {
       console.warn('No records - cannot query for upward system numbers');
       return [];
@@ -129,7 +129,7 @@ export class SruResponseParserService {
       .reduce((acc, curr) => acc.concat(curr), []);
   }
 
-  getBibInfo(records: Element[], systemNumbers: string[]): BibInfo[] {
+  public getBibInfo(records: Element[], systemNumbers: string[]): BibInfo[] {
     if (!records || records.length === 0) {
       console.warn('No records - cannot query for bib info');
       return [];
@@ -173,7 +173,7 @@ export class SruResponseParserService {
 
   private extractOrder(document: Document, systemNumbers: string[]): string {
     const fields = ['800', '810', '830'];
-    let order: string = '';
+    let order: string | undefined = '';
 
     for (const field of fields) {
       const query = this.getXPathQueryCodeIfOtherCodeEquals(
@@ -299,7 +299,7 @@ export class SruResponseParserService {
       xmlString,
       'text/xml'
     );
-    const numberOfRecordsElement: Element = fullDocument
+    const numberOfRecordsElement: Element | null = fullDocument
       .getElementsByTagName('numberOfRecords')
       ?.item(0);
     if (numberOfRecordsElement) {
@@ -313,7 +313,7 @@ export class SruResponseParserService {
       xmlString,
       'text/xml'
     );
-    const nextRecordPositionElement: Element = fullDocument
+    const nextRecordPositionElement: Element | null = fullDocument
       .getElementsByTagName('nextRecordPosition')
       ?.item(0);
     if (nextRecordPositionElement) {
@@ -325,9 +325,9 @@ export class SruResponseParserService {
   private xpathQuery(document: Document, query: string): string[] {
     const queryResult: XPathResult = this.evaluateXPath(query, document);
     const collectedResults: string[] = [];
-    let resultNode: Node = queryResult.iterateNext();
+    let resultNode: Node | null = queryResult.iterateNext();
     while (resultNode != null) {
-      collectedResults.push(resultNode.textContent);
+      collectedResults.push(resultNode.textContent ?? '');
       resultNode = queryResult.iterateNext();
     }
     return collectedResults;

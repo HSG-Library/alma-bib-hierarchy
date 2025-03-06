@@ -1,5 +1,5 @@
 export class SruQuery {
-  static QUERY: string = 'query';
+  public static QUERY: string = 'query';
 
   private static MMS_ID_DEF: QueryDefinition = {
     index: 'mms_id',
@@ -15,25 +15,51 @@ export class SruQuery {
   };
 
   private query: string[];
-  private _name: string;
+  private _name: string = '';
   public get name(): string {
     return this._name;
   }
 
-  constructor() {
+  public constructor() {
     this.query = [];
   }
 
-  get(): string {
+  public get(): string {
     return this.query.join(' ');
   }
 
-  or(query: SruQuery): SruQuery {
+  public or(query: SruQuery): SruQuery {
     if (query.getQueryParts().length > 0) {
       this.query.push(BoolOp.OR);
       this.query = this.query.concat(query.getQueryParts());
     }
     return this;
+  }
+
+  public static MMS_ID(value: string): SruQuery {
+    return new SruQuery()
+      .addQuery(SruQuery.MMS_ID_DEF, value)
+      .setName('query for mmsid');
+  }
+
+  public static MMS_IDS(values: string[]): SruQuery {
+    return SruQuery.orListQuery(values, SruQuery.MMS_ID_DEF, 'query for mmsid');
+  }
+
+  public static OTHER_SYSTEM_NUMBER(values: string[]): SruQuery {
+    return SruQuery.orListQuery(
+      values,
+      SruQuery.OTHER_SYSTEM_NUMBER_DEF,
+      "query for 'other_system_number'"
+    );
+  }
+
+  public static OTHER_SYSTEM_NUMBER_ACTIVE_035(values: string[]): SruQuery {
+    return SruQuery.orListQuery(
+      values,
+      SruQuery.OTHER_SYSTEM_NUMBER_ACTIVE_35a_DEF,
+      "query for 'other_system_number_active_035'"
+    );
   }
 
   private getQueryParts(): string[] {
@@ -54,32 +80,6 @@ export class SruQuery {
   private addBoolOp(op: BoolOp): SruQuery {
     this.query.push(op);
     return this;
-  }
-
-  static MMS_ID(value: string): SruQuery {
-    return new SruQuery()
-      .addQuery(SruQuery.MMS_ID_DEF, value)
-      .setName('query for mmsid');
-  }
-
-  static MMS_IDS(values: string[]): SruQuery {
-    return SruQuery.orListQuery(values, SruQuery.MMS_ID_DEF, 'query for mmsid');
-  }
-
-  static OTHER_SYSTEM_NUMBER(values: string[]): SruQuery {
-    return SruQuery.orListQuery(
-      values,
-      SruQuery.OTHER_SYSTEM_NUMBER_DEF,
-      "query for 'other_system_number'"
-    );
-  }
-
-  static OTHER_SYSTEM_NUMBER_ACTIVE_035(values: string[]): SruQuery {
-    return SruQuery.orListQuery(
-      values,
-      SruQuery.OTHER_SYSTEM_NUMBER_ACTIVE_35a_DEF,
-      "query for 'other_system_number_active_035'"
-    );
   }
 
   private static orListQuery(

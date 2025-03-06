@@ -5,7 +5,7 @@ import { BibInfo } from '../models/bib-info.model';
   providedIn: 'root',
 })
 export class FindDuplicatesService {
-  findPossibleDuplicates(bibInfos: BibInfo[]): BibInfo[] {
+  public findPossibleDuplicates(bibInfos: BibInfo[]): BibInfo[] {
     if (!bibInfos || !Array.isArray(bibInfos)) {
       return [];
     }
@@ -16,7 +16,6 @@ export class FindDuplicatesService {
       if (!bibInfo) {
         return;
       }
-
       const id: string = this.getDeduplicatedId(bibInfo);
       if (lookup.hasOwnProperty(id)) {
         const entry: LookupEntry = lookup[id];
@@ -38,7 +37,7 @@ export class FindDuplicatesService {
         return bibInfo;
       }
 
-      const duplicateInfo: LookupEntry = duplicates.find(
+      const duplicateInfo: LookupEntry | undefined = duplicates.find(
         (entry) => entry.mmsId == bibInfo.mmsId
       );
       if (duplicateInfo && bibInfo.order) {

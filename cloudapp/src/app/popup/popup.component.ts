@@ -7,6 +7,7 @@ import {
 } from '@angular/core';
 import { Subject } from 'rxjs';
 import { ResultTableComponent } from '../result-table/result-table.component';
+import { LogService } from '../services/log.service';
 
 @Component({
   selector: 'popup',
@@ -20,16 +21,22 @@ import { ResultTableComponent } from '../result-table/result-table.component';
   `,
 })
 export class PopupComponent implements OnDestroy {
-  @ViewChild('innerWrapper') private innerWrapper: ElementRef;
+  @ViewChild('innerWrapper')
+  private innerWrapper!: ElementRef;
 
-  private popoutWindow: Window;
-  popupOpen: Subject<boolean> = new Subject<boolean>();
+  public popupOpen: Subject<boolean> = new Subject<boolean>();
 
-  constructor(private renderer2: Renderer2, private elementRef: ElementRef) {
+  private popoutWindow: Window | null = null;
+
+  public constructor(
+    private renderer2: Renderer2,
+    private elementRef: ElementRef,
+    private log: LogService
+  ) {
     this.popupOpen.next(false);
   }
 
-  ngOnDestroy(): void {
+  public ngOnDestroy(): void {
     this.close(null);
   }
 
@@ -54,10 +61,14 @@ export class PopupComponent implements OnDestroy {
 				`
       );
 
-      this.popoutWindow.addEventListener('beforeunload', (e) => {
+      if (!this.popoutWindow) {
+        this.log.error('Popup blocked');
+        return;
+      }
+
+      this.popoutWindow?.addEventListener('beforeunload', (e) => {
         this.close(resultTable);
         e.preventDefault();
-        e.returnValue = true;
       });
 
       this.popoutWindow.document.title = window.document.title;
@@ -66,27 +77,28 @@ export class PopupComponent implements OnDestroy {
       document.head
         .querySelectorAll('link[rel="stylesheet"]')
         .forEach((node) => {
-          this.popoutWindow.document.head.insertAdjacentHTML(
+          this.popoutWindow?.document.head.insertAdjacentHTML(
             'beforeend',
             `<link rel="stylesheet" href="${(node as HTMLLinkElement).href}">`
           );
         });
 
       document.head.querySelectorAll('style').forEach((node) => {
-        this.popoutWindow.document.head.appendChild(node.cloneNode(true));
+        this.popoutWindow?.document.head.appendChild(node.cloneNode(true));
       });
 
       Array.from(document.body.classList).forEach((className) =>
-        this.popoutWindow.document.body.classList.add(className)
+        this.popoutWindow?.document.body.classList.add(className)
       );
       this.popoutWindow.document.body.classList.add('popup');
 
-      this.popoutWindow.document.head.removeChild(
-        this.popoutWindow.document.head.querySelector('title')
-      );
+      const title = this.popoutWindow.document.head.querySelector('title');
+      if (title) {
+        this.popoutWindow.document.head.removeChild(title);
+      }
       this.popoutWindow.document.head.insertAdjacentHTML(
         'afterbegin',
-        `<title>Bib-Hierarchy - Popup - ${resultTable.selectedEntity.entity.description}</title>`
+        `<title>Bib-Hierarchy - Popup - ${resultTable.selectedEntity?.entity.description}</title>`
       );
 
       this.renderer2.appendChild(
@@ -103,7 +115,7 @@ export class PopupComponent implements OnDestroy {
     }
   }
 
-  public close(resultTable: ResultTableComponent): void {
+  public close(resultTable: ResultTableComponent | null): void {
     if (this.popoutWindow) {
       this.renderer2.appendChild(
         this.elementRef.nativeElement,

@@ -10,7 +10,7 @@ export class ExcelExportService {
   private readonly filePrefix: string = 'BibHierarchy-';
   private readonly fileExtension: string = '.xlsx';
 
-  export(
+  public export(
     data: BibInfo[],
     displayedColumns: string[],
     fileId: string
@@ -24,7 +24,7 @@ export class ExcelExportService {
   private sanitizeForExport(data: BibInfo[], displayedColumns: string[]): any {
     return data
       .map((entry) => {
-        const row = {
+        const row: { [key: string]: unknown } = {
           Order: entry.order,
           Title: entry.title,
           Year: entry.year,
@@ -41,11 +41,15 @@ export class ExcelExportService {
         });
         return row;
       })
-      .sort((b1, b2) => {
-        if (b1.Order && b2.Order) {
+      .sort((bibInfo1, bibInfo2) => {
+        if (bibInfo1['Order'] && bibInfo2['Order']) {
           const regex: RegExp = /\b\d+\b/;
-          const matchA: RegExpMatchArray = b1.Order.match(regex);
-          const matchB: RegExpMatchArray = b2.Order.match(regex);
+          const matchA: RegExpMatchArray | null = String(
+            bibInfo1['Order']
+          ).match(regex);
+          const matchB: RegExpMatchArray | null = String(
+            bibInfo2['Order']
+          ).match(regex);
           if (matchA && matchB) {
             const aOrder: number = Number(matchA[0] || -1);
             const bOrder: number = Number(matchB[0] || -1);
@@ -54,11 +58,11 @@ export class ExcelExportService {
             return -1;
           }
         } else {
-          return !b1.Order && !b2.Order
+          return !bibInfo1['Order'] && !bibInfo2['Order']
             ? 0
-            : b1.Order && !b2.Order
+            : bibInfo1['Order'] && !bibInfo2['Order']
             ? 1
-            : !b1.Order && b2.Order
+            : !bibInfo1['Order'] && bibInfo2['Order']
             ? -1
             : 0;
         }

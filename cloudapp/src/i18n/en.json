@@ -1,4 +1,8 @@
 {
+  "configuration": {
+    "title": "Configuration",
+    "subtitle": "Institution-wide"
+  },
   "main": {
     "calculateButtonLabel": "calculate",
     "closeWindowButtonLabel": "Close window",
@@ -29,6 +33,8 @@
     "yearHeader": "Year"
   },
   "settings": {
+    "title": "Settings",
+    "subtitle": "Per user",
     "almaSruUrlLabel": "Alma SRU URL",
     "leaveEmptyForPreset": "Leave empty for preset value: ",
     "loading": "...loading...",

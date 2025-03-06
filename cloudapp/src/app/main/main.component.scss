@@ -2,21 +2,50 @@
   display: none;
 }
 
-.mat-card,
-.mat-expansion-panel {
+.mat-mdc-card {
+  padding: 16px;
+  background-color: transparent;
+  box-shadow: none;
+  border-width: 1px;
+  border-color: rgb(0, 0, 0, 0.12);
+  border-radius: 3px;
   margin-bottom: 20px;
 }
 
-.mat-slide-toggle {
+.mat-mdc-card-title {
+  font-size: 16px;
+  line-height: 20px;
+  padding-bottom: 10px;
+}
+
+.mat-mdc-card-content {
+  padding: 0;
+}
+
+.mat-mdc-card-actions {
+  padding: 0;
+}
+
+.mat-expansion-panel {
+  margin-bottom: 20px;
+  box-shadow: none !important;
+  border-width: 1px;
+  border-color: rgba(0, 0, 0, 0.12);
+  border-radius: 3px;
+  margin-bottom: 20px;
+  border-style: solid;
+}
+
+.mat-mdc-slide-toggle {
   margin-bottom: 10px;
-  margin-right: 20px;
+  margin-right: 10px;
+  width: 90px;
 }
 
 .bib-entity-actions {
   width: 100%;
   display: flex;
   justify-content: flex-end;
-  margin-bottom: 6px;
   gap: 6px;
 }
 

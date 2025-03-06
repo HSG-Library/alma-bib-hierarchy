@@ -13,3 +13,12 @@
 .full-width {
   width: 100%;
 }
+
+h1 {
+  .subtitle {
+    font-size: 10px;
+    font-weight: 300;
+    display: block;
+    margin-top: -20px;
+  }
+}

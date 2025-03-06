@@ -1,4 +1,5 @@
-import { Injectable } from '@angular/core';
+import { DestroyRef, Injectable } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import {
   CloudAppConfigService,
   CloudAppRestService,
@@ -6,8 +7,8 @@ import {
   CloudAppStoreService,
   HttpMethod,
 } from '@exlibris/exl-cloudapp-angular-lib';
-import { Observable, of } from 'rxjs';
-import { switchMap, catchError } from 'rxjs/operators';
+import { EMPTY, Observable, of } from 'rxjs';
+import { catchError, switchMap, tap } from 'rxjs/operators';
 import { Settings } from '../models/settings.model';
 import { LogService } from './log.service';
 
@@ -15,20 +16,23 @@ import { LogService } from './log.service';
   providedIn: 'root',
 })
 export class ConfigurationService {
+  public readonly NZ_URL_KEY = 'NZURL';
+
   private readonly ALMA_CONFIG_GENERAL: string = '/almaws/v1/conf/general';
   private readonly NETWORK: string = 'NETWORK';
-  readonly NZ_URL_KEY = 'NZURL';
 
-  constructor(
+  public constructor(
     private restService: CloudAppRestService,
     private settingsService: CloudAppSettingsService,
     private configService: CloudAppConfigService,
     private storeService: CloudAppStoreService,
-    private log: LogService
+    private log: LogService,
+    private destroyRef: DestroyRef
   ) {}
 
-  getAlmaUrl(): Observable<string> {
+  public getAlmaUrl(): Observable<string> {
     return this.settingsService.get().pipe(
+      takeUntilDestroyed(this.destroyRef),
       switchMap((result) => {
         const settings: Settings = result as Settings;
         if (settings && settings.almaSruUrl) {
@@ -44,8 +48,9 @@ export class ConfigurationService {
     );
   }
 
-  getAlmaUrlFromConfig(): Observable<string> {
+  public getAlmaUrlFromConfig(): Observable<string> {
     return this.configService.get().pipe(
+      takeUntilDestroyed(this.destroyRef),
       switchMap((result) => {
         const settings: Settings = result as Settings;
         if (settings && settings.almaSruUrl) {
@@ -61,13 +66,14 @@ export class ConfigurationService {
     );
   }
 
-  getAlmaUrlFromApi(): Observable<string> {
+  public getAlmaUrlFromApi(): Observable<string> {
     return this.restService
       .call({
         method: HttpMethod.GET,
         url: this.ALMA_CONFIG_GENERAL,
       })
       .pipe(
+        takeUntilDestroyed(this.destroyRef),
         switchMap((response) => {
           const almaUrl: string = response?.alma_url;
           if (almaUrl) {
@@ -84,8 +90,9 @@ export class ConfigurationService {
       );
   }
 
-  getNetworkCode(): Observable<string> {
+  public getNetworkCode(): Observable<string> {
     return this.settingsService.get().pipe(
+      takeUntilDestroyed(this.destroyRef),
       switchMap((result) => {
         const settings: Settings = result as Settings;
         if (settings && settings.networkCode) {
@@ -101,8 +108,9 @@ export class ConfigurationService {
     );
   }
 
-  getNetworkCodeFromConfig(): Observable<string> {
+  public getNetworkCodeFromConfig(): Observable<string> {
     return this.configService.get().pipe(
+      takeUntilDestroyed(this.destroyRef),
       switchMap((result) => {
         const settings: Settings = result as Settings;
         if (settings && settings.networkCode) {
@@ -118,13 +126,14 @@ export class ConfigurationService {
     );
   }
 
-  getNetworkCodeFromApi(): Observable<string> {
+  public getNetworkCodeFromApi(): Observable<string> {
     return this.restService
       .call({
         method: HttpMethod.GET,
         url: this.ALMA_CONFIG_GENERAL,
       })
       .pipe(
+        takeUntilDestroyed(this.destroyRef),
         switchMap((response) => {
           const institutionCode: string = response?.institution?.value;
           if (institutionCode) {
@@ -140,16 +149,21 @@ export class ConfigurationService {
         }),
         catchError((error) => {
           this.log.error('Error getting Network Code from API', error);
-          return of('');
+          return EMPTY;
         })
       );
   }
 
-  resetNZUrlCache(): void {
-    this.storeService.remove(this.NZ_URL_KEY).subscribe(
-      () => this.log.info('Removed NZ URL from local storage'),
-      (error) =>
-        this.log.error('Error removing NZ URL from local storage', error)
-    );
+  public resetNZUrlCache(): void {
+    this.storeService
+      .remove(this.NZ_URL_KEY)
+      .pipe(
+        tap(() => this.log.info('Removed NZ URL from local storage')),
+        catchError((error) => {
+          this.log.error('Error removing NZ URL from local storage', error);
+          return EMPTY;
+        })
+      )
+      .subscribe();
   }
 }

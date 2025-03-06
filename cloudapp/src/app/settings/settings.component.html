@@ -7,7 +7,7 @@
     type="button"
     color="primary"
     (click)="save()"
-    [disabled]="!form?.dirty"
+    [disabled]="!form.dirty"
   >
     <mat-icon>save</mat-icon>
   </button>
@@ -19,6 +19,10 @@
   ></mat-progress-spinner>
 </div>
 <div *ngIf="form">
+  <h1>
+    {{ titleTranslationKey | translate }}
+    <span class="subtitle">({{ subtitleTranslationKey | translate }})</span>
+  </h1>
   <form [formGroup]="form">
     <section class="settings-section">
       <mat-form-field

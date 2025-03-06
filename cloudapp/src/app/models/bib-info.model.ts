@@ -29,8 +29,8 @@ export class BibInfo {
   public get analytical(): boolean {
     return this._analytical;
   }
-  private _duplicates: string[];
-  public get duplicates(): string[] {
+  private _duplicates: string[] | undefined;
+  public get duplicates(): string[] | undefined {
     return this._duplicates;
   }
   private _additionalInfo: Map<string, string>;
@@ -38,7 +38,7 @@ export class BibInfo {
     return this._additionalInfo;
   }
 
-  constructor(
+  public constructor(
     mmsId: string,
     order: string,
     title: string,

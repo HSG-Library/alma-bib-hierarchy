@@ -1,4 +1,7 @@
-import { HttpClientModule } from '@angular/common/http';
+import {
+  provideHttpClient,
+  withInterceptorsFromDi,
+} from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
@@ -28,12 +31,12 @@ import { ConfigurationComponent } from './configuration/configuration.component'
     SettingsComponent,
     ConfigurationComponent,
   ],
+  bootstrap: [AppComponent],
   imports: [
     MaterialModule,
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-    HttpClientModule,
     AlertModule,
     FormsModule,
     ReactiveFormsModule,
@@ -43,9 +46,9 @@ import { ConfigurationComponent } from './configuration/configuration.component'
   providers: [
     {
       provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
-      useValue: { appearance: 'standard' },
+      useValue: { appearance: 'fill' },
     },
+    provideHttpClient(withInterceptorsFromDi()),
   ],
-  bootstrap: [AppComponent],
 })
 export class AppModule {}

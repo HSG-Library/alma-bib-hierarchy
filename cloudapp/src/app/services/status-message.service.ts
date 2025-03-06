@@ -1,19 +1,24 @@
-import { Injectable } from '@angular/core';
+import { DestroyRef, Injectable } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class StatusMessageService {
-  message = new BehaviorSubject<string>('loading');
+  public message = new BehaviorSubject<string>('loading');
 
-  set(msg: string): void {
+  public constructor(private destroyRef: DestroyRef) {}
+
+  public set(msg: string): void {
     if (msg) {
       this.message.next(msg);
     }
   }
 
-  get(): Observable<string> {
-    return this.message.asObservable();
+  public get(): Observable<string> {
+    return this.message
+      .asObservable()
+      .pipe(takeUntilDestroyed(this.destroyRef));
   }
 }
