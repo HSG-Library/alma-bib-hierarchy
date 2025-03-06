@@ -26,12 +26,12 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
-      - name: Use Node.js 16.x
-        uses: actions/setup-node@v1
+      - name: Use Node.js 22.x
+        uses: actions/setup-node@v4
         with:
-          node-version: 16.x
+          node-version: 22
 
       # - name: Audit ('npm audit')
       #   run: |
@@ -41,5 +41,5 @@ jobs:
       - name: Build CloudApp ('eca build')
         run: |
           npm ci
-          npm i -g @exlibris/exl-cloudapp-cli@1.4.9
-          eca build | grep 'Generated'
+          npm i -g @exlibris/exl-cloudapp-cli
+          eca build
