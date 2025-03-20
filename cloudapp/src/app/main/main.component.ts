@@ -192,6 +192,13 @@ export class MainComponent implements OnInit {
         switchMap((records) => {
           const upwardSystemNumbers: string[] =
             this.sruParser.getUpwardSystemNumbers(records);
+          if (upwardSystemNumbers.length == 0) {
+            this.status.set('No records found');
+            return of({
+              records,
+              upwardSystemNumbers,
+            });
+          }
           this.status.set(
             'Found ' + upwardSystemNumbers.length + ' system numbers'
           );
@@ -289,23 +296,13 @@ export class MainComponent implements OnInit {
   private sortHoldings(bibInfos: BibInfo[]): BibInfo[] {
     return bibInfos.map((bibInfo) => {
       bibInfo.holdings.sort((o1, o2) => {
-        if (o1 == this.instCode) {
-          return -1;
-        }
         return o1.localeCompare(o2);
       });
-      const holdings: string[] = bibInfo.holdings;
-      return new BibInfo(
-        bibInfo.mmsId,
-        bibInfo.order,
-        bibInfo.title,
-        bibInfo.year,
-        bibInfo.edition,
-        holdings,
-        bibInfo.analytical,
-        bibInfo.additionalInfo,
-        bibInfo.duplicates
-      );
+      const index: number = bibInfo.holdings.indexOf(this.instCode);
+      if (index >= 0) {
+        bibInfo.holdings.unshift(bibInfo.holdings.splice(index, 1)[0]);
+      }
+      return bibInfo;
     });
   }
 
@@ -378,26 +375,27 @@ export class MainComponent implements OnInit {
         let comparatorResult = 0;
         switch (sort.active) {
           case 'order':
-            if (a.order && b.order) {
-              const regex: RegExp = /\b\d+\b/;
+            if (!a.order && !b.order) {
+              comparatorResult = 0;
+            } else if (!a.order) {
+              comparatorResult = -1;
+            } else if (!b.order) {
+              comparatorResult = 1;
+            } else {
+              const regex: RegExp = /\b\D*(\d+)\D*\b/;
               const matchA: RegExpMatchArray | null = a.order.match(regex);
               const matchB: RegExpMatchArray | null = b.order.match(regex);
               if (matchA && matchB) {
-                const aOrder: number = Number(matchA[0] || -1);
-                const bOrder: number = Number(matchB[0] || -1);
+                const aOrder: number = Number(matchA[1] ?? -1);
+                const bOrder: number = Number(matchB[1] ?? -1);
                 comparatorResult = aOrder - bOrder;
-              } else {
+              } else if (matchA) {
                 comparatorResult = -1;
+              } else if (matchB) {
+                comparatorResult = 1;
+              } else {
+                comparatorResult = 0;
               }
-            } else {
-              comparatorResult =
-                !a.order && !b.order
-                  ? 0
-                  : a.order && !b.order
-                  ? 1
-                  : !a.order && b.order
-                  ? -1
-                  : 0;
             }
             break;
           case 'title':
