@@ -192,6 +192,13 @@ export class MainComponent implements OnInit {
         switchMap((records) => {
           const upwardSystemNumbers: string[] =
             this.sruParser.getUpwardSystemNumbers(records);
+          if (upwardSystemNumbers.length == 0) {
+            this.status.set('No records found');
+            return of({
+              records,
+              upwardSystemNumbers,
+            });
+          }
           this.status.set(
             'Found ' + upwardSystemNumbers.length + ' system numbers'
           );
