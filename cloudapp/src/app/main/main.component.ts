@@ -375,26 +375,27 @@ export class MainComponent implements OnInit {
         let comparatorResult = 0;
         switch (sort.active) {
           case 'order':
-            if (a.order && b.order) {
-              const regex: RegExp = /\b\d+\b/;
+            if (!a.order && !b.order) {
+              comparatorResult = 0;
+            } else if (!a.order) {
+              comparatorResult = -1;
+            } else if (!b.order) {
+              comparatorResult = 1;
+            } else {
+              const regex: RegExp = /\b\D*(\d+)\D*\b/;
               const matchA: RegExpMatchArray | null = a.order.match(regex);
               const matchB: RegExpMatchArray | null = b.order.match(regex);
               if (matchA && matchB) {
-                const aOrder: number = Number(matchA[0] || -1);
-                const bOrder: number = Number(matchB[0] || -1);
+                const aOrder: number = Number(matchA[1] ?? -1);
+                const bOrder: number = Number(matchB[1] ?? -1);
                 comparatorResult = aOrder - bOrder;
-              } else {
+              } else if (matchA) {
                 comparatorResult = -1;
+              } else if (matchB) {
+                comparatorResult = 1;
+              } else {
+                comparatorResult = 0;
               }
-            } else {
-              comparatorResult =
-                !a.order && !b.order
-                  ? 0
-                  : a.order && !b.order
-                  ? 1
-                  : !a.order && b.order
-                  ? -1
-                  : 0;
             }
             break;
           case 'title':
