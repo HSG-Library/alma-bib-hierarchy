@@ -2,11 +2,11 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { DestroyRef, Injectable } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { CloudAppStoreService } from '@exlibris/exl-cloudapp-angular-lib';
-import { EMPTY, forkJoin, Observable, of } from 'rxjs';
+import { defer, forkJoin, merge, Observable, of, Subject } from 'rxjs';
 import {
-  expand,
-  map,
-  reduce,
+  finalize,
+  ignoreElements,
+  mergeMap,
   shareReplay,
   switchMap,
   tap,
@@ -55,35 +55,48 @@ export class SruService {
   public queryNZ(query: SruQuery): Observable<Element[]> {
     return this.getNzUrl().pipe(
       takeUntilDestroyed(this.destroyRef),
-      switchMap((url) => this.call(url, query)),
-      expand((response) => {
+      switchMap((url) => this.call(url, query, 1, 0)),
+      tap(() => {
+        this.status.set('Retrieving NZ records');
+        this.loader.setProgress(1);
+        this.loader.hasProgress(true);
+      }),
+      switchMap((response) => {
         const total: number = this.parser.getNumberOfRecords(response);
-        const next: number = this.parser.getNextRecordPosition(response);
-        if (total > 1) {
-          this.loader.hasProgress(true);
-          this.loader.setProgress(Math.round((next / total) * 100) + 1);
-          this.status.set(
-            'Calling SRU for records ' +
-              next +
-              ' to ' +
-              (next + this.MAX_RECORDS - 1) +
-              ' of ' +
-              total
+        const requests: Observable<string>[] = [];
+        for (let i = 1; i <= total; i += this.MAX_RECORDS) {
+          requests.push(
+            this.getNzUrl().pipe(switchMap((url) => this.call(url, query, i)))
           );
         }
-        if (next > 0) {
-          return this.getNzUrl().pipe(
-            switchMap((url) => this.call(url, query, next))
-          );
-        }
-        return EMPTY;
+        return this.forkJoinWithProgress(requests).pipe(
+          mergeMap(([finalResult, progress]) =>
+            merge(
+              progress.pipe(
+                tap((percent) => {
+                  this.status.set(`Retrieved ${percent}% of ${total} records`);
+                  this.loader.setProgress(percent);
+                }),
+                ignoreElements()
+              ),
+              finalResult
+            )
+          ),
+          switchMap((responses) => {
+            const result: Element[] = [];
+            this.status.set(`Parsing ${responses.length} records`);
+            responses.forEach((response) => {
+              const records: Element[] = this.parser.getRecords(response);
+              result.push(...records);
+            });
+            this.status.set(`Parsed ${responses.length} records`);
+            return of(result);
+          })
+        );
       }),
-      map((response) => {
-        const result: Element[] = this.parser.getRecords(response);
-        return result;
-      }),
-      tap(() => this.loader.hasProgress(false)),
-      reduce((accData: Element[], data: Element[]) => accData.concat(data), [])
+      tap(() => {
+        this.loader.hasProgress(false);
+      })
     );
   }
 
@@ -174,5 +187,37 @@ export class SruService {
       })
       .filter((pathParts) => pathParts.length)
       .join('/');
+  }
+
+  // See: https://angular.love/rxjs-recipes-forkjoin-with-the-progress-of-completion-for-bulk-network-requests-in-angular
+  private forkJoinWithProgress<T>(
+    arrayOfObservables: Observable<T>[]
+  ): Observable<[Observable<T[]>, Observable<number>]> {
+    return defer(() => {
+      let counter = 0;
+      const percent$ = new Subject<number>();
+
+      const modifiedObservablesList = arrayOfObservables.map((item, index) =>
+        item.pipe(
+          finalize(() => {
+            const percentValue = Math.floor(
+              (++counter * 100) / arrayOfObservables.length
+            );
+            percent$.next(percentValue);
+          })
+        )
+      );
+
+      const finalResult$ = forkJoin(modifiedObservablesList).pipe(
+        tap(() => {
+          percent$.next(100);
+          percent$.complete();
+        })
+      );
+      return of<[Observable<T[]>, Observable<number>]>([
+        finalResult$,
+        percent$.asObservable(),
+      ]);
+    });
   }
 }
