@@ -296,23 +296,13 @@ export class MainComponent implements OnInit {
   private sortHoldings(bibInfos: BibInfo[]): BibInfo[] {
     return bibInfos.map((bibInfo) => {
       bibInfo.holdings.sort((o1, o2) => {
-        if (o1 == this.instCode) {
-          return -1;
-        }
         return o1.localeCompare(o2);
       });
-      const holdings: string[] = bibInfo.holdings;
-      return new BibInfo(
-        bibInfo.mmsId,
-        bibInfo.order,
-        bibInfo.title,
-        bibInfo.year,
-        bibInfo.edition,
-        holdings,
-        bibInfo.analytical,
-        bibInfo.additionalInfo,
-        bibInfo.duplicates
-      );
+      const index: number = bibInfo.holdings.indexOf(this.instCode);
+      if (index >= 0) {
+        bibInfo.holdings.unshift(bibInfo.holdings.splice(index, 1)[0]);
+      }
+      return bibInfo;
     });
   }
 
