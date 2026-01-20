@@ -60,24 +60,24 @@ export class MainComponent implements OnInit {
     private restService: CloudAppRestService,
     private eventsService: CloudAppEventsService,
     private alert: AlertService,
-    private destroyRef: DestroyRef
+    private destroyRef: DestroyRef,
   ) {
     this.entities$ = this.eventsService.entities$.pipe(
       takeUntilDestroyed(this.destroyRef),
       tap(() => this.reset()),
       filter((entities) =>
-        entities.every((entity) => entity.type === EntityType.BIB_MMS)
+        entities.every((entity) => entity.type === EntityType.BIB_MMS),
       ),
       map((entities) =>
         entities.map((entity) => {
           let bibEntity: BibEntity = new BibEntity(entity);
           bibEntity.nzMmsId = this.getNzMmsIdFromEntity(bibEntity);
           return bibEntity;
-        })
+        }),
       ),
       tap((entities) => {
         this.bibEntities = entities;
-      })
+      }),
     );
   }
 
@@ -88,14 +88,14 @@ export class MainComponent implements OnInit {
       .getInitData()
       .pipe(
         takeUntilDestroyed(this.destroyRef),
-        tap((data) => (this.instCode = data.instCode))
+        tap((data) => (this.instCode = data.instCode)),
       )
       .subscribe();
     this.configService
       .getAlmaUrl()
       .pipe(
         takeUntilDestroyed(this.destroyRef),
-        tap((url) => (this.almaUrl = url))
+        tap((url) => (this.almaUrl = url)),
       )
       .subscribe();
     this.entities$.subscribe();
@@ -120,7 +120,7 @@ export class MainComponent implements OnInit {
           const otherSystemNumbers: string[] =
             this.sruParser.getOtherSystemNumbers(records);
           this.status.set(
-            'Found ' + otherSystemNumbers.length + ' system numbers'
+            'Found ' + otherSystemNumbers.length + ' system numbers',
           );
           const otherSystemNumbersAndMmsId = [
             ...otherSystemNumbers,
@@ -128,31 +128,31 @@ export class MainComponent implements OnInit {
           ];
           this.log.info(
             'other system numbers + mmsid, used for query: ',
-            otherSystemNumbersAndMmsId
+            otherSystemNumbersAndMmsId,
           );
           const query: SruQuery = SruQuery.OTHER_SYSTEM_NUMBER(
-            otherSystemNumbersAndMmsId
+            otherSystemNumbersAndMmsId,
           );
           this.status.set('Querying SRU for related records');
           return this.sruService.queryNZ(query).pipe(
             map((records) => ({
               records,
               otherSystemNumbersAndMmsId,
-            }))
+            })),
           );
         }),
         tap(({ records, otherSystemNumbersAndMmsId }) => {
           const bibInfos: BibInfo[] = this.sruParser.getBibInfo(
             records,
-            otherSystemNumbersAndMmsId
+            otherSystemNumbersAndMmsId,
           );
           const bibInfosSorted: BibInfo[] = this.sortHoldings(bibInfos);
           if (bibInfos.length > 0) {
             this.availableAdditionalColumns = Array.from(
-              bibInfos[0].additionalInfo.keys()
+              bibInfos[0].additionalInfo.keys(),
             );
             this.resultTable.setAdditionalColumns(
-              this.availableAdditionalColumns
+              this.availableAdditionalColumns,
             );
           }
           const datasource = new MatTableDataSource(bibInfosSorted);
@@ -166,13 +166,13 @@ export class MainComponent implements OnInit {
         catchError((error) => {
           this.alert.error(
             `Could not show hierarchy, please check the Alma URL '${this.almaUrl}'`,
-            { autoClose: false }
+            { autoClose: false },
           );
           this.log.error('Error in showHierarchyDown()', error);
           this.reset();
           this.loader.hide();
           return EMPTY;
-        })
+        }),
       )
       .subscribe();
   }
@@ -200,12 +200,12 @@ export class MainComponent implements OnInit {
             });
           }
           this.status.set(
-            'Found ' + upwardSystemNumbers.length + ' system numbers'
+            'Found ' + upwardSystemNumbers.length + ' system numbers',
           );
           const query035a: SruQuery =
             SruQuery.OTHER_SYSTEM_NUMBER_ACTIVE_035(upwardSystemNumbers);
           const queryMmsId: SruQuery = SruQuery.MMS_IDS(
-            upwardSystemNumbers.filter((systemNumber) => !isNaN(+systemNumber))
+            upwardSystemNumbers.filter((systemNumber) => !isNaN(+systemNumber)),
           );
           const queryHierarchyUpward: SruQuery = query035a.or(queryMmsId);
           this.status.set('Querying SRU for related records');
@@ -213,21 +213,21 @@ export class MainComponent implements OnInit {
             map((records) => ({
               records,
               upwardSystemNumbers,
-            }))
+            })),
           );
         }),
         tap(({ records, upwardSystemNumbers }) => {
           const bibInfos: BibInfo[] = this.sruParser.getBibInfo(
             records,
-            upwardSystemNumbers
+            upwardSystemNumbers,
           );
           const bibInfosSorted: BibInfo[] = this.sortHoldings(bibInfos);
           if (bibInfos.length > 0) {
             this.availableAdditionalColumns = Array.from(
-              bibInfos[0].additionalInfo.keys()
+              bibInfos[0].additionalInfo.keys(),
             );
             this.resultTable.setAdditionalColumns(
-              this.availableAdditionalColumns
+              this.availableAdditionalColumns,
             );
           }
           const datasource = new MatTableDataSource(bibInfosSorted);
@@ -241,13 +241,13 @@ export class MainComponent implements OnInit {
         catchError((error) => {
           this.alert.error(
             `Could not show hierarchy, please check the Alma URL '${this.almaUrl}'`,
-            { autoClose: false }
+            { autoClose: false },
           );
           console.error('Error in showHierarchyUp()', error);
           this.reset();
           this.loader.hide();
           return EMPTY;
-        })
+        }),
       )
       .subscribe();
   }
@@ -264,7 +264,7 @@ export class MainComponent implements OnInit {
       .export(
         this.bibInfoResult?.data || [],
         this.resultTable?.displayedColumns || [],
-        this.selectedEntity?.entity?.id || ''
+        this.selectedEntity?.entity?.id || '',
       )
       .pipe(
         takeUntilDestroyed(this.destroyRef),
@@ -275,7 +275,7 @@ export class MainComponent implements OnInit {
         }),
         finalize(() => {
           this.loader.hide();
-        })
+        }),
       )
       .subscribe();
   }
@@ -327,11 +327,11 @@ export class MainComponent implements OnInit {
         catchError((error) => {
           this.log.info(
             'Cannot get NZ MMSID from API. Assuming the MMSID is already from NZ.',
-            error
+            error,
           );
           return of(bibEntity.entity.id);
         }),
-        shareReplay(1)
+        shareReplay(1),
       );
   }
 
@@ -364,7 +364,7 @@ export class MainComponent implements OnInit {
         tap((result) => {
           console.log('subscribe result', result);
           bibEntity.relatedRecords = result;
-        })
+        }),
       )
       .subscribe();
   }
@@ -420,10 +420,10 @@ export class MainComponent implements OnInit {
                 !a.duplicates && !b.duplicates
                   ? 0
                   : a.duplicates && !b.duplicates
-                  ? 1
-                  : !a.duplicates && b.duplicates
-                  ? -1
-                  : 0;
+                    ? 1
+                    : !a.duplicates && b.duplicates
+                      ? -1
+                      : 0;
             }
             break;
           case 'holdings':
