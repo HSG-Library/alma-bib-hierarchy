@@ -36,7 +36,7 @@ export class SruService {
     private status: StatusMessageService,
     private httpClient: HttpClient,
     private storeService: CloudAppStoreService,
-    private destroyRef: DestroyRef
+    private destroyRef: DestroyRef,
   ) {
     this.params = new HttpParams()
       .set('version', '1.2')
@@ -48,7 +48,7 @@ export class SruService {
     return this.getNzUrl().pipe(
       takeUntilDestroyed(this.destroyRef),
       switchMap((url) => this.call(url, query, 1, 0)),
-      switchMap((response) => of(this.parser.getNumberOfRecords(response)))
+      switchMap((response) => of(this.parser.getNumberOfRecords(response))),
     );
   }
 
@@ -63,10 +63,17 @@ export class SruService {
       }),
       switchMap((response) => {
         const total: number = this.parser.getNumberOfRecords(response);
+
+        if (total === 0) {
+          this.status.set('No records found');
+          this.loader.setProgress(100);
+          return of([]);
+        }
+
         const requests: Observable<string>[] = [];
         for (let i = 1; i <= total; i += this.MAX_RECORDS) {
           requests.push(
-            this.getNzUrl().pipe(switchMap((url) => this.call(url, query, i)))
+            this.getNzUrl().pipe(switchMap((url) => this.call(url, query, i))),
           );
         }
         return this.forkJoinWithProgress(requests).pipe(
@@ -77,10 +84,10 @@ export class SruService {
                   this.status.set(`Retrieved ${percent}% of ${total} records`);
                   this.loader.setProgress(percent);
                 }),
-                ignoreElements()
+                ignoreElements(),
               ),
-              finalResult
-            )
+              finalResult,
+            ),
           ),
           switchMap((responses) => {
             const result: Element[] = [];
@@ -91,12 +98,12 @@ export class SruService {
             });
             this.status.set(`Parsed ${responses.length} records`);
             return of(result);
-          })
+          }),
         );
       }),
       tap(() => {
         this.loader.hasProgress(false);
-      })
+      }),
     );
   }
 
@@ -122,32 +129,32 @@ export class SruService {
           }).pipe(
             switchMap((data) =>
               of(
-                this.buildPath(data.url, SruService.SRU_PATH, data.networkCode)
-              )
+                this.buildPath(data.url, SruService.SRU_PATH, data.networkCode),
+              ),
             ),
             tap((url) => {
               this.log.info(
                 'Received NZ URL, adding to inMemory cache and local storage:',
-                url
+                url,
               );
               this.storeService
                 .set(this.configService.NZ_URL_KEY, url)
                 .subscribe(() =>
-                  this.log.info('added NZ URL to local storage')
+                  this.log.info('added NZ URL to local storage'),
                 );
               this.nzUrl = url;
             }),
-            shareReplay(1)
+            shareReplay(1),
           );
         }
-      })
+      }),
     );
   }
 
   private getParams(
     query: SruQuery,
     startRecord: number,
-    maximumRecords: number
+    maximumRecords: number,
   ): HttpParams {
     return this.params
       .set(SruQuery.QUERY, query.get())
@@ -159,13 +166,13 @@ export class SruService {
     url: string,
     query: SruQuery,
     startRecord: number = 1,
-    maximumRecords: number = this.MAX_RECORDS
+    maximumRecords: number = this.MAX_RECORDS,
   ): Observable<string> {
     this.log.info('Executing SRU query:', query.name);
     const params: HttpParams = this.getParams(
       query,
       startRecord,
-      maximumRecords
+      maximumRecords,
     );
     this.log.info('SRU Query URL: ', url + '?' + params.toString());
     return this.httpClient
@@ -191,7 +198,7 @@ export class SruService {
 
   // See: https://angular.love/rxjs-recipes-forkjoin-with-the-progress-of-completion-for-bulk-network-requests-in-angular
   private forkJoinWithProgress<T>(
-    arrayOfObservables: Observable<T>[]
+    arrayOfObservables: Observable<T>[],
   ): Observable<[Observable<T[]>, Observable<number>]> {
     return defer(() => {
       let counter = 0;
@@ -201,18 +208,18 @@ export class SruService {
         item.pipe(
           finalize(() => {
             const percentValue = Math.floor(
-              (++counter * 100) / arrayOfObservables.length
+              (++counter * 100) / arrayOfObservables.length,
             );
             percent$.next(percentValue);
-          })
-        )
+          }),
+        ),
       );
 
       const finalResult$ = forkJoin(modifiedObservablesList).pipe(
         tap(() => {
           percent$.next(100);
           percent$.complete();
-        })
+        }),
       );
       return of<[Observable<T[]>, Observable<number>]>([
         finalResult$,

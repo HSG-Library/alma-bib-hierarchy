@@ -25,7 +25,7 @@
   <mat-card
     *ngFor="let bibEntity of bibEntities"
     [ngClass]="{
-      hidden: selectedEntity && bibEntity.entity.id != selectedEntity.entity.id
+      hidden: selectedEntity && bibEntity.entity.id != selectedEntity.entity.id,
     }"
   >
     <mat-card-title
